@@ -1,22 +1,102 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* General body styling */
 body {
-  margin-bottom: 60px;
+    background-color: #f8f9fa; /* light background */
+    color: #141B37; /* dark text */
+}
+
+/* Navbar styling */
+.navbar {
+    background-color: #141B37; /* dark navy background */
+    border-bottom: 3px solid #f8f9fa; /* thin white border at bottom */
+}
+
+.navbar-brand, .nav-link {
+    color: white !important; /* white text on navbar */
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: white;
+    color: #000000 !important;
+    border-radius: 5px;
+}
+
+/* Customizing the hamburger icon */
+.navbar-toggler {
+    border-color: white; /* Makes the border of the toggler white */
+    color: white; /* Makes the border of the toggler white */
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    /* This changes the default black lines to white lines for better contrast */
+}
+
+
+/* Main container and footer styling */
+.container {
+    padding: 20px;
+    border-radius: 10px; /* rounded edges */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* subtle shadow */
+}
+
+/* Footer styling */
+.footer {
+    background-color: #141B37;
+    color: white;
+    padding: 10px 0; /* Reduced padding */
+    text-align: center;
+}
+
+    .footer .container {
+        padding: 0; /* Remove padding from the container */
+    }
+
+    .footer .social-icons {
+        list-style: none;
+        padding: 0;
+        margin: 0; /* Remove default margin/padding */
+    }
+
+        .footer .social-icons li {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+            .footer .social-icons li a {
+                color: white;
+                font-size: 1.2rem; /* Adjust size of icons if needed */
+            }
+
+                .footer .social-icons li a:hover {
+                    color: #f8f9fa; /* Slight hover effect */
+                }
+
+
+/* Adjusting pages / buttons */
+.form-group {
+    margin-bottom: 25px; /* Adds spacing between form fields */
+}
+
+/* Adds more spacing around buttons */
+.btn {
+    margin-top: 15px; /* Adds spacing above the buttons */
+}
+
+.btn-primary {
+    background-color: #141B37;
+    border-color: #141B37;
+    color: #ffffff;
+}
+
+ /*   .btn-primary:hover {
+        background-color: #141B37;
+        border-color: #141B37;
+        color: #ffffff;
+    }*/
+
+/* Responsive and smaller screen adjustments */
+@media (max-width: 767px) {
+    .navbar {
+        background-color: #000000;
+    }
 }
