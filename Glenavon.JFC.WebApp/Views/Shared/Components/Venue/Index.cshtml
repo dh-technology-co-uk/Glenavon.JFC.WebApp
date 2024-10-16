@@ -1,29 +1,31 @@
-﻿<div class="venue-info">
-    <h2>@Model.Name</h2>
+﻿@model VenueModel
+
+<div class="venue-info">
+    <h2 class="text-left">@Model.Name</h2>
 
     <h3>Address:</h3>
     <address>
-        @if (!string.IsNullOrEmpty(Model.Address?.AddressLine1))
+        @if (!string.IsNullOrEmpty(@Model.Address?.AddressLine1))
         {
             @Model.Address.AddressLine1
             <br/>
         }
-        @if (!string.IsNullOrEmpty(Model.Address?.AddressLine2))
+        @if (!string.IsNullOrEmpty(@Model.Address?.AddressLine2))
         {
             @Model.Address.AddressLine2
             <br/>
         }
-        @if (!string.IsNullOrEmpty(Model.Address?.TownOrCity))
+        @if (!string.IsNullOrEmpty(@Model.Address?.TownOrCity))
         {
             @Model.Address.TownOrCity
             <br/>
         }
-        @if (!string.IsNullOrEmpty(Model.Address?.County))
+        @if (!string.IsNullOrEmpty(@Model.Address?.County))
         {
             @Model.Address.County
             <br/>
         }
-        @if (!string.IsNullOrEmpty(Model.Address?.Postcode))
+        @if (!string.IsNullOrEmpty(@Model.Address?.Postcode))
         {
             @Model.Address.Postcode
         }
@@ -37,7 +39,7 @@
 
     <h3>Rules:</h3>
     <ul>
-        @foreach (var rule in Model.Rules)
+        @foreach (var rule in @Model.Rules)
         {
             <li>@rule.Description</li>
         }

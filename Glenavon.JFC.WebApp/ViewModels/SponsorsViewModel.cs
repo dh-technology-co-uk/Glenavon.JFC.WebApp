@@ -2,4 +2,5 @@
 
 public class SponsorsViewModel
 {
+    public List<SponsorModel> Sponsors { get; set; }
 }

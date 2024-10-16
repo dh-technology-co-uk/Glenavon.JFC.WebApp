@@ -4,7 +4,42 @@
     ViewData["Title"] = "Community";
 }
 
-<div class="text-center">
-    <h1 class="display-4">@ViewData["Title"]</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h2 class="text-left">@ViewData["Title"]</h2>
+
+<div class="row">
+    <div class="col-12">
+        <h3 class="text-left">Glenavon Boot Room</h3>
+        <div class="d-flex justify-content-between align-items-start">
+            <!-- Text block on the left -->
+            <div class="flex-grow-1">
+                <p>
+                    Everyone knows how fast our little ones' feet grow and the extortionate costs that come with that,
+                    sometimes having to buy football footwear twice a year, for multiple children and multiple playing surfaces.
+                    The impact, especially since COVID and the current economic crisis, can be overwhelming and often causes
+                    unnecessary hardships.
+                </p>
+                <p>
+                    As such, we are introducing The Glenavon Boot Room, a place where any child, at Glenavon or wider afield,
+                    can exchange their old boots for a bigger size (moulded, 3G, and studded boots).
+                </p>
+                <p>
+                    There are some really basic rules to using The Glenavon Boot Room, these are:
+                </p>
+                <ul>
+                    <li>Boots must be clean of mud and in a good state of repair. They must include laces and have no holes.</li>
+                    <li>Boots must NOT be fake.</li>
+                    <li>You must provide your boots at the same time as collecting the new boots.</li>
+                </ul>
+                <p>
+                    Should boots not be taken after 6 months, they will be donated to support the provision of boots to charities worldwide.
+                </p>
+            </div>
+
+            <!-- Image aligned to the right -->
+            <img src="@Url.Content("~/images/community/boot-room.jpg")"
+                 class="img-fluid ml-3 mb-3"
+                 alt="Glenavon Boot Room"
+                 style="max-width: 300px;">
+        </div>
+    </div>
 </div>

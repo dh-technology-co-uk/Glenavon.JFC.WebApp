@@ -11,7 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\images\logo.jpg" />
+    <PackageReference Include="Microsoft.jQuery.Unobtrusive.Validation" Version="4.0.0" />
+    <PackageReference Include="reCAPTCHA.AspNetCore" Version="3.0.10" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -17,7 +16,7 @@
             <div class="container-fluid">
                 <!-- Logo -->
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/images/logo.jpg" alt="Glenavon JFC Logo" style="height: 100px;"/>
+                    <img src="~/images/logo.png" alt="Glenavon JFC Logo" style="height: 100px;"/>
                 </a>
                 <!-- Toggler button for mobile -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,15 +40,17 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Venues" asp-action="Index">Venues</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Recruitment" asp-action="Index">Recruitment</a>
-                        </li>
+                    
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Sponsors" asp-action="Index">Sponsors</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Community" asp-action="Index">Community</a>
                         </li>
+                        <li class="nav-item">
+                                <a class="nav-link text-white external-link" href="https://www.malookasports.com/product-category/teamwear/glenavon-jfc/" target="_blank">Shop</a>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
                         </li>
@@ -89,28 +90,57 @@
         <div class="container">
             <ul class="social-icons">
                 <li>
-                    <a href="https://www.facebook.com/people/Glenavon-JFC/100057159622473/" target="_blank">
-                        <i class="fab fa-facebook"></i>
+                    <a class="external-link" href="https://www.facebook.com/people/Glenavon-JFC/100057159622473/" target="_blank">
+                        <i class="fab fa-facebook" style="font-size: 1.5em;"></i>
                     </a>
                 </li>
                 <li>
-                    <a href="https://twitter.com/GLENAVONJFC1992" target="_blank">
-                        <i class="fab fa-twitter"></i>
+                    <a class="external-link" href="https://twitter.com/GLENAVONJFC1992" target="_blank">
+                        <i class="fab fa-twitter" style="font-size: 1.5em;"></i>
                     </a>
                 </li>
                 <li>
-                    <a href="https://www.instagram.com/glenavon_jfc/" target="_blank">
-                        <i class="fab fa-instagram"></i>
+                    <a class="external-link" href="https://www.instagram.com/glenavon_jfc/" target="_blank">
+                        <i class="fab fa-instagram" style="font-size: 1.5em;"></i>
                     </a>
                 </li>
-            </ul>
+            </ul><br/>
+            <div class="footer-links">
+                <a class="nav-link text-white d-inline" asp-area="" asp-controller="Privacy" asp-action="Index">Privacy</a> |
+                <a class="nav-link text-white d-inline" asp-area="" asp-controller="CodeOfConduct" asp-action="Index">Code of Conduct</a> |
+                <a class="nav-link text-white d-inline" asp-area="" asp-controller="Safeguarding" asp-action="Index">Safeguarding</a> |
+                <a class="nav-link text-white d-inline" asp-area="" asp-controller="Recruitment" asp-action="Index">Recruitment</a>
+            </div>
         </div>
     </footer>
 </div>
 
+<!-- Modal HTML -->
+<div class="modal fade" id="externalLinkModal" tabindex="-1" aria-labelledby="externalLinkModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="externalLinkModalLabel">Leave Website</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                You are about to leave our website. Do you want to proceed to the external website?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a id="proceedExternal" href="#" class="btn btn-primary">Proceed</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 @await RenderSectionAsync("Scripts", false)
 </body>
 </html>

@@ -1,6 +1,6 @@
 ﻿namespace Glenavon.JFC.WebApp.Controllers;
 
-public class CodeOfConductController : Controller
+public class SafeguardingController : Controller
 {
     public IActionResult Index()
     {

@@ -4,6 +4,8 @@ public class CommunityController : Controller
 {
     public IActionResult Index()
     {
-        return View();
+        var vm = new CommunityViewModel();
+
+        return View(vm);
     }
 }

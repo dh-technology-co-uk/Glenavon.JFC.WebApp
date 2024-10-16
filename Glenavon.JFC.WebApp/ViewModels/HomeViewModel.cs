@@ -2,4 +2,5 @@
 
 public class HomeViewModel
 {
+    public string OurClub { get; set; }
 }

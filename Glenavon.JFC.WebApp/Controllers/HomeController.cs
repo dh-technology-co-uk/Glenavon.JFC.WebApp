@@ -11,7 +11,9 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        return View();
+        var vm = new HomeViewModel();
+
+        return View(vm);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

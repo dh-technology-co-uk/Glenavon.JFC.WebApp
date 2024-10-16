@@ -4,6 +4,8 @@ public class CommitteeController : Controller
 {
     public IActionResult Index()
     {
-        return View();
+        var vm = new CommitteeViewModel();
+
+        return View(vm);
     }
 }

@@ -97,6 +97,6 @@ body {
 /* Responsive and smaller screen adjustments */
 @media (max-width: 767px) {
     .navbar {
-        background-color: #000000;
+        background-color: #141B37;
     }
 }

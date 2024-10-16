@@ -1,8 +1,96 @@
-﻿@{
+﻿@model SponsorsViewModel
+
+@{
     ViewData["Title"] = "Sponsors";
 }
 
-<div class="text-center">
-    <h1 class="display-4">@ViewData["Title"]</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h2 class="text-left">@ViewData["Title"] </h2>
+
+<div class="row">
+    <div class="col-12">
+        
+        <p class="text-left">
+            We thank all sponsors of Glenavon JFC, either those that support the whole club or individual teams. 
+            Without your support, either financial or providing services or labour, we really appreciate it.
+        </p>
+        <p class="text-left">
+            We always need more sponsors. We welcome all offers of support on an individual team or club basis. 
+            Please get in touch if you wish to find out more.
+        </p>
+    </div>
 </div>
+
+<div class="row">
+    @foreach (var sponsor in Model.Sponsors)
+    {
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card h-100">
+                <img src="@sponsor.ImagePath" class="card-img-top" alt="@sponsor.Title"
+                     onerror="this.onerror=null;this.src='/images/sponsors/sponsor_logo.jpg';" />
+                <div class="card-body">
+                    <h5 class="card-title text-center">@sponsor.Title</h5>
+                    <p class="card-text text-center">@sponsor.Description</p>
+                    <div class="text-center">
+                        <a href="#" class="btn btn-primary" onclick="showSponsorDetails('@sponsor.Id', '@sponsor.Title', '@sponsor.Description', '@sponsor.ImagePath', '@sponsor.Address', '@sponsor.Email', '@sponsor.ContactName', '@sponsor.ContactNumber', '@sponsor.TeamSponsored')">View More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Modal HTML -->
+<div class="modal fade" id="sponsorModal" tabindex="-1" role="dialog" aria-labelledby="sponsorModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="sponsorModalLabel">Sponsor Details</h5>
+            </div>
+            <div class="modal-body">
+                <img id="sponsorImage" src="" class="img-fluid mb-3" alt="Sponsor Image"
+                     onerror="this.onerror=null;this.src='/images/sponsors/sponsor_logo.jpg';" />
+                <h6>Description:</h6>
+                <p id="sponsorDescription"></p>
+                <h6>Contact Information:</h6>
+                <p><strong>Address:</strong> <span id="sponsorAddress"></span></p>
+                <p><strong>Email:</strong> <a href="#" id="sponsorEmailLink"><span id="sponsorEmail"></span></a></p>
+                <p><strong>Contact Name:</strong> <span id="sponsorContactName"></span></p>
+                <p><strong>Phone Number:</strong> <span id="sponsorContactNumber"></span></p>
+                <p><strong>Team Sponsored:</strong> <span id="sponsorTeamSponsored"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="hideSponsorsDetails()" aria-label="Close">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function showSponsorDetails(id, title, description, imagePath, address, email, contactName, contactNumber, teamSponsored) {
+        // Set modal title
+        document.getElementById('sponsorModalLabel').textContent = title;
+
+        // Set sponsor details in modal
+        var imageElement = document.getElementById('sponsorImage');
+        imageElement.src = imagePath;
+        imageElement.onerror = function() {
+            this.src = '/images/sponsors/sponsor_logo.jpg';
+        };
+
+        document.getElementById('sponsorDescription').textContent = description;
+        document.getElementById('sponsorAddress').textContent = address;
+        document.getElementById('sponsorEmail').textContent = email;
+        document.getElementById('sponsorEmailLink').href = "mailto:" + email;
+        document.getElementById('sponsorContactName').textContent = contactName;
+        document.getElementById('sponsorContactNumber').textContent = contactNumber;
+        document.getElementById('sponsorTeamSponsored').textContent = teamSponsored;
+
+        // Show the modal
+        $('#sponsorModal').modal('show');
+    }
+
+    // Ensure the modal can be dismissed properly
+    function hideSponsorsDetails() {
+        $('#sponsorModal').modal('hide');
+    }
+</script>

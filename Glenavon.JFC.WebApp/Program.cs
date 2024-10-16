@@ -11,6 +11,13 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Configure reCAPTCHA
+builder.Services.AddRecaptcha(options =>
+{
+    options.SiteKey = builder.Configuration["RecaptchaSettings:SiteKey"];
+    options.SecretKey = builder.Configuration["RecaptchaSettings:SecretKey"];
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
