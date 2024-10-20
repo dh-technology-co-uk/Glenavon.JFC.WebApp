@@ -1,17 +1,139 @@
-﻿@model VenuesViewModel
+﻿@using Newtonsoft.Json
+@model VenuesViewModel
 
 @{
     ViewData["Title"] = "Venues";
 }
 
 <h2 class="text-left">@ViewData["Title"] </h2>
-<div class="container mt-5">
-    <div class="row">
-        @foreach (var venue in Model.Venues)
-        {
-            <div class="col-md-6">
-                @await Component.InvokeAsync("Venue", venue);
-            </div>
-        }
+
+<div class="row">
+    <div class="col-12">
+        <p class="text-left">
+            Glenavon JFC welcome spectators to all of our matches. Below are the location details, how to get there and our rules that we ask you adhere to, in order to keep our junior players safe from harm.
+        </p>
     </div>
 </div>
+
+<div class="row">
+    @foreach (var venue in Model.Venues)
+    {
+        <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+            <div class="card h-100">
+                <div class="row g-0 d-flex align-items-center">
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">@venue.Name</h5>
+
+                            <div class="address-details">
+                                <div>
+                                    <strong>Address:</strong>
+                                </div>
+                                @if (!string.IsNullOrEmpty(venue.Address.AddressLine1))
+                                {
+                                    <div>@venue.Address.AddressLine1</div>
+                                }
+                                @if (!string.IsNullOrEmpty(venue.Address.AddressLine2))
+                                {
+                                    <div>@venue.Address.AddressLine2</div>
+                                }
+                                @if (!string.IsNullOrEmpty(venue.Address.TownOrCity))
+                                {
+                                    <div>@venue.Address.TownOrCity</div>
+                                }
+                                @if (!string.IsNullOrEmpty(venue.Address.County))
+                                {
+                                    <div>@venue.Address.County</div>
+                                }
+                                @if (!string.IsNullOrEmpty(venue.Address.Postcode))
+                                {
+                                    <div>@venue.Address.Postcode</div>
+                                }
+                            </div>
+
+                            <a href="#" class="btn btn-primary"
+                               onclick="showVenueDetails(
+    '@venue.Name', 
+    '@venue.ImagePath', 
+    '@($"{venue.Address.AddressLine1}, {venue.Address.AddressLine2}, {venue.Address.TownOrCity}, {venue.Address.County}, {venue.Address.Postcode}".Replace(" ,", "").TrimEnd(','))', 
+    '@(venue.Parking.Description.Replace("\r\n", "<br>").Replace("'", "\\'"))', 
+    '@(venue.PitchLocation.Description.Replace("\r\n", "<br>").Replace("'", "\\'"))')">
+
+
+                                View Venue Details
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="@venue.ImagePath" class="img-fluid rounded-end" alt="@venue.Name"
+                             onerror="this.onerror=null;this.src='/images/venues/venue_logo.jpg';"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Modal HTML -->
+<div class="modal fade" id="venueModal" tabindex="-1" role="dialog" aria-labelledby="venueModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="venueModalLabel">Venue Details</h5>
+            </div>
+            <div class="modal-body">
+                <img id="venueImage" src="" class="img-fluid mb-3" alt="Venue Image"
+                     onerror="this.onerror=null;this.src='/images/venues/venue_logo.jpg';"/>
+
+                <div class="address-details">
+                    <strong>Address:</strong>
+                    <div id="venueAddress"></div>
+                </div>
+                <br/>
+                <div class="parking-details">
+                    <strong>Parking:</strong>
+                    <div id="venueParking"></div>
+                </div>
+                <br/>
+                <div class="address-details">
+                    <strong>Pitch Location:</strong>
+                    <div id="venuePitchLocation"></div>
+                </div>
+                <br/>
+            @*     <div class="rules">
+                    <strong>Rules:</strong>
+                    <div id="venueRules"></div>
+                </div> *@
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="hideVenuesDetails()" aria-label="Close">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function showVenueDetails(title, imagePath, address, parking, pitchLocation, rules) {
+        document.getElementById('venueModalLabel').textContent = title;
+
+        var imageElement = document.getElementById('venueImage');
+        imageElement.src = imagePath;
+        imageElement.onerror = function() {
+            this.src = '/images/venues/venue_logo.jpg';
+        };
+
+        document.getElementById('venueAddress').textContent = address;
+        document.getElementById('venueParking').innerHTML  = parking;
+        document.getElementById('venuePitchLocation').innerHTML  = pitchLocation;
+
+  
+
+        // Show the modal
+        $('#venueModal').modal('show');
+    }
+
+    // Ensure the modal can be dismissed properly
+    function hideVenuesDetails() {
+        $('#venueModal').modal('hide');
+    }
+</script>

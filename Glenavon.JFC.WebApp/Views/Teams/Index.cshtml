@@ -1,5 +1,40 @@
-﻿@{
+﻿@model TeamsViewModel
+
+@{
     ViewData["Title"] = "Teams";
 }
 
-<h2 class="text-left">@ViewData["Title"] </h2>
+<h2 class="text-left">@ViewData["Title"]</h2>
+
+<div class="row">
+    <div class="col-12">
+        <p class="text-left">
+            We are proud to operate over 50 junior football teams, with over 650 girls and boys registered to the club from our Under 5 development sessions through to youth and open age group teams, playing in local Saturday and Sunday leagues across Wirral and Cheshire.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    @foreach (var committeeMember in Model.Teams)
+    {
+        <div class="col-lg-2 col-md-2 col-sm-6 mb-4">
+            <div class="card h-100 d-flex flex-column">
+                <img src="@committeeMember.ImagePath" class="card-img-top" alt="@committeeMember.Name"
+                     onerror="this.onerror=null;this.src='/images/committee/committee_logo.png';" />
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title text-center">@committeeMember.Name</h5>
+                    <div class="address-details">
+                        <strong>Manager:</strong>
+                    </div>
+                    
+                    <h5 class="card-title text-center">@committeeMember.Manager</h5>
+                    @foreach (var role in committeeMember.Coaches)
+                    {
+                        <span class="card-text text-center">@role</span>
+                    }
+                    <h5 class="card-title text-center">@committeeMember.League</h5>
+                </div>
+            </div>
+        </div>
+    }
+</div>

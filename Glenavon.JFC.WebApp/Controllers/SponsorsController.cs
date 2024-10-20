@@ -10,8 +10,10 @@ public class SponsorsController : Controller
             {
                 new()
                 {
-                    Id = 1, ImagePath = "/images/sponsors/dhtechnologyltd.png", Title = "DH Technology Ltd",
-                    Description = "Leading provider of tech solutions.",
+                    ImagePath = "/images/sponsors/dhtechnologyltd.png",
+                    Title = "DH Technology Ltd",
+                    Description =
+                        "Window cleaning service with 11 years experience covering Wirral. We use the latest pure water pole.",
                     Address = "123 Tech Road, London, EC1A 1BB",
                     Email = "dan@dhtechnology.co.uk",
                     ContactName = "Dan Hulmston",
@@ -20,8 +22,9 @@ public class SponsorsController : Controller
                 },
                 new()
                 {
-                    Id = 2, ImagePath = "/images/sponsor2.png", Title = "Green Energy",
-                    Description = "Pioneers in renewable energy.",
+                    ImagePath = "/images/sponsors/gd_window_cleaning.jpeg",
+                    Title = "GD Windows Cleaning",
+                    Description = "Window cleaning service with 11 years experience covering Wirral. We use the latest pure water pole.",
                     Address = "456 Eco Street, Edinburgh, EH1 1YZ",
                     Email = "info@greenenergy.co.uk",
                     ContactName = "Jane Smith",
@@ -29,8 +32,10 @@ public class SponsorsController : Controller
                 },
                 new()
                 {
-                    Id = 3, ImagePath = "/images/sponsor3.png", Title = "Healthy Living Co.",
-                    Description = "Providing health products for a better life.",
+                    ImagePath = "/images/sponsors/halliday.jpeg",
+                    Title = "Halliday Funeral Supplies",
+                    Description =
+                        "Remaining a family-run business, our core values are committed to being the UKs leading and most reliable and efficient distributor. Whilst having the infrustructure and investment to fulfill our large distribution network, we also offer an emergency service in order to support funeral directors in more urgent situations. We proudly remain one of the largest producers of FSC certified timber products in the UK funeral industry.",
                     Address = "789 Wellness Avenue, Manchester, M1 2JW",
                     Email = "support@healthylivingco.co.uk",
                     ContactName = "Alice Johnson",
@@ -38,8 +43,9 @@ public class SponsorsController : Controller
                 },
                 new()
                 {
-                    Id = 4, ImagePath = "/images/sponsor4.png", Title = "Future FinTech",
-                    Description = "Shaping the future of financial technology.",
+                    ImagePath = "/images/sponsors/kitchenware.png",
+                    Title = "Kitchenware Express",
+                    Description = "Kitchenware Express offers you some of the worlds biggest and best kitchenware brands at market-beating prices. ",
                     Address = "101 Blockchain Way, Birmingham, B1 1RD",
                     Email = "sales@futurefintech.co.uk",
                     ContactName = "Robert Brown",
@@ -47,7 +53,8 @@ public class SponsorsController : Controller
                 },
                 new()
                 {
-                    Id = 5, ImagePath = "/images/sponsor5.png", Title = "EcoHome Builders",
+                    ImagePath = "/images/sponsor5.png", 
+                    Title = "EcoHome Builders",
                     Description = "Building sustainable homes for the future.",
                     Address = "202 Greenfield Lane, Cardiff, CF10 1AW",
                     Email = "contact@ecohomebuilders.co.uk",
@@ -56,7 +63,6 @@ public class SponsorsController : Controller
                 },
                 new()
                 {
-                    Id = 6,
                     ImagePath = "/images/sponsor6.png",
                     Title = "Bright Future Solutions",
                     Description = "Innovating the future with sustainable tech.",
@@ -67,7 +73,6 @@ public class SponsorsController : Controller
                 },
                 new()
                 {
-                    Id = 7,
                     ImagePath = "/images/sponsor7.png",
                     Title = "Smart Tech Industries",
                     Description = "Developing smarter technology for a better tomorrow.",
@@ -78,7 +83,6 @@ public class SponsorsController : Controller
                 },
                 new()
                 {
-                    Id = 8,
                     ImagePath = "/images/sponsor8.png",
                     Title = "EcoWorld Developments",
                     Description = "Leading sustainable construction and eco-friendly projects.",

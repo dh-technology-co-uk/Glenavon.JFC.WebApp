@@ -8,11 +8,31 @@
 
   <ItemGroup>
     <Folder Include="Pages\Shared\" />
+    <Folder Include="Views\Shared\Components\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.jQuery.Unobtrusive.Validation" Version="4.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="reCAPTCHA.AspNetCore" Version="3.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\images\committee\committee_logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\community\boot-room.JPG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\sponsors\dhtechnologyltd.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\sponsors\sponsor_logo.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\venues\venue_logo.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
