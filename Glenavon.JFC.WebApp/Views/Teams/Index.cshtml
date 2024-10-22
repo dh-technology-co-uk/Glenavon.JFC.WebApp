@@ -20,19 +20,32 @@
         <div class="col-lg-2 col-md-2 col-sm-6 mb-4">
             <div class="card h-100 d-flex flex-column">
                 <img src="@committeeMember.ImagePath" class="card-img-top" alt="@committeeMember.Name"
-                     onerror="this.onerror=null;this.src='/images/committee/committee_logo.png';" />
-                <div class="card-body d-flex flex-column">
+                     onerror="this.onerror=null;this.src='/images/committee/committee_logo.png';"/>
+                <div class="card-body">
                     <h5 class="card-title text-center">@committeeMember.Name</h5>
-                    <div class="address-details">
-                        <strong>Manager:</strong>
+                    <div class="align-items-center">
+                        <strong>Manager:</strong><br/>
+                        <span class="card-title text-center mb-0 ml-2">@committeeMember.Manager</span>
                     </div>
-                    
-                    <h5 class="card-title text-center">@committeeMember.Manager</h5>
-                    @foreach (var role in committeeMember.Coaches)
+                    <br />
+
+                    @if (committeeMember.Coaches != null)
                     {
-                        <span class="card-text text-center">@role</span>
+                        <div class="align-items-center">
+                            <strong>Coaches:</strong><br/>
+                            @foreach (var role in committeeMember.Coaches)
+                            {
+                                <span class="card-text text-center">@role</span>
+                            }
+                        </div>
+                        <br />
                     }
-                    <h5 class="card-title text-center">@committeeMember.League</h5>
+                    
+                    <div class="align-items-center">
+                        <strong>League:</strong><br/>
+                        <span class="card-title text-center mb-0 ml-2">@committeeMember.League</span>
+                    </div>
+
                 </div>
             </div>
         </div>

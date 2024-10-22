@@ -11,18 +11,18 @@ public class TeamsController : Controller
                 new()
                 {
                     Name = "U7 Eagles",
-                    Manager = "Ben Mash",
+                    Manager = "Adrian Mercer",
                     Coaches = new List<string>
-                        { "Dan Hulmston" },
-                    ImagePath = "/images/committee/committee_logo.png;"
+                        { "Joe Duckworth", "Mike Foulkes" },
+                    ImagePath = "/images/committee/committee_logo.png;",
+                    League = "Eastham Junior Football League"
                 },
                 new()
                 {
                     Name = "U7 Harriers",
-                    Manager = "Ben Mash",
-                    Coaches = new List<string>
-                        { "Dan Hulmston" },
-                    ImagePath = "/images/committee/committee_logo.png;"
+                    Manager = "Phil Williams",
+                    ImagePath = "/images/committee/committee_logo.png;",
+                    League = "Eastham Junior Football League"
                 },
                 new()
                 {
@@ -30,7 +30,8 @@ public class TeamsController : Controller
                     Manager = "Ben Mash",
                     Coaches = new List<string>
                         { "Dan Hulmston" },
-                    ImagePath = "/images/committee/committee_logo.png;"
+                    ImagePath = "/images/committee/committee_logo.png;",
+                    League = "Eastham Junior Football League"
                 }
             }
         };
