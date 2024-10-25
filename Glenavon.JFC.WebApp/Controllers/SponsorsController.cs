@@ -29,14 +29,6 @@ public class SponsorsController : Controller
                 },
                 new()
                 {
-                    ImagePath = "/images/sponsors/halliday.jpg",
-                    Title = "Halliday Funeral Supplies",
-                    Description =
-                        "Remaining a family-run business, our core values are committed to being the UKs leading and most reliable and efficient distributor. Whilst having the infrustructure and investment to fulfill our large distribution network, we also offer an emergency service in order to support funeral directors in more urgent situations. We proudly remain one of the largest producers of FSC certified timber products in the UK funeral industry.",
-
-                },
-                new()
-                {
                     ImagePath = "/images/sponsors/kitchenware.png",
                     Title = "Kitchenware Express",
                     Description = "Kitchenware Express offers you some of the worlds biggest and best kitchenware brands at market-beating prices. ",
@@ -175,6 +167,30 @@ public class SponsorsController : Controller
                     ContactName = "",
                     ContactNumber = "01516537707",
                     TeamSponsored = "U16 Hawks"
+                },
+                new()
+                {
+                    ImagePath = "/images/sponsors/salon-supplies-365.jpg",
+                    Title = "Salon Supplies 365",
+                    Description = "Local stockist of professional hair and beauty products, providing great service and value.",
+                    Address = "Unit 8 Badger Way, Prenton, Wirral, CH43 3HQ",
+                    Website = "http://www.salonsupplies365.co.uk/",
+                    Email = "amy@salonsupplies365.co.uk",
+                    ContactName = "Amy Ygartua",
+                    ContactNumber = "01513456272",
+                    TeamSponsored = "U7 Eagles, U10 Eagles, U10 Kesterls, U13 Eagles"
+                },
+                new()
+                {
+                    ImagePath = "/images/sponsors/autosmart.png",
+                    Title = "Autosmart",
+                    Description = "We Manufacture and Deliver Market-Leading Vehicle-Cleaning Products That Make Our Customers Lives Easier",
+                    Address = "Unit 16, Appin Road, CH41 9HH",
+                    Website = "http://autosmart.co.uk",
+                    Email = "mark.price@autosmart.uk.net",
+                    ContactName = "Mark Price",
+                    ContactNumber = "07771590767",
+                    TeamSponsored = "U8 Belles"
                 },
             }
         };

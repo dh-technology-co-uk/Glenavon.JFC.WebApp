@@ -23,7 +23,7 @@
 <div class="row">
     @foreach (var sponsor in Model.Sponsors.OrderBy(x=>x.Title))
     {
-        <div class="col-lg-2 col-md-2 col-sm-6 mb-4">
+        <div class="col-lg-2 col-md-3 col-sm-4 mb-4">
             <div class="card h-100 d-flex flex-column">
                 <img src="@sponsor.ImagePath" class="card-img-top sponsor-img" alt="@sponsor.Title"
                      onerror="this.onerror=null;this.src='/images/sponsors/sponsor_logo.jpg';" />
@@ -33,7 +33,10 @@
                         @(string.IsNullOrEmpty(sponsor.Description) ? "" : sponsor.Description?.Length > 50 ? sponsor.Description?.Substring(0, 50) + "..." : sponsor.Description)
                     </p>
                     <div class="mt-auto text-center">
-                        <a href="#" class="btn btn-primary" onclick="showSponsorDetails('@sponsor.Title',  '@(sponsor.Description.Replace("\r\n", "<br>"))', '@sponsor.ImagePath', '@sponsor.Address', '@sponsor.Email','@sponsor.Website', '@sponsor.ContactName', '@sponsor.ContactNumber', '@sponsor.TeamSponsored')">View Details</a>
+                        <a href="#" class="btn btn-primary" 
+                           onclick="saveScrollPosition(); showSponsorDetails('@sponsor.Title',  '@(sponsor.Description.Replace("\r\n", "<br>"))', '@sponsor.ImagePath', '@sponsor.Address', '@sponsor.Email','@sponsor.Website', '@sponsor.ContactName', '@sponsor.ContactNumber', '@sponsor.TeamSponsored')">
+                            View Details
+                        </a>
                     </div>
                 </div>
             </div>
@@ -73,6 +76,17 @@
 </div>
 
 <script type="text/javascript">
+    function saveScrollPosition() {
+        sessionStorage.setItem("scrollPosition", window.scrollY);
+    }
+
+    function loadScrollPosition() {
+        if (sessionStorage.getItem("scrollPosition") !== null) {
+            window.scrollTo(0, sessionStorage.getItem("scrollPosition"));
+            sessionStorage.removeItem("scrollPosition");
+        }
+    };
+
     function showSponsorDetails(title, description, imagePath, address, email, website, contactName, contactNumber, teamSponsored) {
         // Set modal title
         document.getElementById('sponsorModalLabel').textContent = title;
@@ -150,6 +164,7 @@
 
     // Ensure the modal can be dismissed properly
     function hideSponsorsDetails() {
+        loadScrollPosition();
         $('#sponsorModal').modal('hide');
     }
 </script>
