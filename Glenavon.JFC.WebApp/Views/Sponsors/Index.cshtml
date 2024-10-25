@@ -21,23 +21,24 @@
 </div>
 
 <div class="row">
-    @foreach (var sponsor in Model.Sponsors)
+    @foreach (var sponsor in Model.Sponsors.OrderBy(x=>x.Title))
     {
         <div class="col-lg-2 col-md-2 col-sm-6 mb-4">
             <div class="card h-100 d-flex flex-column">
-                <img src="@sponsor.ImagePath" class="card-img-top" alt="@sponsor.Title"
+                <img src="@sponsor.ImagePath" class="card-img-top sponsor-img" alt="@sponsor.Title"
                      onerror="this.onerror=null;this.src='/images/sponsors/sponsor_logo.jpg';" />
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title text-center">@sponsor.Title</h5>
                     <p class="card-text text-center">
-                        @(string.IsNullOrEmpty(sponsor.Description) ? "" : sponsor.Description.Length > 50 ? sponsor.Description.Substring(0, 50) + "..." : sponsor.Description)
+                        @(string.IsNullOrEmpty(sponsor.Description) ? "" : sponsor.Description?.Length > 50 ? sponsor.Description?.Substring(0, 50) + "..." : sponsor.Description)
                     </p>
                     <div class="mt-auto text-center">
-                        <a href="#" class="btn btn-primary" onclick="showSponsorDetails('@sponsor.Title',  '@(sponsor.Description.Replace("\r\n", "<br>"))', '@sponsor.ImagePath', '@sponsor.Address', '@sponsor.Email', '@sponsor.ContactName', '@sponsor.ContactNumber', '@sponsor.TeamSponsored')">View Sponsor Details</a>
+                        <a href="#" class="btn btn-primary" onclick="showSponsorDetails('@sponsor.Title',  '@(sponsor.Description.Replace("\r\n", "<br>"))', '@sponsor.ImagePath', '@sponsor.Address', '@sponsor.Email','@sponsor.Website', '@sponsor.ContactName', '@sponsor.ContactNumber', '@sponsor.TeamSponsored')">View Details</a>
                     </div>
                 </div>
             </div>
         </div>
+
     }
 </div>
 
@@ -49,16 +50,19 @@
                 <h5 class="modal-title" id="sponsorModalLabel">Sponsor Details</h5>
             </div>
             <div class="modal-body">
-                <img id="sponsorImage" src="" class="img-fluid mb-3" alt="Sponsor Image"
+                <img id="sponsorImage" src="" class="img-fluid mb-3 d-block mx-auto" alt="Sponsor Image"
                      onerror="this.onerror=null;this.src='/images/sponsors/sponsor_logo.jpg';" />
-                <h6>Description:</h6>
-                <div id="descriptionDiv"><span id="sponsorDescription"></span></div>
-                <br/>
+                <div id="descriptionDiv">
+                    <h6>Description:</h6>
+                    <span id="sponsorDescription"></span>
+                </div>
+                <br />
                 <h6>Contact Information:</h6>
-                <div id="addressDiv"><strong>Address:</strong> <span id="sponsorAddress"></span></div>
-                <div id="emailDiv"><strong>Email:</strong> <a href="#" id="sponsorEmailLink"><span id="sponsorEmail"></span></a></div>
                 <div id="contactNameDiv"><strong>Contact Name:</strong> <span id="sponsorContactName"></span></div>
-                <div id="phoneDiv"><strong>Phone Number:</strong> <span id="sponsorContactNumber"></span></div>
+                <div id="addressDiv"><strong>Address:</strong> <span id="sponsorAddress"></span></div>
+                <div id="websiteDiv"><strong>Website:</strong> <a link="#" target="_blank" id="sponsorWebsiteLink"><span id="sponsorWebsite"></span></a></div>
+                <div id="emailDiv"><strong>Email:</strong> <a href="#" target="_blank" id="sponsorEmailLink"><span id="sponsorEmail"></span></a></div>
+                <div id="phoneDiv"><strong>Phone Number:</strong> <a href="#" target="_blank" id="sponsorContactNumberLink"><span id="sponsorContactNumber"></span></a></div>
                 <div id="teamDiv"><strong>Team Sponsored:</strong> <span id="sponsorTeamSponsored"></span></div>
             </div>
             <div class="modal-footer">
@@ -69,7 +73,7 @@
 </div>
 
 <script type="text/javascript">
-    function showSponsorDetails(title, description, imagePath, address, email, contactName, contactNumber, teamSponsored) {
+    function showSponsorDetails(title, description, imagePath, address, email, website, contactName, contactNumber, teamSponsored) {
         // Set modal title
         document.getElementById('sponsorModalLabel').textContent = title;
 
@@ -80,13 +84,65 @@
             this.src = '/images/sponsors/sponsor_logo.jpg';
         };
 
-        document.getElementById('sponsorDescription').innerHTML = description;
-        document.getElementById('sponsorAddress').textContent = address;
-        document.getElementById('sponsorEmail').textContent = email;
-        document.getElementById('sponsorEmailLink').href = "mailto:" + email;
-        document.getElementById('sponsorContactName').textContent = contactName;
-        document.getElementById('sponsorContactNumber').textContent = contactNumber;
-        document.getElementById('sponsorTeamSponsored').textContent = teamSponsored;
+        // Description
+        if (description !== "") {
+            document.getElementById('sponsorDescription').innerHTML = description;
+            document.getElementById('descriptionDiv').style.display = 'block';
+        } else {
+            document.getElementById('descriptionDiv').style.display = 'none';
+        }
+
+        // Contact Name
+        if (contactName !== "") {
+            document.getElementById('sponsorContactName').textContent = contactName;
+            document.getElementById('contactNameDiv').style.display = 'block';
+        } else {
+            document.getElementById('contactNameDiv').style.display = 'none';
+        }
+
+        // Address
+        if (address !== "") {
+            document.getElementById('sponsorAddress').textContent = address;
+            document.getElementById('addressDiv').style.display = 'block';
+        } else {
+            document.getElementById('addressDiv').style.display = 'none';
+        }
+        
+        // Website
+        if (website !== "") {
+            document.getElementById('sponsorWebsite').textContent = website;
+            document.getElementById('sponsorWebsiteLink').href = website;
+            document.getElementById('websiteDiv').style.display = 'block';
+        } else {
+            document.getElementById('websiteDiv').style.display = 'none';
+        }
+
+        // Email
+        debugger;
+        if (email !== "") {
+            document.getElementById('sponsorEmail').textContent = email;
+            document.getElementById('sponsorEmailLink').href = "mailto:" + email;
+            document.getElementById('emailDiv').style.display = 'block';
+        } else {
+            document.getElementById('emailDiv').style.display = 'none';
+        }
+        
+        // Contact Number
+        if (contactNumber !== "") {
+            document.getElementById('sponsorContactNumber').textContent = contactNumber;
+            document.getElementById('sponsorContactNumberLink').href = "tel:" + contactNumber;
+            document.getElementById('phoneDiv').style.display = 'block';
+        } else {
+            document.getElementById('phoneDiv').style.display = 'none';
+        }
+        
+        // Team Sponsored
+        if (teamSponsored !== "") {
+            document.getElementById('sponsorTeamSponsored').textContent = teamSponsored;
+            document.getElementById('teamDiv').style.display = 'block';
+        } else {
+            document.getElementById('teamDiv').style.display = 'none';
+        }
 
         // Show the modal
         $('#sponsorModal').modal('show');

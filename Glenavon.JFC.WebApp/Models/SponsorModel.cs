@@ -7,6 +7,7 @@ public class SponsorModel
     public string Description { get; set; }
     public string Address { get; set; }
     public string Email { get; set; }
+    public string Website { get; set; }
     public string ContactName { get; set; }
     public string ContactNumber { get; set; }
     public string TeamSponsored { get; set; }
