@@ -152,6 +152,30 @@ public class SponsorsController : Controller
                     ContactNumber = "07766763699",
                     TeamSponsored = "U12 Eagles"
                 },
+                new()
+                {
+                    ImagePath = "/images/sponsors/trainer-cleanse.png",
+                    Title = "Trainer Cleanse",
+                    Description = "Trainer Cleanse was founded late 2021, providing a luxury cleaning and restoration service for all footwear, with a Collection and Delivery Service throughout The Wirral and the surrounding areas. National Coverage is also provided for footwear sent by post. We offer a professional trainer cleaning service for all trainers brands covering traditional sports brands like Nike, Adidas and New Balance, to designer trainers Dior, Gucci, and Balenciaga.",
+                    Address = "",
+                    Website = "https://trainer-cleanse.company.site/",
+                    Email = "",
+                    ContactName = "Phil Bevan",
+                    ContactNumber = "07766763699",
+                    TeamSponsored = "U16 Hawks"
+                },
+                new()
+                {
+                    ImagePath = "/images/sponsors/townfield-pharmacy.jpg",
+                    Title = "Townfield Pharmacy",
+                    Description = "At Townfield Pharmacy, we strive to provide our patients with the highest quality of service possible. We work very closely with Townfield Surgery next door to ensure patient needs are always met, and their expectations exceeded.",
+                    Address = "Townfield Cl, Birkenhead, Prenton CH43 9JW",
+                    Website = "https://townfieldpharmacy.co.uk/",
+                    Email = "townfieldpharmacy@imaanhealthcare.com",
+                    ContactName = "",
+                    ContactNumber = "01516537707",
+                    TeamSponsored = "U16 Hawks"
+                },
             }
         };
 
