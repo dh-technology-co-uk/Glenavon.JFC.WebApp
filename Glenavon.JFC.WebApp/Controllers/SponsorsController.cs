@@ -134,7 +134,7 @@ public class SponsorsController : Controller
                 },
                 new()
                 {
-                    ImagePath = "",
+                    ImagePath = "/images/sponsors/ray-the-roofer.jpg",
                     Title = "Ray The Roofer",
                     Description = "Roofing Services",
                     Address = "41 Park Road West, Birkenhead, CH43 8SG",
@@ -191,6 +191,32 @@ public class SponsorsController : Controller
                     ContactName = "Mark Price",
                     ContactNumber = "07771590767",
                     TeamSponsored = "U8 Belles"
+                },
+                new()
+                {
+                    ImagePath = "/images/sponsors/ccb-steel.png",
+                    Title = "CCB Sheet Steel Ltd",
+                    Description =
+                        "Steel stockholder supplying UK and Ireland",
+                    Address = "204A Washing Bay Road, Dungannon, Co Tyrone, BT71 5EG",
+                    Website = "https://www.ccbsheetsteel.co.uk",
+                    Email= "alex@ccbsheetsteel.co.uk",
+                    ContactName = "Alex Payne",
+                    ContactNumber = "07771393646",
+                    TeamSponsored = "U7 Hawks"
+                },
+                new()
+                {
+                    ImagePath = "/images/sponsors/sean-may-mortgages.png",
+                    Title = "Sean May Mortgages",
+                    Description =
+                        "I provide professional mortgage &amp; protection advice for a wide range of different scenarios, from first time buyers who are just getting onto the property ladder, straight through to professional landlords adding additional Buy to Lets to their portfolio. I can help review your existing mortgage to make sure you have the best possible rate available and also help you release some of the equity in your home for those much needed home improvements.",
+                    Address = "Dan",
+                    Website = "https://www.seanmaymortgages.co.uk",
+                    Email= "sean@seanmaymortgages.co.uk",
+                    ContactName = "Sean May",
+                    ContactNumber = "07988308624",
+                    TeamSponsored = "U9 Eagles"
                 },
             }
         };

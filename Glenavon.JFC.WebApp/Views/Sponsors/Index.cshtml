@@ -88,6 +88,8 @@
     };
 
     function showSponsorDetails(title, description, imagePath, address, email, website, contactName, contactNumber, teamSponsored) {
+        debugger;
+
         // Set modal title
         document.getElementById('sponsorModalLabel').textContent = title;
 
@@ -132,7 +134,6 @@
         }
 
         // Email
-        debugger;
         if (email !== "") {
             document.getElementById('sponsorEmail').textContent = email;
             document.getElementById('sponsorEmailLink').href = "mailto:" + email;
