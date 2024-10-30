@@ -6,6 +6,7 @@ global using System.Security.Claims;
 global using Glenavon.JFC.WebApp;
 global using Glenavon.JFC.WebApp.Models;
 global using Glenavon.JFC.WebApp.ViewModels;
+global using HtmlAgilityPack;
 global using Microsoft.AspNetCore.Authentication;
 global using Microsoft.AspNetCore.Authentication.Cookies;
 global using Microsoft.AspNetCore.Authorization;

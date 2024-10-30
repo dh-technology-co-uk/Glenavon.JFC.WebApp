@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Lottery";
+}
+
+<h2 class="text-left">@ViewData["Title"]</h2>
+<iframe id="dynamicIframe" src="@Url.Action("ExternalPage", "Lottery")" width="100%" height="1000" style="border:none;"></iframe>
+
+<script>
+    const iframe = document.getElementById('dynamicIframe');
+
+    // Function to update the iframe source based on navigation
+    function updateIframeSrc(newUrl) {
+        iframe.src = '@Url.Action("ExternalPage", "Lottery")' + '?url=' + encodeURIComponent(newUrl);
+    }
+
+    // Monitor iframe's URL changes
+    iframe.onload = function () {
+        try {
+            // Access the iframe's contentWindow to get the current URL
+            const currentUrl = iframe.contentWindow.location.href;
+
+            // Check if the current URL differs from the controller's URL
+            if (currentUrl !== iframe.src) {
+                updateIframeSrc(currentUrl);
+            }
+        } catch (e) {
+            // Cross-origin error handling for navigation to other domains
+            console.warn("Navigation detected but unable to access the URL directly due to cross-origin policy.");
+        }
+    };
+</script>
