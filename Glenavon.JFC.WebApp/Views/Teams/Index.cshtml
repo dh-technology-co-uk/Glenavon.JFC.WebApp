@@ -15,39 +15,39 @@
 </div>
 
 <div class="row">
-    @foreach (var committeeMember in Model.Teams)
+    @foreach (var teamModel in Model.Teams)
     {
         <div class="col-lg-2 col-md-2 col-sm-6 mb-4">
             <div class="card h-100 d-flex flex-column">
-                <img src="@committeeMember.ImagePath" class="card-img-top" alt="@committeeMember.Name"
+                <img src="@teamModel.ImagePath" class="card-img-top" alt="@teamModel.Name"
                      onerror="this.onerror=null;this.src='/images/committee/committee_logo.png';"/>
                 <div class="card-body">
-                    <h5 class="card-title text-center">@committeeMember.Name</h5>
+                    <h5 class="card-title text-center mb-6 p-0">@teamModel.Name</h5>
                     <div class="align-items-center">
                         <strong>Manager:</strong><br/>
-                        <span class="card-title text-center mb-0 ml-2">@committeeMember.Manager</span>
+                        <span class="card-title text-center mb-0 ml-2">@teamModel.Manager</span>
                     </div>
                     <br />
 
-                    @if (committeeMember.Coaches != null)
+                    @if (teamModel.Coaches != null)
                     {
                         <div class="align-items-center">
                             <strong>Coaches:</strong><br/>
-                            @foreach (var role in committeeMember.Coaches)
+                            @foreach (var role in teamModel.Coaches)
                             {
-                                <span class="card-text text-center">@role</span>
+                                <span class="card-text text-center">@role</span><br/>
                             }
                         </div>
-                        <br />
+                        <br/>
                     }
-                    
+            
                     <div class="align-items-center">
                         <strong>League:</strong><br/>
-                        <span class="card-title text-center mb-0 ml-2">@committeeMember.League</span>
+                        <span class="card-title text-center mb-0 ml-2">@teamModel.League</span>
                     </div>
-
                 </div>
             </div>
         </div>
+
     }
 </div>

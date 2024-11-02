@@ -18,7 +18,7 @@ public class SponsorsController : Controller
                     Email = "dan@dhtechnology.co.uk",
                     ContactName = "Dan Hulmston",
                     ContactNumber = "07932630392",
-                    TeamSponsored = "U7 Hawks"
+                    TeamSponsored = "U07 Hawks"
                 },
                 new()
                 {
@@ -70,7 +70,7 @@ public class SponsorsController : Controller
                     Email = "craig@fortises.co.uk",
                     ContactName = "Craig Fletcher",
                     ContactNumber = "01515560554",
-                    TeamSponsored = "U9 Hawks"
+                    TeamSponsored = "U09 Hawks"
                 },
                 new()
                 {
@@ -94,7 +94,7 @@ public class SponsorsController : Controller
                     Email = "",
                     ContactName = "",
                     ContactNumber = "01514828282",
-                    TeamSponsored = "U9 Falcons"
+                    TeamSponsored = "U09 Falcons"
                 },
                 new()
                 {
@@ -106,7 +106,7 @@ public class SponsorsController : Controller
                     Email = "Melissa.lillymae@gmail.com",
                     ContactName = "Melissa Bentley/Gemma Price",
                     ContactNumber = "07710895812",
-                    TeamSponsored = "U9 Eagles"
+                    TeamSponsored = "U09 Eagles"
                 },
                 new()
                 {
@@ -118,7 +118,7 @@ public class SponsorsController : Controller
                     Email = "info@fourthwallcreative.com",
                     ContactName = "",
                     ContactNumber = "01513537310",
-                    TeamSponsored = "U8 Kestrels"
+                    TeamSponsored = "U08 Kestrels"
                 },
                 new()
                 {
@@ -130,7 +130,7 @@ public class SponsorsController : Controller
                     Email = "info@bwcubbinsltd.co.uk",
                     ContactName = "Carl Finnigan",
                     ContactNumber = "07921480653",
-                    TeamSponsored = "U8 Eagles"
+                    TeamSponsored = "U08 Eagles"
                 },
                 new()
                 {
@@ -190,7 +190,7 @@ public class SponsorsController : Controller
                     Email = "mark.price@autosmart.uk.net",
                     ContactName = "Mark Price",
                     ContactNumber = "07771590767",
-                    TeamSponsored = "U8 Belles"
+                    TeamSponsored = "U08 Belles"
                 },
                 new()
                 {
@@ -203,7 +203,7 @@ public class SponsorsController : Controller
                     Email= "alex@ccbsheetsteel.co.uk",
                     ContactName = "Alex Payne",
                     ContactNumber = "07771393646",
-                    TeamSponsored = "U7 Hawks"
+                    TeamSponsored = "U07 Hawks"
                 },
                 new()
                 {
@@ -216,7 +216,7 @@ public class SponsorsController : Controller
                     Email= "sean@seanmaymortgages.co.uk",
                     ContactName = "Sean May",
                     ContactNumber = "07988308624",
-                    TeamSponsored = "U9 Eagles"
+                    TeamSponsored = "U09 Eagles"
                 },
                 new()
                 {
