@@ -218,6 +218,20 @@ public class SponsorsController : Controller
                     ContactNumber = "07988308624",
                     TeamSponsored = "U9 Eagles"
                 },
+                new()
+                {
+                    ImagePath = "/images/sponsors/inciper.jpg",
+                    Title = "Inciper",
+                    Description =
+                        "Inciper was born out of the belief that technology delivery could be done differently. For too long, implementations of Microsoft Business Applications (namely CRM, ERP and Data & Analytics) have been done the same way with customers waiting months and sometimes years to finish an implementation that often did not then deliver the value that was promised at the start. This was particularly true for businesses in the midmarket who were neither large enough to be a priority for the big SIs, nor small enough to avoid the need to implement them altogether. So, we launched our leading Microsoft Business Applications consultancy to drive digital transformation for organisations through best-in-class delivery using our agile RAPID approach. From strategy and advisory to implementation and beyond, with full managed services (aftercare & support), Inciper start and end with your business – evolving your solution after deployment to fortify its future, ensuring you get ongoing measurable value from your technology investment through improved operational efficiency, greater productivity, and deeper insights.",
+                    Address = "I Finsbury Avenue, London, EC2M 2PF",
+                    Website = "http://www.inciper.com",
+                    Email= "Rebecca.hellard@inciper.com",
+                    ContactName = "Rebecca Hellard",
+                    ContactNumber = "07542841232",
+                    TeamSponsored = "U16 Kesterls"
+
+                }
             }
         };
 
