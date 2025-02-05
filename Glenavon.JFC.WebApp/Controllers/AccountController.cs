@@ -2,8 +2,8 @@
 
 public class AccountController : Controller
 {
-    private const string DefaultEmail = "testuser@example.com";
-    private const string DefaultPassword = "Password123";
+    private const string DefaultEmail = "admin@glenavonjfc.co.uk";
+    private const string DefaultPassword = "Glenavon2025!";
 
     // GET: /Account/Login
     public IActionResult Login()

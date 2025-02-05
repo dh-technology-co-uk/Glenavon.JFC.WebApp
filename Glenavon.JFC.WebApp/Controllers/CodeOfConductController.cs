@@ -1,6 +1,6 @@
 ﻿namespace Glenavon.JFC.WebApp.Controllers;
 
-public class NewsController : Controller
+public class CodeOfConductController : Controller
 {
     public IActionResult Index()
     {

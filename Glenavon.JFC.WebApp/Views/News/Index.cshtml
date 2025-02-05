@@ -1,7 +1,63 @@
 ﻿@model NewsViewModel
 
 @{
-    ViewData["Title"] = "News";
+    ViewData["Title"] = "Latest News";
+    int pageSize = 2;
+    int currentPage = Context.Request.Query["page"].Count > 0 ? int.Parse(Context.Request.Query["page"]) : 1;
+    int totalNews = Model.NewsItems.Count;
+    int totalPages = (int)Math.Ceiling((double)totalNews / pageSize);
+    var paginatedNews = Model.NewsItems.OrderByDescending(n => n.PublishedDate).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
 }
 
 <h2 class="text-left">@ViewData["Title"]</h2>
+
+@if (totalNews > 0)
+{
+    <div class="news-list">
+        @foreach (var news in paginatedNews)
+        {
+            <div class="news-item">
+                <div class="news-content">
+                    <h3>@news.Title</h3>
+                    @if (!string.IsNullOrEmpty(news.SubHeading))
+                    {
+                        <h4>@news.SubHeading</h4>
+                    }
+                    <p><strong>Published:</strong> @news.PublishedDate.ToString("MMMM dd, yyyy")</p>
+                    <div class="news-body">@Html.Raw(news.Content)</div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-action="Edit" asp-route-id="@Model.NewsItems.IndexOf(news)" class="btn btn-primary">Edit</a>
+                    }
+                </div>
+                @if (!string.IsNullOrEmpty(news.ImagePath))
+                {
+                    <div class="news-image-container">
+                        <img src="@news.ImagePath" alt="Image for @news.Title" class="news-image" />
+                    </div>
+                }
+            </div>
+            <hr />
+        }
+    </div>
+
+    <nav>
+        @if (currentPage > 1)
+        {
+            <a asp-action="Index" asp-route-page="@(currentPage - 1)" class="btn btn-secondary">Previous</a>
+        }
+        @if (currentPage < totalPages)
+        {
+            <a asp-action="Index" asp-route-page="@(currentPage + 1)" class="btn btn-secondary">Next</a>
+        }
+    </nav>
+}
+else
+{
+    <p>No news articles available.</p>
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <a asp-action="Create" class="btn btn-success">Create New Article</a>
+}

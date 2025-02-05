@@ -25,6 +25,9 @@
     <Content Update="wwwroot\images\community\boot-room.JPG">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="wwwroot\images\news\dhtechnologyltd.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\images\sponsors\dhtechnologyltd.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
