@@ -32,7 +32,8 @@
 
 <!-- Filter Dropdowns -->
 <div class="row mb-4">
-    <div class="col-md-6">
+    <div class="col-md-6 d-flex align-items-center">
+        <label for="leagueFilter" class="me-2">Filter by League:</label>
         <select id="leagueFilter" class="form-control">
             <option value="">All Leagues</option>
             @foreach (var league in Model.Teams.Select(t => t.League).Distinct().OrderBy(l => l))
@@ -41,19 +42,21 @@
             }
         </select>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 d-flex align-items-center">
+        <label for="ageGroupFilter" class="me-2">Filter by Age Group:</label>
         <select id="ageGroupFilter" class="form-control">
             <option value="">All Age Groups</option>
             @foreach (var age in Model.Teams
-                          .Select(t => t.AgeGroup)
-                          .Distinct()
-                          .OrderBy(a => GetAgeGroupOrder(a)))
+            .Select(t => t.AgeGroup)
+            .Distinct()
+            .OrderBy(a => GetAgeGroupOrder(a)))
             {
                 <option value="@age">@age</option>
             }
         </select>
     </div>
 </div>
+
 
 <!-- Cards Container -->
 <div class="row" id="teamsContainer">
