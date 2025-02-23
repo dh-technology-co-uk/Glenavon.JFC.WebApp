@@ -151,3 +151,45 @@ body {
         background-color: #141B37;
     }
 }
+
+/* Kit Manager */
+.kit-container {
+    display: flex;
+    gap: 15px;
+    padding: 10px;
+}
+
+.kit-header {
+    background-color: #141B37; /* dark navy background */
+}
+
+.kit-column {
+    min-height: 300px;
+    padding: 10px;
+    border-radius: 8px;
+    background: #f8f9fa;
+}
+
+.kit-item {
+    background: #e9ecef;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: grab;
+}
+
+    .kit-item:hover {
+        background: #dee2e6;
+    }
+
+    .kit-item h6 {
+        margin: 0;
+    }
+
+.kit-column h3 {
+    text-align: center;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border-radius: 4px;
+}
