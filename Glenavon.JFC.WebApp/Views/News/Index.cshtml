@@ -2,10 +2,10 @@
 
 @{
     ViewData["Title"] = "Latest News";
-    int pageSize = 2;
-    int currentPage = Context.Request.Query["page"].Count > 0 ? int.Parse(Context.Request.Query["page"]) : 1;
-    int totalNews = Model.NewsItems.Count;
-    int totalPages = (int)Math.Ceiling((double)totalNews / pageSize);
+    var pageSize = 2;
+    var currentPage = Context.Request.Query["page"].Count > 0 ? int.Parse(Context.Request.Query["page"]) : 1;
+    var totalNews = Model.NewsItems.Count;
+    var totalPages = (int)Math.Ceiling((double)totalNews / pageSize);
     var paginatedNews = Model.NewsItems.OrderByDescending(n => n.PublishedDate).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
 }
 
@@ -23,7 +23,9 @@
                     {
                         <h4>@news.SubHeading</h4>
                     }
-                    <p><strong>Published:</strong> @news.PublishedDate.ToString("MMMM dd, yyyy")</p>
+                    <p>
+                        <strong>Published:</strong> @news.PublishedDate.ToString("MMMM dd, yyyy")
+                    </p>
                     <div class="news-body">@Html.Raw(news.Content)</div>
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -33,11 +35,11 @@
                 @if (!string.IsNullOrEmpty(news.ImagePath))
                 {
                     <div class="news-image-container">
-                        <img src="@news.ImagePath" alt="Image for @news.Title" class="news-image" />
+                        <img src="@news.ImagePath" alt="Image for @news.Title" class="news-image"/>
                     </div>
                 }
             </div>
-            <hr />
+            <hr/>
         }
     </div>
 

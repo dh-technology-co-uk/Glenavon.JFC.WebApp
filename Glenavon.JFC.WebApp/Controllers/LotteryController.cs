@@ -23,10 +23,7 @@ public class LotteryController : Controller
             foreach (var link in doc.DocumentNode.SelectNodes("//a[@href]"))
             {
                 var href = link.GetAttributeValue("href", "");
-                if (!href.StartsWith("http"))
-                {
-                    href = new Uri(new Uri(url), href).ToString();
-                }
+                if (!href.StartsWith("http")) href = new Uri(new Uri(url), href).ToString();
                 link.SetAttributeValue("href", Url.Action("RedirectLink", "Lottery", new { targetUrl = href }));
             }
 
@@ -34,10 +31,7 @@ public class LotteryController : Controller
             foreach (var img in doc.DocumentNode.SelectNodes("//img[@src]"))
             {
                 var src = img.GetAttributeValue("src", "");
-                if (!src.StartsWith("http"))
-                {
-                    src = new Uri(new Uri(url), src).ToString();
-                }
+                if (!src.StartsWith("http")) src = new Uri(new Uri(url), src).ToString();
                 img.SetAttributeValue("src", src);
             }
 
@@ -45,10 +39,7 @@ public class LotteryController : Controller
             foreach (var cssNode in doc.DocumentNode.SelectNodes("//link[@rel='stylesheet']"))
             {
                 var href = cssNode.GetAttributeValue("href", "");
-                if (!href.StartsWith("http"))
-                {
-                    href = new Uri(new Uri(url), href).ToString();
-                }
+                if (!href.StartsWith("http")) href = new Uri(new Uri(url), href).ToString();
                 cssNode.SetAttributeValue("href", href);
             }
 
@@ -66,10 +57,8 @@ public class LotteryController : Controller
     {
         // Check if the target URL contains a '#' (menu link or in-page anchor)
         if (!string.IsNullOrEmpty(targetUrl) && !targetUrl.Contains("#"))
-        {
             // Log the click if needed, and then redirect to the target URL
             return Redirect(targetUrl);
-        }
 
         // If the URL contains a #, return JavaScript to do nothing
         return Content("<script>/* Anchor link, no redirect */</script>", "text/html");

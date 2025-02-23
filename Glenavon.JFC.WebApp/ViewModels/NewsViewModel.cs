@@ -1,6 +1,4 @@
-﻿using Glenavon.JFC.WebApp.Controllers;
-
-namespace Glenavon.JFC.WebApp.ViewModels;
+﻿namespace Glenavon.JFC.WebApp.ViewModels;
 
 public class NewsViewModel
 {

@@ -1,0 +1,79 @@
+[
+  {
+    "ImagePath": "/images/partners/thefa.png",
+    "Title": "The FA",
+    "Type": "Corporate Partner"
+  },
+  {
+    "ImagePath": "/images/partners/cheshirefa.png",
+    "Title": "Cheshire FA",
+    "Type": "Corporate Partner"
+  },
+  {
+    "ImagePath": "/images/partners/wirral.jpg",
+    "Title": "Wirral Council",
+    "Type": "Corporate Partner"
+  },
+
+  {
+    "ImagePath": "/images/partners/koala.png",
+    "Title": "Koala",
+    "Type": "Corporate Partner"
+  },
+  {
+    "ImagePath": "/images/partners/clairehouse.jpg",
+    "Title": "Claire House",
+    "Type": "Charity Partner"
+  },
+  {
+    "ImagePath": "/images/partners/wirralhospice.jpg",
+    "Title": "St John's' Hospice",
+    "Type": "Charity Partner"
+  },
+
+  {
+    "ImagePath": "/images/partners/footballfoundation.png",
+    "Title": "Football Foundation",
+    "Type": "Funding Partner"
+  },
+  {
+    "ImagePath": "/images/partners/mcdonalds.png",
+    "Title": "McDonald's",
+    "Type": "Funding Partner"
+  },
+  {
+    "ImagePath": "/images/partners/pitchpower.png",
+    "Title": "Pitch Power",
+    "Type": "Funding Partner"
+  },
+
+
+
+
+  {
+    "ImagePath": "/images/partners/cheshirefl.jpg",
+    "Title": "The Cheshire Football League",
+    "Type": "League Partner"
+  },
+
+  {
+    "ImagePath": "/images/partners/cheshiregirls.png",
+    "Title": "Cheshire Girls Football League",
+    "Type": "League Partner"
+  },
+  {
+    "ImagePath": "/images/partners/cheshirewomensyouth.jpg",
+    "Title": "Cheshire Women's & Youth Football League",
+    "Type": "League Partner"
+  },
+  {
+    "ImagePath": "/images/partners/easthamjfl.png",
+    "Title": "Eastham & District Junior & Mini Soccer",
+    "Type": "Corporate Partner"
+  },
+  {
+    "ImagePath": "/images/partners/wallaseyjfl.jpg",
+    "Title": "Wallasey Junior Football League",
+    "Type": "League Partner"
+  }
+]

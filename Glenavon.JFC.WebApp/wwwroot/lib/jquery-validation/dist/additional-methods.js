@@ -192,8 +192,8 @@ $.validator.addMethod( "bic", function( value, element ) {
  *
  *   A. Corporations
  *   B. LLCs
- *   C. General partnerships
- *   D. Companies limited partnerships
+ *   C. General Partners
+ *   D. Companies limited Partners
  *   E. Communities of goods
  *   F. Cooperative Societies
  *   G. Associations

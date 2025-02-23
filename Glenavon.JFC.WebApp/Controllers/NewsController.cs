@@ -28,6 +28,7 @@ public class NewsController : Controller
             SaveNews(newsList);
             return RedirectToAction("Index");
         }
+
         return View(newsItem);
     }
 

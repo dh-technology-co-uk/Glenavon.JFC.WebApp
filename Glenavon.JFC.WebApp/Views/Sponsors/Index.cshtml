@@ -8,32 +8,32 @@
 
 <div class="row">
     <div class="col-12">
-        
+
         <p class="text-left">
-            We thank all sponsors of Glenavon JFC, either those that support the whole club or individual teams. 
+            We thank all sponsors of Glenavon JFC, either those that support the whole club or individual teams.
             Without your support, either financial or providing services or labour, we really appreciate it.
         </p>
         <p class="text-left">
-            We always need more sponsors. We welcome all offers of support on an individual team or club basis. 
+            We always need more sponsors. We welcome all offers of support on an individual team or club basis.
             Please get in touch if you wish to find out more.
         </p>
     </div>
 </div>
 
 <div class="row">
-    @foreach (var sponsor in Model.Sponsors.OrderBy(x=>x.Title))
+    @foreach (var sponsor in Model.Sponsors.OrderBy(x => x.Title))
     {
         <div class="col-lg-2 col-md-3 col-sm-4 mb-4">
             <div class="card h-100 d-flex flex-column">
                 <img src="@sponsor.ImagePath" class="card-img-top sponsor-img" alt="@sponsor.Title"
-                     onerror="this.onerror=null;this.src='/images/sponsors/sponsor_logo.jpg';" />
+                     onerror="this.onerror=null;this.src='/images/sponsors/sponsor_logo.jpg';"/>
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title text-center">@sponsor.Title</h5>
                     <p class="card-text text-center">
                         @(string.IsNullOrEmpty(sponsor.Description) ? "" : sponsor.Description?.Length > 50 ? sponsor.Description?.Substring(0, 50) + "..." : sponsor.Description)
                     </p>
                     <div class="mt-auto text-center">
-                        <a href="#" class="btn btn-primary" 
+                        <a href="#" class="btn btn-primary"
                            onclick="saveScrollPosition(); showSponsorDetails('@sponsor.Title',  '@(sponsor.Description.Replace("\r\n", "<br>"))', '@sponsor.ImagePath', '@sponsor.Address', '@sponsor.Email','@sponsor.Website', '@sponsor.ContactName', '@sponsor.ContactNumber', '@sponsor.TeamSponsored')">
                             View Details
                         </a>
@@ -41,7 +41,6 @@
                 </div>
             </div>
         </div>
-
     }
 </div>
 
@@ -54,19 +53,40 @@
             </div>
             <div class="modal-body">
                 <img id="sponsorImage" src="" class="img-fluid mb-3 d-block mx-auto" alt="Sponsor Image"
-                     onerror="this.onerror=null;this.src='/images/sponsors/sponsor_logo.jpg';" />
+                     onerror="this.onerror=null;this.src='/images/sponsors/sponsor_logo.jpg';"/>
                 <div id="descriptionDiv">
                     <h6>Description:</h6>
                     <span id="sponsorDescription"></span>
                 </div>
-                <br />
+                <br/>
                 <h6>Contact Information:</h6>
-                <div id="contactNameDiv"><strong>Contact Name:</strong> <span id="sponsorContactName"></span></div>
-                <div id="addressDiv"><strong>Address:</strong> <span id="sponsorAddress"></span></div>
-                <div id="websiteDiv"><strong>Website:</strong> <a link="#" target="_blank" id="sponsorWebsiteLink"><span id="sponsorWebsite"></span></a></div>
-                <div id="emailDiv"><strong>Email:</strong> <a href="#" target="_blank" id="sponsorEmailLink"><span id="sponsorEmail"></span></a></div>
-                <div id="phoneDiv"><strong>Phone Number:</strong> <a href="#" target="_blank" id="sponsorContactNumberLink"><span id="sponsorContactNumber"></span></a></div>
-                <div id="teamDiv"><strong>Team Sponsored:</strong> <span id="sponsorTeamSponsored"></span></div>
+                <div id="contactNameDiv">
+                    <strong>Contact Name:</strong> <span id="sponsorContactName"></span>
+                </div>
+                <div id="addressDiv">
+                    <strong>Address:</strong> <span id="sponsorAddress"></span>
+                </div>
+                <div id="websiteDiv">
+                    <strong>Website:</strong>
+                    <a link="#" target="_blank" id="sponsorWebsiteLink">
+                        <span id="sponsorWebsite"></span>
+                    </a>
+                </div>
+                <div id="emailDiv">
+                    <strong>Email:</strong>
+                    <a href="#" target="_blank" id="sponsorEmailLink">
+                        <span id="sponsorEmail"></span>
+                    </a>
+                </div>
+                <div id="phoneDiv">
+                    <strong>Phone Number:</strong>
+                    <a href="#" target="_blank" id="sponsorContactNumberLink">
+                        <span id="sponsorContactNumber"></span>
+                    </a>
+                </div>
+                <div id="teamDiv">
+                    <strong>Team Sponsored:</strong> <span id="sponsorTeamSponsored"></span>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" onclick="hideSponsorsDetails()" aria-label="Close">Close</button>

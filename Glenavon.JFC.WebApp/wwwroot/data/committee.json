@@ -1,0 +1,88 @@
+[
+    {
+      "Name": "Bill Price",
+      "Roles": [ "Chairman", "Pitch Maintenance" ],
+      "ImagePath": "/images/committee/committee_logo.png"
+    },
+    {
+      "Name": "Paul Tyler",
+      "Roles": [ "Club Secretary", "Boys Secretary" ],
+      "ImagePath": "/images/committee/committee_logo.png"
+    },
+    {
+      "Name": "Chris Banks",
+      "Roles": [ "Assistant Club Secretary", "Girls Secretary", "Registration Secretary (Love Admin)" ],
+      "ImagePath": "/images/committee/committee_logo.png"
+    },
+    {
+      "Name": "Ben Mighall",
+      "Roles": [ "Vice Chairman", "Treasurer", "Finance (Grants)", "Kits Enquiry" ],
+      "ImagePath": "/images/committee/committee_logo.png"
+    },
+    {
+      "Name": "Mike Wallace",
+      "Roles": [ "Welfare Officer", "Comms", "Finance (Grants)" ],
+      "ImagePath": "/images/committee/committee_logo.png"
+    },
+    {
+      "Name": "Joe Duckworth",
+      "Roles": [ "Welfare Officer", "Comms", "Equipment" ],
+      "ImagePath": "/images/committee/committee_logo.png"
+    },
+    {
+      "Name": "Tony Williams",
+      "Roles": [ "Welfare Officer", "Lead Safeguarding" ],
+      "ImagePath": "/images/committee/committee_logo.png"
+    },
+    {
+      "Name": "Ruth Duncan",
+      "Roles": [ "Welfare Officer" ],
+      "ImagePath": "/images/committee/committee_logo.png"
+    },
+    {
+      "Name": "Kane Breadner",
+      "Roles": [ "Tournaments" ],
+      "ImagePath": "/images/committee/committee_logo.png"
+    },
+    {
+      "Name": "Carl Hughes",
+      "Roles": [ "Pitch Maintenance" ],
+      "ImagePath": "/images/committee/committee_logo.png"
+    },
+    {
+      "Name": "Steve Mylett",
+      "Roles": [ "Comms" ],
+      "ImagePath": "/images/committee/committee_logo.png"
+    },
+    {
+      "Name": "Martin Shaunessey",
+      "Roles": [ "Fixture Secretary" ],
+      "ImagePath": "/images/committee/committee_logo.png"
+    },
+    {
+      "Name": "Carl Sulivan",
+      "Roles": [ "Member" ],
+      "ImagePath": "/images/committee/committee_logo.png"
+    },
+    {
+      "Name": "Daniel Hulmston",
+      "Roles": [ "Website" ],
+      "ImagePath": "/images/committee/committee_logo.png"
+    },
+    {
+      "Name": "Benjamin Mash",
+      "Roles": [ "Sponsorship" ],
+      "ImagePath": "/images/committee/committee_logo.png"
+    },
+    {
+      "Name": "John Killen",
+      "Roles": [ "President" ],
+      "ImagePath": "/images/committee/committee_logo.png"
+    },
+    {
+      "Name": "Anthony Sheehan",
+      "Roles": [ "Development Boys & Girls", "Presentation" ],
+      "ImagePath": "/images/committee/committee_logo.png"
+    }
+  ]
+

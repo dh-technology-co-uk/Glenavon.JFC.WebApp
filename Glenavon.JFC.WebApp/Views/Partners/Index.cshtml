@@ -1,0 +1,38 @@
+﻿@model PartnersViewModel
+
+@{
+    ViewData["Title"] = "Partners";
+}
+
+<h2 class="text-left">@ViewData["Title"] </h2>
+
+<div class="row">
+    <div class="col-12">
+
+        <p class="text-left">
+            At Glenavon JFC, we are proud to collaborate with our incredible partners who play a crucial role in our journey, both on and off the pitch. Your unwavering support helps us achieve greatness and continue to grow as a club.
+        </p>
+        <p class="text-left">
+            We extend our deepest gratitude to:
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    @foreach (var sponsor in Model.Partners)
+    {
+        <div class="col-lg-2 col-md-3 col-sm-4 mb-4">
+            <div class="card h-100 d-flex flex-column">
+                <img src="@sponsor.ImagePath" class="card-img-top sponsor-img" alt="@sponsor.Title"
+                     onerror="this.onerror=null;this.src='/images/sponsors/sponsor_logo.jpg';"/>
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title text-center">@sponsor.Title</h5>
+                    <p class="card-text text-center">
+                        @(string.IsNullOrEmpty(sponsor.Type) ? "" : sponsor.Type?.Length > 50 ? sponsor.Type?.Substring(0, 50) + "..." : sponsor.Type)
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>

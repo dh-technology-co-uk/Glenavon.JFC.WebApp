@@ -1,7 +1,23 @@
 ﻿@model TeamsViewModel
 
-@{
-    ViewData["Title"] = "Teams";
+@functions {
+
+    int GetAgeGroupOrder(string age)
+    {
+        // Check if the string is in the format "U{number}s"
+        if (age.StartsWith("U") && age.EndsWith("s") && age.Length > 2)
+        {
+            int order;
+            if (int.TryParse(age.Substring(1, age.Length - 2), out order))
+            {
+                return order;
+            }
+        }
+
+        // Return a high number for non-numeric age groups (e.g., "Open Age")
+        return int.MaxValue;
+    }
+
 }
 
 <h2 class="text-left">@ViewData["Title"]</h2>
@@ -14,33 +30,56 @@
     </div>
 </div>
 
-<div class="row">
-    @foreach (var teamModel in Model.Teams)
+<!-- Filter Dropdowns -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <select id="leagueFilter" class="form-control">
+            <option value="">All Leagues</option>
+            @foreach (var league in Model.Teams.Select(t => t.League).Distinct().OrderBy(l => l))
+            {
+                <option value="@league">@league</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-6">
+        <select id="ageGroupFilter" class="form-control">
+            <option value="">All Age Groups</option>
+            @foreach (var age in Model.Teams
+                          .Select(t => t.AgeGroup)
+                          .Distinct()
+                          .OrderBy(a => GetAgeGroupOrder(a)))
+            {
+                <option value="@age">@age</option>
+            }
+        </select>
+    </div>
+</div>
+
+<!-- Cards Container -->
+<div class="row" id="teamsContainer">
+    @foreach (var teamModel in Model.Teams
+                  .Select(t => t)
+                  .Distinct()
+                  .OrderBy(a => GetAgeGroupOrder(a.AgeGroup)))
+
     {
         <div class="col-lg-2 col-md-2 col-sm-6 mb-4">
-            <div class="card h-100 d-flex flex-column">
+            <div class="card h-100 d-flex flex-column" data-league="@teamModel.League" data-agegroup="@teamModel.AgeGroup">
                 <img src="@teamModel.ImagePath" class="card-img-top" alt="@teamModel.Name"
                      onerror="this.onerror=null;this.src='/images/committee/committee_logo.png';"/>
                 <div class="card-body">
-                    <h5 class="card-title text-center mb-6 p-0">@teamModel.Name</h5>
-                    <div class="align-items-center">
-                        <strong>Manager:</strong><br/>
-                        <span class="card-title text-center mb-0 ml-2">@teamModel.Manager</span>
-                    </div>
-                    <br />
+                    <h6 class="card-title text-center mb-6 p-0 text-truncate" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@teamModel.Name</h6>
 
-                    @if (teamModel.Coaches != null)
-                    {
-                        <div class="align-items-center">
-                            <strong>Coaches:</strong><br/>
-                            @foreach (var role in teamModel.Coaches)
-                            {
-                                <span class="card-text text-center">@role</span><br/>
-                            }
-                        </div>
-                        <br/>
-                    }
-            
+                    <div class="align-items-center">
+                        <strong>Coaches:</strong><br/>
+                        @foreach (var role in teamModel.Coaches)
+                        {
+                            <span class="card-text text-center">@role</span>
+                            <br/>
+                        }
+                    </div>
+                    <br/>
+
                     <div class="align-items-center">
                         <strong>League:</strong><br/>
                         <span class="card-title text-center mb-0 ml-2">@teamModel.League</span>
@@ -48,6 +87,45 @@
                 </div>
             </div>
         </div>
-
     }
 </div>
+
+@section Scripts {
+    <script>
+        function filterCards() {
+            var leagueFilter = document.getElementById('leagueFilter').value;
+            var ageGroupFilter = document.getElementById('ageGroupFilter').value;
+
+            var cards = document.querySelectorAll('#teamsContainer .card');
+            cards.forEach(function (card) {
+                var cardLeague = card.getAttribute('data-league');
+                var cardAgeGroup = card.getAttribute('data-agegroup');
+                var show = true;
+
+                if (leagueFilter) {
+                    show = cardLeague === leagueFilter;
+                } else if (ageGroupFilter) {
+                    show = cardAgeGroup === ageGroupFilter;
+                }
+
+                card.closest('.col-lg-2').style.display = show ? '' : 'none';
+            });
+        }
+
+        // When the league filter changes, reset the age group filter and filter cards.
+        document.getElementById('leagueFilter').addEventListener('change', function () {
+            if (this.value) {
+                document.getElementById('ageGroupFilter').value = "";
+            }
+            filterCards();
+        });
+
+        // When the age group filter changes, reset the league filter and filter cards.
+        document.getElementById('ageGroupFilter').addEventListener('change', function () {
+            if (this.value) {
+                document.getElementById('leagueFilter').value = "";
+            }
+            filterCards();
+        });
+    </script>
+}
