@@ -2,14 +2,14 @@
   {
     "Name": "U7 Eagles",
     "Coaches": [ "Adrian Mercer", "Joseph Duckworth", "Mike Foulkes" ],
-    "ImagePath": "/images/committee/committee_logo.png",
+    "ImagePath": "/images/teams/u7eagles.jpg",
     "League": "Eastham & District Junior & Mini Soccer",
     "AgeGroup": "U7s"
   },
   {
     "Name": "U7 Hawks",
     "Coaches": [ "Ben Mash", "Danny Hulmston" ],
-    "ImagePath": "/images/committee/committee_logo.png",
+    "ImagePath": "/images/teams/u7hawks.jpg",
     "League": "Eastham & District Junior & Mini Soccer",
     "AgeGroup": "U7s"
   },
@@ -58,7 +58,7 @@
   {
     "Name": "U9 Falcons",
     "Coaches": [ "Joseph Duckworth", "Vincent Hall", "Barry Johnson" ],
-    "ImagePath": "/images/committee/committee_logo.png",
+    "ImagePath": "/images/teams/u9falcons.jpg",
     "League": "Eastham & District Junior & Mini Soccer",
     "AgeGroup": "U9s"
   },
