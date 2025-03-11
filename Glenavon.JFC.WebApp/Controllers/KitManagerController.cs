@@ -1,5 +1,6 @@
 ﻿namespace Glenavon.JFC.WebApp.Controllers;
 
+[Authorize(Roles = "Admin")]
 public class KitManagerController : Controller
 {
     private readonly string _filePath = "wwwroot/data/kitmanager.json";

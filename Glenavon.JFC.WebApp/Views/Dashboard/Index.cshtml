@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Club Dashboard";
+    var isAdmin = User.IsInRole("Admin");
+}
+
+<h2 class="text-left">@ViewData["Title"]</h2>
+
+<div class="container">
+    <p>Welcome to the admin dashboard. Here you can manage the site's content and users.</p>
+
+    <div class="row">
+      
+        <div class="col-md-6">
+            <div class="card text-center h-100">
+                <div class="card-header bg-primary text-white">
+                    <h3>Kit Requests</h3>
+                </div>
+                <div class="card-body">
+                    <p>Submit new kit requests. All requests will be reviewed by club committee members before submitting to the supplier</p>
+                    <a href="#" class="btn btn-primary">Create New Request - Coming Soon</a>
+                    @if (isAdmin)
+                    {
+                        <a class="btn btn-secondary" asp-area="" asp-controller="KitManager" asp-action="Index">Manage Existing Requests</a>
+                    }
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-center h-100">
+                <div class="card-header bg-secondary text-white">
+                    <h3>New Manager Information</h3>
+                </div>
+                <div class="card-body">
+                    <p>This guide is aimed towards new managers who will be taking on a brand-new team.</p>
+                    <a class="btn btn-primary" asp-area="" asp-controller="NewManager" asp-action="Index">View Information</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

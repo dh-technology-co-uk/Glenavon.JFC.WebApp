@@ -129,6 +129,23 @@ body {
     border-radius: 5px;
 }
 
+
+/* Accordion */
+.bg-accordion {
+    background-color: #141B37 !important;
+    color: white !important;
+}
+
+.accordion-button {
+    background-color: #141B37 !important;
+    color: white !important;
+}
+
+    .accordion-button::after {
+        filter: invert(1);
+    }
+
+
 @media (max-width: 767px) {
     .news-item {
         flex-direction: column;
@@ -144,6 +161,7 @@ body {
         max-width: 100%;
     }
 }
+
 
 /* Responsive and smaller screen adjustments */
 @media (max-width: 767px) {

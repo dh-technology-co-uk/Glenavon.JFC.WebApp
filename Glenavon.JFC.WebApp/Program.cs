@@ -41,4 +41,6 @@ app.MapControllerRoute(
     "default",
     "{controller=Home}/{action=Index}/{id?}");
 
+app.UseStatusCodePagesWithReExecute("/NotFound");
+
 app.Run();
