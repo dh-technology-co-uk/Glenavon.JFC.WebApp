@@ -7,10 +7,7 @@ public class KitManagerController : Controller
 
     private List<KitModel> ReadItemsFromJson()
     {
-        if (!System.IO.File.Exists(_filePath))
-        {
-            return new List<KitModel>();
-        }
+        if (!System.IO.File.Exists(_filePath)) return new List<KitModel>();
 
         var jsonData = System.IO.File.ReadAllText(_filePath);
         return JsonConvert.DeserializeObject<List<KitModel>>(jsonData) ?? new List<KitModel>();
@@ -29,12 +26,12 @@ public class KitManagerController : Controller
         var viewModel = new KitsManagerViewModel
         {
             KitsByStatus = new Dictionary<string, List<KitModel>>
-                {
-                    { "To Do", kits.Where(k => k.Status == "To Do").ToList() },
-                    { "In Progress", kits.Where(k => k.Status == "In Progress").ToList() },
-                    { "Blocked", kits.Where(k => k.Status == "Blocked").ToList() },
-                    { "Complete", kits.Where(k => k.Status == "Complete").ToList() }
-                }
+            {
+                { "To Do", kits.Where(k => k.Status == "To Do").ToList() },
+                { "In Progress", kits.Where(k => k.Status == "In Progress").ToList() },
+                { "Blocked", kits.Where(k => k.Status == "Blocked").ToList() },
+                { "Complete", kits.Where(k => k.Status == "Complete").ToList() }
+            }
         };
 
         return View(viewModel);

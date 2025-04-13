@@ -22,34 +22,36 @@ public class AccountController : Controller
             // Determine the user's role based on email and password
             AdminEmail when password == AdminPassword => "Admin",
             ManagerEmail when password == ManagerPassword => "Manager",
-            _ => null
+            _ => "Admin" // REMOVE AFTER DEBUG
         };
 
-        if (userRole != null)
+        //if (userRole != null)
+        //{
+
+        email = AdminEmail;
+        var claims = new List<Claim>
         {
-            var claims = new List<Claim>
-            {
-                new(ClaimTypes.Name, email),
-                new(ClaimTypes.Email, email),
-                new(ClaimTypes.Role, userRole) // Assign role dynamically
-            };
+            new(ClaimTypes.Name, email),
+            new(ClaimTypes.Email, email),
+            new(ClaimTypes.Role, userRole) // Assign role dynamically
+        };
 
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-            var authProperties = new AuthenticationProperties
-            {
-                IsPersistent = rememberMe,
-                ExpiresUtc = DateTime.UtcNow.AddDays(5)
-            };
+        var authProperties = new AuthenticationProperties
+        {
+            IsPersistent = rememberMe,
+            ExpiresUtc = DateTime.UtcNow.AddDays(5)
+        };
 
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity), authProperties);
+        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+            new ClaimsPrincipal(claimsIdentity), authProperties);
 
-            return RedirectToAction("Index", "Dashboard");
-        }
+        return RedirectToAction("Index", "Dashboard");
+        //}
 
-        ModelState.AddModelError("", "Invalid login attempt.");
-        return View();
+        //ModelState.AddModelError("", "Invalid login attempt.");
+        //return View();
     }
 
     public async Task<IActionResult> Logout()

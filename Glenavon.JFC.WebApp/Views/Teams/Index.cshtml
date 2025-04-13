@@ -47,9 +47,9 @@
         <select id="ageGroupFilter" class="form-control">
             <option value="">All Age Groups</option>
             @foreach (var age in Model.Teams
-            .Select(t => t.AgeGroup)
-            .Distinct()
-            .OrderBy(a => GetAgeGroupOrder(a)))
+                          .Select(t => t.AgeGroup)
+                          .Distinct()
+                          .OrderBy(a => GetAgeGroupOrder(a)))
             {
                 <option value="@age">@age</option>
             }
