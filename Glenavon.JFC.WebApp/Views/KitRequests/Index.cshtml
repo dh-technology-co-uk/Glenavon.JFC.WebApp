@@ -7,19 +7,17 @@
 <h2 class="text-left">@ViewData["Title"]</h2>
 
 <div class="container">
-
-
     <div class="row">
         <div class="col-12">
-
             <p class="text-left">
                 Please use the below form to submit your kit request for the committee to review.
             </p>
             <p class="text-left">
-                Please ensure you know all of the information required for a complete order before completing this for to ensure there are no delays between the club and the supplier.
+                Please ensure you know all of the information required for a complete order before completing this form to ensure there are no delays between the club and the supplier.
             </p>
         </div>
     </div>
+
     <form id="teamForm" class="mt-3">
         <!-- Team dropdown -->
         <div class="row mb-3">
@@ -32,8 +30,10 @@
                         <option value="@team.Name">@team.Name</option>
                     }
                 </select>
+                <div class="invalid-feedback">Please select a team.</div>
             </div>
         </div>
+
         <div id="itemRows">
             <div class="row g-2 mb-3 team-item">
                 <div class="col-md-2">
@@ -47,8 +47,10 @@
                             <option value="XL">XL</option>
                         </select>
                         <label>Top Size</label>
+                        <div class="invalid-feedback">Please select a top size.</div>
                     </div>
                 </div>
+
                 <div class="col-md-2">
                     <div class="form-floating">
                         <select name="ShortsSize" class="form-select" required>
@@ -60,8 +62,10 @@
                             <option value="XL">XL</option>
                         </select>
                         <label>Shorts Size</label>
+                        <div class="invalid-feedback">Please select a shorts size.</div>
                     </div>
                 </div>
+
                 <div class="col-md-2">
                     <div class="form-floating">
                         <select name="SocksSize" class="form-select" required>
@@ -73,14 +77,18 @@
                             <option value="XL">XL</option>
                         </select>
                         <label>Socks Size</label>
+                        <div class="invalid-feedback">Please select a socks size.</div>
                     </div>
                 </div>
+
                 <div class="col-md-2">
                     <div class="form-floating">
                         <input type="number" name="ShirtNumber" class="form-control" min="1" inputmode="numeric" pattern="[0-9]*" required />
                         <label>Shirt Number</label>
+                        <div class="invalid-feedback">Please enter a shirt number (minimum 1).</div>
                     </div>
                 </div>
+
                 <div class="col-md-2">
                     <div class="form-floating">
                         <select name="KitType" class="form-select" required>
@@ -92,26 +100,25 @@
                             <option value="Keeper - Pink">Keeper - Pink</option>
                         </select>
                         <label>Kit</label>
+                        <div class="invalid-feedback">Please select a kit type.</div>
                     </div>
                 </div>
+
                 <div class="col-md-2 d-flex align-items-end">
                     <button type="button" class="btn btn-danger w-100 h-100" onclick="removeRow(this)">Remove Kit</button>
                 </div>
             </div>
         </div>
 
-
         <div class="row mt-3">
             <div class="col-md-3">
                 <button type="button" class="btn btn-secondary w-100" onclick="addRow()">Add Another Kit</button>
             </div>
             <div class="col-md-3">
-                <button type="button" class="btn btn-primary w-100" onclick="submitTeam()">Submit Team Request</button>
+                <button type="button" class="btn btn-primary w-100" onclick="submitRequest()">Submit Team Request</button>
             </div>
         </div>
-
     </form>
-
 </div>
 
 <script src="~/js/kitrequests.js"></script>

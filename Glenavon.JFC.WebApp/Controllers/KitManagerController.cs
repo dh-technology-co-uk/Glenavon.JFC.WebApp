@@ -1,31 +1,51 @@
-﻿namespace Glenavon.JFC.WebApp.Controllers;
+﻿using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+
+namespace Glenavon.JFC.WebApp.Controllers;
 
 [Authorize(Roles = "Admin")]
 public class KitManagerController : Controller
 {
-    private readonly string _filePath = "wwwroot/data/kitmanager.json";
+    private readonly string _directoryPath = "wwwroot/data/kitrequests";
 
-    private List<KitModel> ReadItemsFromJson()
+    private List<KitRequestModel> ReadItemsFromDirectory()
     {
-        if (!System.IO.File.Exists(_filePath)) return new List<KitModel>();
+        var items = new List<KitRequestModel>();
 
-        var jsonData = System.IO.File.ReadAllText(_filePath);
-        return JsonConvert.DeserializeObject<List<KitModel>>(jsonData) ?? new List<KitModel>();
-    }
+        if (!Directory.Exists(_directoryPath))
+            return items;
 
-    private void SaveItemsToJson(List<KitModel> items)
-    {
-        var jsonData = JsonConvert.SerializeObject(items, Formatting.Indented);
-        System.IO.File.WriteAllText(_filePath, jsonData);
+        var files = Directory.GetFiles(_directoryPath, "kitrequest-*.json");
+
+        foreach (var file in files)
+        {
+            try
+            {
+                var jsonData = System.IO.File.ReadAllText(file);
+                var item = JsonConvert.DeserializeObject<KitRequestModel>(jsonData);
+                if (item != null)
+                {
+                    items.Add(item);
+                }
+            }
+            catch
+            {
+                // Optionally log or handle invalid JSON files
+            }
+        }
+
+        return items;
     }
 
     public IActionResult Index()
     {
-        var kits = ReadItemsFromJson();
+        var kits = ReadItemsFromDirectory();
 
         var viewModel = new KitsManagerViewModel
         {
-            KitsByStatus = new Dictionary<string, List<KitModel>>
+            KitsByStatus = new Dictionary<string, List<KitRequestModel>>
             {
                 { "To Do", kits.Where(k => k.Status == "To Do").ToList() },
                 { "In Progress", kits.Where(k => k.Status == "In Progress").ToList() },
@@ -37,26 +57,34 @@ public class KitManagerController : Controller
         return View(viewModel);
     }
 
-    [HttpPost]
-    public IActionResult AddItem(KitModel item)
+    private void SaveItemToFile(KitRequestModel item)
     {
-        var items = ReadItemsFromJson();
-        item.Id = items.Count > 0 ? items.Max(t => t.Id) + 1 : 1;
-        items.Add(item);
-        SaveItemsToJson(items);
+        if (!Directory.Exists(_directoryPath))
+            Directory.CreateDirectory(_directoryPath);
 
-        return RedirectToAction("Index");
+        var fileName = $"kitrequest-{item.Id}.json";
+        var fullPath = Path.Combine(_directoryPath, fileName);
+        var jsonData = JsonConvert.SerializeObject(item, Formatting.Indented);
+        System.IO.File.WriteAllText(fullPath, jsonData);
     }
+
+
+
+ 
 
     [HttpPost]
     public IActionResult UpdateItem(int id, string status)
     {
-        var items = ReadItemsFromJson();
-        var item = items.FirstOrDefault(t => t.Id == id);
-        if (item != null)
+        var filePath = Path.Combine(_directoryPath, $"kitrequest-{id}.json");
+        if (System.IO.File.Exists(filePath))
         {
-            item.Status = status;
-            SaveItemsToJson(items);
+            var jsonData = System.IO.File.ReadAllText(filePath);
+            var item = JsonConvert.DeserializeObject<KitRequestModel>(jsonData);
+            if (item != null)
+            {
+                item.Status = status;
+                SaveItemToFile(item);
+            }
         }
 
         return RedirectToAction("Index");
@@ -65,9 +93,11 @@ public class KitManagerController : Controller
     [HttpPost]
     public IActionResult DeleteItem(int id)
     {
-        var items = ReadItemsFromJson();
-        items.RemoveAll(t => t.Id == id);
-        SaveItemsToJson(items);
+        var filePath = Path.Combine(_directoryPath, $"kitrequest-{id}.json");
+        if (System.IO.File.Exists(filePath))
+        {
+            System.IO.File.Delete(filePath);
+        }
 
         return RedirectToAction("Index");
     }

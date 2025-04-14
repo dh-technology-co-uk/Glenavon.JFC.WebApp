@@ -1,0 +1,63 @@
+{
+  "Id": 1,
+  "TeamName": "U8 Hawks",
+  "Status": "To Do",
+  "Players": [
+    {
+      "TopSize": "S",
+      "ShortsSize": "S",
+      "SocksSize": "S",
+      "ShirtNumber": 1,
+      "KitType": "Keeper - Blue"
+    },
+    {
+      "TopSize": "S",
+      "ShortsSize": "S",
+      "SocksSize": "S",
+      "ShirtNumber": 4,
+      "KitType": "Home"
+    },
+    {
+      "TopSize": "M",
+      "ShortsSize": "M",
+      "SocksSize": "M",
+      "ShirtNumber": 5,
+      "KitType": "Home"
+    },
+    {
+      "TopSize": "S",
+      "ShortsSize": "S",
+      "SocksSize": "S",
+      "ShirtNumber": 6,
+      "KitType": "Home"
+    },
+    {
+      "TopSize": "S",
+      "ShortsSize": "S",
+      "SocksSize": "S",
+      "ShirtNumber": 9,
+      "KitType": "Home"
+    },
+    {
+      "TopSize": "XS",
+      "ShortsSize": "XS",
+      "SocksSize": "XS",
+      "ShirtNumber": 8,
+      "KitType": "Home"
+    },
+    {
+      "TopSize": "M",
+      "ShortsSize": "M",
+      "SocksSize": "M",
+      "ShirtNumber": 10,
+      "KitType": "Home"
+    },
+    {
+      "TopSize": "S",
+      "ShortsSize": "S",
+      "SocksSize": "S",
+      "ShirtNumber": 11,
+      "KitType": "Home"
+    }
+  ]
+}

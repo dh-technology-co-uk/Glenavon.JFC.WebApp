@@ -2,5 +2,5 @@
 
 public class KitsManagerViewModel
 {
-    public Dictionary<string, List<KitModel>> KitsByStatus { get; set; }
+    public Dictionary<string, List<KitRequestModel>> KitsByStatus { get; set; }
 }
