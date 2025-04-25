@@ -24,7 +24,7 @@ function addRow() {
     if (!kitType.value) { kitType.classList.add("is-invalid"); isValid = false; }
 
     if (!isValid) {
-        alert("Please complete all fields and ensure shirt number is 1 or higher before adding another row.");
+        showFormMessage("Please complete all fields and ensure shirt number is 1 or higher before adding another row.");
         return;
     }
 
@@ -47,7 +47,7 @@ function removeRow(button) {
     if (allRows.length > 1) {
         row.remove();
     } else {
-        alert("You must have at least one team member row.");
+        showFormMessage("You must have at least one team member row.");
     }
 }
 
@@ -59,34 +59,66 @@ function submitRequest() {
 
     if (!selectedTeam) {
         teamSelect.classList.add("is-invalid");
-        alert("Please select a team before submitting.");
+        showFormMessage("Please select a team before submitting.");
+        return;
+    }
+
+    const managerName = document.getElementById("managerName");
+    const managerMobile = document.getElementById("managerMobile");
+    const managerEmail = document.getElementById("managerEmail");
+
+    [managerName, managerMobile, managerEmail].forEach(field => field.classList.remove("is-invalid"));
+
+    let isValidManager = true;
+
+    if (!managerName.value.trim()) {
+        managerName.classList.add("is-invalid");
+        isValidManager = false;
+    }
+    if (!managerMobile.value.trim()) {
+        managerMobile.classList.add("is-invalid");
+        isValidManager = false;
+    }
+    if (!managerEmail.value.trim()) {
+        managerEmail.classList.add("is-invalid");
+        isValidManager = false;
+    } else {
+        // Basic email validation
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(managerEmail.value.trim())) {
+            managerEmail.classList.add("is-invalid");
+            isValidManager = false;
+        }
+    }
+
+    if (!isValidManager) {
+        showFormMessage("Please complete all Manager fields correctly before submitting.");
         return;
     }
 
     const rows = document.querySelectorAll(".team-item");
-    const data = [];
-    let isValid = true;
+    const playersData = [];
+    let isValidPlayers = true;
 
-    rows.forEach((row, i) => {
+    rows.forEach((row) => {
         const topSize = row.querySelector("select[name='TopSize']");
         const shortsSize = row.querySelector("select[name='ShortsSize']");
         const socksSize = row.querySelector("select[name='SocksSize']");
         const shirtNumber = row.querySelector("input[name='ShirtNumber']");
         const kitType = row.querySelector("select[name='KitType']");
 
-        // Reset any previous errors
         [topSize, shortsSize, socksSize, shirtNumber, kitType].forEach(f => f.classList.remove("is-invalid"));
 
-        if (!topSize.value) { topSize.classList.add("is-invalid"); isValid = false; }
-        if (!shortsSize.value) { shortsSize.classList.add("is-invalid"); isValid = false; }
-        if (!socksSize.value) { socksSize.classList.add("is-invalid"); isValid = false; }
+        if (!topSize.value) { topSize.classList.add("is-invalid"); isValidPlayers = false; }
+        if (!shortsSize.value) { shortsSize.classList.add("is-invalid"); isValidPlayers = false; }
+        if (!socksSize.value) { socksSize.classList.add("is-invalid"); isValidPlayers = false; }
         if (shirtNumber.value === '' || Number(shirtNumber.value) < 1) {
-            shirtNumber.classList.add("is-invalid"); isValid = false;
+            shirtNumber.classList.add("is-invalid"); isValidPlayers = false;
         }
-        if (!kitType.value) { kitType.classList.add("is-invalid"); isValid = false; }
+        if (!kitType.value) { kitType.classList.add("is-invalid"); isValidPlayers = false; }
 
-        if (isValid) {
-            data.push({
+        if (isValidPlayers) {
+            playersData.push({
                 topSize: topSize.value,
                 shortsSize: shortsSize.value,
                 socksSize: socksSize.value,
@@ -96,34 +128,89 @@ function submitRequest() {
         }
     });
 
-    if (!isValid) {
-        alert("Please fix the highlighted fields.");
+    if (!isValidPlayers) {
+        showFormMessage("Please add at least 1 kit request and fix the highlighted player fields before submitting.");
         return;
     }
 
-    const payload = {
-        teamName: selectedTeam,
-        players: data,
-        status: 'To Do'
-    };
+    const additionalInfo = document.getElementById("additionalInfo").value.trim();
+    const sponsorLogo = document.getElementById("sponsorLogo").files[0];
 
-    console.log("Submitting JSON payload:", JSON.stringify(payload));
+    const formData = new FormData();
+    formData.append("TeamName", selectedTeam);
+    formData.append("Status", "To Do");
+    formData.append("ManagerName", managerName.value.trim());
+    formData.append("ManagerMobile", managerMobile.value.trim());
+    formData.append("ManagerEmail", managerEmail.value.trim());
+    formData.append("AdditionalInfo", additionalInfo);
+
+    if (sponsorLogo) {
+        formData.append("SponsorLogo", sponsorLogo);
+    }
+
+    formData.append("Players", JSON.stringify(playersData));
+
+    console.log("Submitting FormData payload...");
 
     fetch('/KitRequests/SubmitTeam', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
+        body: formData
     }).then(response => {
         if (response.ok) {
-            alert("Team submitted successfully!");
+            showFormMessage("Team submitted successfully!");
+            window.location.reload(); // optional: reload page after success
         } else {
-            alert(response.body + " Error submitting team.");
+            response.text().then(text => {
+                showFormMessage("Error submitting team: " + text);
+            });
         }
     }).catch(error => {
         console.error("Error submitting form:", error);
-        alert("Something went wrong submitting the form.");
+        showFormMessage("Something went wrong submitting the form.");
     });
+}
 
+function showFormMessage(message) {
+    document.getElementById("formMessageModalBody").innerText = message;
+    var modal = new bootstrap.Modal(document.getElementById('formMessageModal'));
+    modal.show();
+}
+
+function previewSponsorLogo() {
+    const fileInput = document.getElementById('sponsorLogo');
+    const previewContainer = document.getElementById('sponsorLogoPreviewContainer');
+    const previewImage = document.getElementById('sponsorLogoPreview');
+
+    const file = fileInput.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            previewImage.src = e.target.result;
+            previewContainer.style.display = 'block';
+        };
+
+        reader.readAsDataURL(file);
+    } else {
+        previewContainer.style.display = 'none';
+        previewImage.src = '#';
+    }
+}
+
+function removeSponsorLogo() {
+    const fileInput = document.getElementById('sponsorLogo');
+    const previewContainer = document.getElementById('sponsorLogoPreviewContainer');
+    const previewImage = document.getElementById('sponsorLogoPreview');
+
+    // Clear the file input
+    fileInput.value = '';
+    // Hide the preview
+    previewContainer.style.display = 'none';
+    previewImage.src = '#';
+}
+
+function replaceSponsorLogo() {
+    const fileInput = document.getElementById('sponsorLogo');
+    fileInput.click(); // Re-open the file picker
 }

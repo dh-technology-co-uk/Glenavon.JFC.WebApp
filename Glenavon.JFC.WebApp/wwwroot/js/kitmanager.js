@@ -14,11 +14,12 @@
         });
 
         column.addEventListener("drop", function (event) {
+            debugger;
             event.preventDefault();
             let itemId = event.dataTransfer.getData("text");
             let newStatus = column.getAttribute("data-status");
 
-            fetch(`/KitManager/UpdateItem?id=${itemId}&status=${newStatus}`, {
+            fetch(`/EquipmentKitManager/UpdateItem?id=${itemId}&status=${newStatus}`, {
                 method: "POST"
             }).then(() => location.reload());
         });

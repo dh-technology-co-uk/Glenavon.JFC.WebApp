@@ -1,18 +1,13 @@
-﻿using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-
-namespace Glenavon.JFC.WebApp.Controllers;
+﻿namespace Glenavon.JFC.WebApp.Controllers;
 
 [Authorize(Roles = "Admin")]
-public class KitManagerController : Controller
+public class EquipmentKitManagerController : Controller
 {
     private readonly string _directoryPath = "wwwroot/data/kitrequests";
 
-    private List<KitRequestModel> ReadItemsFromDirectory()
+    private List<EquipmentKitRequestModel> ReadItemsFromDirectory()
     {
-        var items = new List<KitRequestModel>();
+        var items = new List<EquipmentKitRequestModel>();
 
         if (!Directory.Exists(_directoryPath))
             return items;
@@ -20,13 +15,13 @@ public class KitManagerController : Controller
         var files = Directory.GetFiles(_directoryPath, "kitrequest-*.json");
 
         foreach (var file in files)
-        {
             try
             {
                 var jsonData = System.IO.File.ReadAllText(file);
-                var item = JsonConvert.DeserializeObject<KitRequestModel>(jsonData);
+                var item = JsonConvert.DeserializeObject<EquipmentKitRequestModel>(jsonData);
                 if (item != null)
                 {
+                    item.Type = "Kit";
                     items.Add(item);
                 }
             }
@@ -34,7 +29,10 @@ public class KitManagerController : Controller
             {
                 // Optionally log or handle invalid JSON files
             }
-        }
+
+
+        // ADD EQUIPMENT REQUESTS HERE
+
 
         return items;
     }
@@ -45,7 +43,7 @@ public class KitManagerController : Controller
 
         var viewModel = new KitsManagerViewModel
         {
-            KitsByStatus = new Dictionary<string, List<KitRequestModel>>
+            RequestsByStatus = new Dictionary<string, List<EquipmentKitRequestModel>>
             {
                 { "To Do", kits.Where(k => k.Status == "To Do").ToList() },
                 { "In Progress", kits.Where(k => k.Status == "In Progress").ToList() },
@@ -57,7 +55,7 @@ public class KitManagerController : Controller
         return View(viewModel);
     }
 
-    private void SaveItemToFile(KitRequestModel item)
+    private void SaveItemToFile(EquipmentKitRequestModel item)
     {
         if (!Directory.Exists(_directoryPath))
             Directory.CreateDirectory(_directoryPath);
@@ -69,9 +67,6 @@ public class KitManagerController : Controller
     }
 
 
-
- 
-
     [HttpPost]
     public IActionResult UpdateItem(int id, string status)
     {
@@ -79,7 +74,7 @@ public class KitManagerController : Controller
         if (System.IO.File.Exists(filePath))
         {
             var jsonData = System.IO.File.ReadAllText(filePath);
-            var item = JsonConvert.DeserializeObject<KitRequestModel>(jsonData);
+            var item = JsonConvert.DeserializeObject<EquipmentKitRequestModel>(jsonData);
             if (item != null)
             {
                 item.Status = status;
@@ -94,10 +89,7 @@ public class KitManagerController : Controller
     public IActionResult DeleteItem(int id)
     {
         var filePath = Path.Combine(_directoryPath, $"kitrequest-{id}.json");
-        if (System.IO.File.Exists(filePath))
-        {
-            System.IO.File.Delete(filePath);
-        }
+        if (System.IO.File.Exists(filePath)) System.IO.File.Delete(filePath);
 
         return RedirectToAction("Index");
     }

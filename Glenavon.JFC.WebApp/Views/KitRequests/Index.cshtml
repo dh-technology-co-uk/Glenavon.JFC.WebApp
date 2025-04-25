@@ -2,49 +2,149 @@
 
 @{
     ViewData["Title"] = "Kit Requests";
+    var isReadonly = Model.ExistingRequest != null;
 }
 
 <h2 class="text-left">@ViewData["Title"]</h2>
 
 <div class="container">
+    @if (isReadonly)
+    {
+        <div class="mb-3">
+            <a href="@Url.Action("Index", "EquipmentKitManager")" class="btn btn-secondary btn-sm">
+                ← Back to Equipment & Kit Manager
+            </a>
+        </div>
+    }
+
     <div class="row">
         <div class="col-12">
-            <p class="text-left">
-                Please use the below form to submit your kit request for the committee to review.
-            </p>
-            <p class="text-left">
-                Please ensure you know all of the information required for a complete order before completing this form to ensure there are no delays between the club and the supplier.
-            </p>
+
+            @if (isReadonly)
+            {
+                <div class="alert alert-warning" role="alert">
+                    🛑 This kit request has already been submitted and cannot be edited.
+                </div>
+            }
+            else
+            {
+                <p class="text-left">
+                    Please use the below form to submit your kit request for the committee to review.
+                </p>
+                <p class="text-left">
+                    Please ensure you know all of the information required for a complete order before completing this form to ensure there are no delays between the club and the supplier.
+                </p>
+                <p class="text-left">
+                    The team name will be based on your season 2025-2026 age level.
+                </p>
+            }
         </div>
     </div>
 
-    <form id="teamForm" class="mt-3">
+    <form id="teamForm" class="mt-3" enctype="multipart/form-data">
         <!-- Team dropdown -->
         <div class="row mb-3">
             <div class="col-md-6">
                 <label class="form-label">Select Team</label>
-                <select id="teamSelect" class="form-select" required>
+                <select id="teamSelect" class="form-select" required @(isReadonly ? "disabled" : "")>
                     <option value="">Select Team</option>
-                    @foreach (var team in Model.Teams.DistinctBy(t => t.Name))
-                    {
-                        <option value="@team.Name">@team.Name</option>
+                    @{
+                        foreach (var team in Model.Teams.DistinctBy(t => t.Name))
+                        {
+                            var selected = Model.ExistingRequest?.TeamName == team.Name ? "selected=\"selected\"" : "";
+                            @:<option value="@team.Name" @Html.Raw(selected)>@team.Name</option>
+                        }
                     }
                 </select>
                 <div class="invalid-feedback">Please select a team.</div>
             </div>
         </div>
 
+        <!-- Manager Details -->
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <div class="form-floating">
+                    <input type="text" id="managerName" name="ManagerName" class="form-control" required
+                           value="@(Model.ExistingRequest?.ManagerName ?? "")" @(isReadonly ? "readonly" : "")/>
+                    <label>Manager Name</label>
+                    <div class="invalid-feedback">Please enter the manager's name.</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-floating">
+                    <input type="tel" id="managerMobile" name="ManagerMobile" class="form-control" required
+                           value="@(Model.ExistingRequest?.ManagerMobile ?? "")" @(isReadonly ? "readonly" : "")/>
+                    <label>Manager Mobile No.</label>
+                    <div class="invalid-feedback">Please enter the manager's mobile number.</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-floating">
+                    <input type="email" id="managerEmail" name="ManagerEmail" class="form-control" required
+                           value="@(Model.ExistingRequest?.ManagerEmail ?? "")" @(isReadonly ? "readonly" : "")/>
+                    <label>Manager Email</label>
+                    <div class="invalid-feedback">Please enter a valid email address.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Information -->
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <div class="form-floating">
+                    <textarea id="additionalInfo" name="AdditionalInfo" class="form-control" style="height: 100px;" @(isReadonly ? "readonly" : "")>@(Model.ExistingRequest?.AdditionalInfo ?? "")</textarea>
+                    <label>Additional Information About Request</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sponsor Logo Upload -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Sponsor Logo (optional)</label>
+
+                @if (isReadonly && Model.ExistingRequest?.SponsorLogo != null && Model.ExistingRequest?.SponsorLogo.Length > 0)
+                {
+                    var base64Logo = Convert.ToBase64String(Model.ExistingRequest?.SponsorLogo);
+                    var imageSrc = $"data:image/png;base64,{base64Logo}";
+                    <div class="mt-2">
+                        <img src="@imageSrc" alt="Sponsor Logo" class="img-fluid border rounded mb-2" style="max-height: 200px;"/>
+                    </div>
+                }
+                else
+                {
+                    <input type="file" id="sponsorLogo" name="SponsorLogo" class="form-control" accept="image/*" onchange="previewSponsorLogo()" @(isReadonly ? "disabled" : "")/>
+
+                    <div id="sponsorLogoPreviewContainer" class="mt-3" style="display:none;">
+                        <label class="form-label">Logo Preview:</label>
+                        <img id="sponsorLogoPreview" src="#" alt="Logo Preview" class="img-fluid border rounded mb-2" style="max-height: 200px;"/>
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="replaceSponsorLogo()">Replace Logo</button>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="removeSponsorLogo()">Remove Logo</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+
+        <!-- Kit Items -->
         <div id="itemRows">
             <div class="row g-2 mb-3 team-item">
                 <div class="col-md-2">
                     <div class="form-floating">
-                        <select name="TopSize" class="form-select" required>
+                        <select name="TopSize" class="form-select" required @(isReadonly ? "disabled" : "")>
                             <option value="" disabled selected>Select</option>
-                            <option value="XS">XS</option>
-                            <option value="S">S</option>
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
+                            <option value="XSJ">XSJ - Youth</option>
+                            <option value="SJ">SJ - Youth</option>
+                            <option value="MJ">MJ - Youth</option>
+                            <option value="LY">LY - Youth</option>
+                            <option value="XLY">XLY - Youth</option>
+                            <option value="XS">XS - Adult</option>
+                            <option value="S">S - Adult</option>
+                            <option value="M">M - Adult</option>
+                            <option value="L">L - Adult</option>
+                            <option value="XL">XL - Adult</option>
                         </select>
                         <label>Top Size</label>
                         <div class="invalid-feedback">Please select a top size.</div>
@@ -53,13 +153,18 @@
 
                 <div class="col-md-2">
                     <div class="form-floating">
-                        <select name="ShortsSize" class="form-select" required>
+                        <select name="ShortsSize" class="form-select" required @(isReadonly ? "disabled" : "")>
                             <option value="" disabled selected>Select</option>
-                            <option value="XS">XS</option>
-                            <option value="S">S</option>
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
+                            <option value="XSY">XSY - Youth</option>
+                            <option value="SY">SY - Youth</option>
+                            <option value="MY">MY - Youth</option>
+                            <option value="LY">LY - Youth</option>
+                            <option value="XLY">XLY - Youth</option>
+                            <option value="XS">XS - Adult</option>
+                            <option value="S">S - Adult</option>
+                            <option value="M">M - Adult</option>
+                            <option value="L">L - Adult</option>
+                            <option value="XL">XL - Adult</option>
                         </select>
                         <label>Shorts Size</label>
                         <div class="invalid-feedback">Please select a shorts size.</div>
@@ -68,13 +173,11 @@
 
                 <div class="col-md-2">
                     <div class="form-floating">
-                        <select name="SocksSize" class="form-select" required>
+                        <select name="SocksSize" class="form-select" required @(isReadonly ? "disabled" : "")>
                             <option value="" disabled selected>Select</option>
-                            <option value="XS">XS</option>
-                            <option value="S">S</option>
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
+                            <option value="S">UK C12 - 2</option>
+                            <option value="M">UK 3 - 6</option>
+                            <option value="L">UK 7 - 11</option>
                         </select>
                         <label>Socks Size</label>
                         <div class="invalid-feedback">Please select a socks size.</div>
@@ -83,7 +186,7 @@
 
                 <div class="col-md-2">
                     <div class="form-floating">
-                        <input type="number" name="ShirtNumber" class="form-control" min="1" inputmode="numeric" pattern="[0-9]*" required />
+                        <input type="number" name="ShirtNumber" class="form-control" min="1" inputmode="numeric" pattern="[0-9]*" required @(isReadonly ? "readonly" : "")/>
                         <label>Shirt Number</label>
                         <div class="invalid-feedback">Please enter a shirt number (minimum 1).</div>
                     </div>
@@ -91,7 +194,7 @@
 
                 <div class="col-md-2">
                     <div class="form-floating">
-                        <select name="KitType" class="form-select" required>
+                        <select name="KitType" class="form-select" required @(isReadonly ? "disabled" : "")>
                             <option value="" disabled selected>Select</option>
                             <option value="Home">Home</option>
                             <option value="Away">Away</option>
@@ -104,21 +207,45 @@
                     </div>
                 </div>
 
-                <div class="col-md-2 d-flex align-items-end">
-                    <button type="button" class="btn btn-danger w-100 h-100" onclick="removeRow(this)">Remove Kit</button>
-                </div>
+                @if (!isReadonly)
+                {
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="button" class="btn btn-danger w-100 h-100" onclick="removeRow(this)">Remove Kit</button>
+                    </div>
+                }
             </div>
         </div>
 
-        <div class="row mt-3">
-            <div class="col-md-3">
-                <button type="button" class="btn btn-secondary w-100" onclick="addRow()">Add Another Kit</button>
+        @if (!isReadonly)
+        {
+            <div class="row mt-3">
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-secondary w-100" onclick="addRow()">Add Another Kit</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary w-100" onclick="submitRequest()">Submit Team Request</button>
+                </div>
             </div>
-            <div class="col-md-3">
-                <button type="button" class="btn btn-primary w-100" onclick="submitRequest()">Submit Team Request</button>
+        }
+    </form>
+</div>
+
+<!-- Modal for Form Messages -->
+<div class="modal fade" id="formMessageModal" tabindex="-1" aria-labelledby="formMessageModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="formMessageModalLabel">Kit Request</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="formMessageModalBody">
+                <!-- Dynamic message will be injected here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
             </div>
         </div>
-    </form>
+    </div>
 </div>
 
 <script src="~/js/kitrequests.js"></script>

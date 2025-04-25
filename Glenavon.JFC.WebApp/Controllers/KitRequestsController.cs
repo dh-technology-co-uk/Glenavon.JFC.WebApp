@@ -27,7 +27,7 @@ public class KitRequestsController : Controller
 
     [HttpPost]
     [Route("KitRequests/SubmitTeam")]
-    public IActionResult SubmitTeam([FromBody] KitRequestModel request)
+    public async Task<IActionResult> SubmitTeam()
     {
         try
         {
@@ -36,10 +36,52 @@ public class KitRequestsController : Controller
                 Directory.CreateDirectory(_directoryPath);
             }
 
+            var form = await Request.ReadFormAsync();
+
+            // Extract fields
+            var teamName = form["TeamName"].FirstOrDefault();
+            var status = form["Status"].FirstOrDefault();
+            var managerName = form["ManagerName"].FirstOrDefault();
+            var managerMobile = form["ManagerMobile"].FirstOrDefault();
+            var managerEmail = form["ManagerEmail"].FirstOrDefault();
+            var additionalInfo = form["AdditionalInfo"].FirstOrDefault();
+            var playersJson = form["Players"].FirstOrDefault();
+
+            // Deserialize Players JSON
+            var players = JsonConvert.DeserializeObject<List<KitItemModel>>(playersJson ?? "[]");
+
+            // Handle Sponsor Logo file (optional)
+            byte[]? sponsorLogoBytes = null;
+            if (form.Files.Count > 0)
+            {
+                var sponsorLogoFile = form.Files.GetFile("SponsorLogo");
+                if (sponsorLogoFile != null && sponsorLogoFile.Length > 0)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        await sponsorLogoFile.CopyToAsync(ms);
+                        sponsorLogoBytes = ms.ToArray();
+                    }
+                }
+            }
+
             int nextRequestNumber = GetNextAvailableRequestNumber();
 
-            request.Id = nextRequestNumber; // 👈 Assign the ID here
+            // Build the model
+            var request = new EquipmentKitRequestModel
+            {
+                Id = nextRequestNumber,
+                TeamName = teamName ?? "",
+                Status = status ?? "To Do",
+                ManagerName = managerName ?? "",
+                ManagerMobile = managerMobile ?? "",
+                ManagerEmail = managerEmail ?? "",
+                AdditionalInfo = additionalInfo ?? "",
+                Players = players ?? new List<KitItemModel>(),
+                SponsorLogo = sponsorLogoBytes
+            };
 
+            // Save to file
             string fileName = $"kitrequest-{nextRequestNumber}.json";
             string filePath = Path.Combine(_directoryPath, fileName);
 
@@ -56,6 +98,46 @@ public class KitRequestsController : Controller
         catch (Exception ex)
         {
             return StatusCode(500, $"Error saving request: {ex.Message}");
+        }
+    }
+
+    [HttpGet]
+    [Route("KitRequests/LoadTeam/{id}")]
+    public IActionResult LoadTeam(int id)
+    {
+        try
+        {
+            if (!Directory.Exists(_directoryPath))
+            {
+                return NotFound("Kit requests directory not found.");
+            }
+
+            string filePath = Path.Combine(_directoryPath, $"kitrequest-{id}.json");
+
+            if (!System.IO.File.Exists(filePath))
+            {
+                return NotFound("Kit request not found.");
+            }
+
+            var jsonData = System.IO.File.ReadAllText(filePath);
+            var kitRequest = JsonConvert.DeserializeObject<EquipmentKitRequestModel>(jsonData);
+
+            if (kitRequest == null)
+            {
+                return NotFound("Kit request data is invalid.");
+            }
+
+            var vm = new KitsRequestsViewModel
+            {
+                Teams = LoadTeams(),
+                ExistingRequest = kitRequest // 👈 Pass it to the view
+            };
+
+            return View("Index", vm); // Reuse your existing Index view
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error loading kit request: {ex.Message}");
         }
     }
 
