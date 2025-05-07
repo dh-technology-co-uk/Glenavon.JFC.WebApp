@@ -8,10 +8,11 @@ function addRow() {
     const socksSize = lastRow.querySelector("select[name='SocksSize']");
     const shirtNumber = lastRow.querySelector("input[name='ShirtNumber']");
     const kitType = lastRow.querySelector("select[name='KitType']");
+    const quarterZip = lastRow.querySelector("select[name='QuarterZip']");
 
     let isValid = true;
 
-    [topSize, shortsSize, socksSize, shirtNumber, kitType].forEach(field => {
+    [topSize, shortsSize, socksSize, shirtNumber, kitType, quarterZip].forEach(field => {
         field.classList.remove("is-invalid");
     });
 
@@ -22,6 +23,7 @@ function addRow() {
         shirtNumber.classList.add("is-invalid"); isValid = false;
     }
     if (!kitType.value) { kitType.classList.add("is-invalid"); isValid = false; }
+    if (!quarterZip.value) { quarterZip.classList.add("is-invalid"); isValid = false; }
 
     if (!isValid) {
         showFormMessage("Please complete all fields and ensure shirt number is 1 or higher before adding another row.");
@@ -106,6 +108,7 @@ function submitRequest() {
         const socksSize = row.querySelector("select[name='SocksSize']");
         const shirtNumber = row.querySelector("input[name='ShirtNumber']");
         const kitType = row.querySelector("select[name='KitType']");
+        const quarterZip = row.querySelector("select[name='QuarterZip']");
 
         [topSize, shortsSize, socksSize, shirtNumber, kitType].forEach(f => f.classList.remove("is-invalid"));
 
@@ -116,6 +119,7 @@ function submitRequest() {
             shirtNumber.classList.add("is-invalid"); isValidPlayers = false;
         }
         if (!kitType.value) { kitType.classList.add("is-invalid"); isValidPlayers = false; }
+        if (!quarterZip.value) { quarterZip.classList.add("is-invalid"); isValid = false; }
 
         if (isValidPlayers) {
             playersData.push({
@@ -123,7 +127,8 @@ function submitRequest() {
                 shortsSize: shortsSize.value,
                 socksSize: socksSize.value,
                 shirtNumber: Number(shirtNumber.value),
-                kitType: kitType.value
+                kitType: kitType.value,
+                quarterZip: quarterZip.value
             });
         }
     });

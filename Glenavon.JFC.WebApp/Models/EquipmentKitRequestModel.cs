@@ -21,4 +21,5 @@ public class KitItemModel
     public string SocksSize { get; set; }
     public int ShirtNumber { get; set; }
     public string KitType { get; set; }
+    public string QuarterZip { get; set; }
 }

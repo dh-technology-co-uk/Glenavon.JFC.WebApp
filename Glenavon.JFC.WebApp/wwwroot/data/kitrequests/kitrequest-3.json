@@ -9,7 +9,32 @@
       "ShortsSize": "XSY",
       "SocksSize": "S",
       "ShirtNumber": 6,
-      "KitType": "Home"
+      "KitType": "Home",
+      "QuarterZip": "Yes"
+    },
+    {
+      "TopSize": "XSJ",
+      "ShortsSize": "XSY",
+      "SocksSize": "S",
+      "ShirtNumber": 7,
+      "KitType": "Home",
+      "QuarterZip": "Yes"
+    },
+    {
+      "TopSize": "XSJ",
+      "ShortsSize": "XSY",
+      "SocksSize": "S",
+      "ShirtNumber": 8,
+      "KitType": "Home",
+      "QuarterZip": "Yes"
+    },
+    {
+      "TopSize": "XSJ",
+      "ShortsSize": "XSY",
+      "SocksSize": "S",
+      "ShirtNumber": 9,
+      "KitType": "Home",
+      "QuarterZip": "Yes"
     }
   ],
   "ManagerName": "Dan Hulmston",
