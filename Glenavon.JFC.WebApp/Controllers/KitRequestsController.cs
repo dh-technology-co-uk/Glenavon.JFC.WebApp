@@ -31,8 +31,7 @@ public class KitRequestsController : Controller
         return JsonConvert.DeserializeObject<List<TeamModel>>(jsonData) ?? new List<TeamModel>();
     }
 
-    [HttpPost]
-    [Route("KitRequests/SubmitTeam")]
+    [HttpPost("KitRequests/SubmitTeam")]
     public async Task<IActionResult> SubmitTeam()
     {
         try
@@ -79,6 +78,7 @@ public class KitRequestsController : Controller
                 ManagerEmail = managerEmail ?? "",
                 AdditionalInfo = additionalInfo ?? "",
                 Players = players ?? new List<KitItemModel>(),
+                DateSubmitted = DateTime.UtcNow,
                 SponsorLogo = sponsorLogoBytes
             };
 
@@ -102,8 +102,7 @@ public class KitRequestsController : Controller
         }
     }
 
-    [HttpGet]
-    [Route("KitRequests/LoadTeam/{id}")]
+    [HttpGet("KitRequests/LoadTeam/{id}")]
     public IActionResult LoadTeam(int id)
     {
         try
@@ -135,8 +134,7 @@ public class KitRequestsController : Controller
         }
     }
 
-    [HttpGet]
-    [Route("KitRequests/DownloadExcel/{id}")]
+    [HttpGet("KitRequests/DownloadExcel/{id}")]
     public IActionResult DownloadKitRequestExcel(int id)
     {
         try
@@ -290,6 +288,13 @@ public class KitRequestsController : Controller
             return StatusCode(500, $"Error generating Excel file: {ex.Message}");
         }
     }
+
+    [HttpGet("KitRequests/Success/{id}")]
+    public IActionResult Success(int id)
+    {
+        return View(model: id);
+    }
+
 
 
     private int GetNextAvailableRequestNumber()

@@ -6,10 +6,15 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
+	<ItemGroup>
+		<Content Update="wwwroot\data\kitrequests\**">
+			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
     <Folder Include="Pages\Shared\" />
     <Folder Include="Views\Shared\Components\" />
-    <Folder Include="wwwroot\data\kitrequests\" />
     <Folder Include="wwwroot\images\partners\" />
   </ItemGroup>
 

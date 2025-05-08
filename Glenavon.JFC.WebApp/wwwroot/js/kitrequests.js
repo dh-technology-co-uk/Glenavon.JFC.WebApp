@@ -162,8 +162,14 @@ function submitRequest() {
         body: formData
     }).then(response => {
         if (response.ok) {
-            showFormMessage("Team submitted successfully!");
-            window.location.reload(); // optional: reload page after success
+            response.json().then(data => {
+                debugger;
+                if (data.success && data.requestNumber) {
+                    window.location.href = `/KitRequests/Success/${data.requestNumber}`;
+                } else {
+                    showFormMessage("Unexpected server response.");
+                }
+            });
         } else {
             response.text().then(text => {
                 showFormMessage("Error submitting team: " + text);

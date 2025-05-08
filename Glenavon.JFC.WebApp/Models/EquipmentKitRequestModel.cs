@@ -12,6 +12,7 @@ public class EquipmentKitRequestModel
     public string ManagerEmail { get; set; }
     public string AdditionalInfo { get; set; }
     public byte[] SponsorLogo { get; set; } // You can store the uploaded logo as byte[]
+    public DateTime DateSubmitted { get; set; }
 }
 
 public class KitItemModel

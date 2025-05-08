@@ -1,0 +1,28 @@
+﻿@model int
+
+@{
+    ViewData["Title"] = "Kit Request Submitted";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-success">
+                <h4 class="alert-heading">Success</h4>
+            </div>
+            <p class="text-left">
+            Your Kit Request #@Model was submitted successfully.
+            <p/>
+            <p class="text-left">
+            This will now be reviewed by a member of the committee before passing to the supplier.
+            <p/>
+
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <a href="@Url.Action("Index", "KitRequests")" class="btn btn-secondary btn-sm">
+            ← Submit Another Kit Request
+        </a>
+    </div>
+</div>
