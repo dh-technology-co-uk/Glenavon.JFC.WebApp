@@ -4,6 +4,10 @@ body {
     color: #141B37; /* dark text */
 }
 
+body, html {
+    overflow-x: hidden;
+}
+
 /* Navbar styling */
 .navbar {
     background-color: #141B37; /* dark navy background */
@@ -20,6 +24,19 @@ body {
     border-radius: 5px;
 }
 
+@media (orientation: landscape) and (max-height: 500px) {
+    .navbar-nav {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        max-width: 100%;
+    }
+
+        .navbar-nav .nav-item {
+            white-space: nowrap;
+        }
+}
+
+
 /* Customizing the hamburger icon */
 .navbar-toggler {
     border-color: white; /* Makes the border of the toggler white */
@@ -30,6 +47,8 @@ body {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
     /* This changes the default black lines to white lines for better contrast */
 }
+
+
 
 
 /* Main container and footer styling */
