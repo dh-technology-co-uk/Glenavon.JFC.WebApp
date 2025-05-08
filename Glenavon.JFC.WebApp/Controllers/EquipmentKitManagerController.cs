@@ -3,39 +3,57 @@
 [Authorize(Roles = "Admin")]
 public class EquipmentKitManagerController : Controller
 {
-    private readonly string _directoryPath = "wwwroot/data/kitrequests";
+    private readonly string _directoryPathEquipment = "wwwroot/data/equipmentrequests";
+    private readonly string _directoryPathKits = "wwwroot/data/kitrequests";
 
     private List<EquipmentKitRequestModel> ReadItemsFromDirectory()
     {
         var items = new List<EquipmentKitRequestModel>();
 
-        if (!Directory.Exists(_directoryPath))
-            return items;
-
-        var files = Directory.GetFiles(_directoryPath, "kitrequest-*.json");
-
-        foreach (var file in files)
-            try
-            {
-                var jsonData = System.IO.File.ReadAllText(file);
-                var item = JsonConvert.DeserializeObject<EquipmentKitRequestModel>(jsonData);
-                if (item != null)
+        // Read kit requests
+        if (Directory.Exists(_directoryPathKits))
+        {
+            var kitFiles = Directory.GetFiles(_directoryPathKits, "kitrequest-*.json");
+            foreach (var file in kitFiles)
+                try
                 {
-                    item.Type = "Kit";
-                    items.Add(item);
+                    var jsonData = System.IO.File.ReadAllText(file);
+                    var item = JsonConvert.DeserializeObject<EquipmentKitRequestModel>(jsonData);
+                    if (item != null)
+                    {
+                        item.Type = "Kit";
+                        items.Add(item);
+                    }
                 }
-            }
-            catch
-            {
-                // Optionally log or handle invalid JSON files
-            }
+                catch
+                {
+                    // Optionally log or handle invalid JSON files
+                }
+        }
 
-
-        // ADD EQUIPMENT REQUESTS HERE
-
+        // Read equipment requests
+        if (Directory.Exists(_directoryPathEquipment))
+        {
+            var equipmentFiles = Directory.GetFiles(_directoryPathEquipment, "equipmentrequest-*.json");
+            foreach (var file in equipmentFiles)
+                try
+                {
+                    var jsonData = System.IO.File.ReadAllText(file);
+                    var item = JsonConvert.DeserializeObject<EquipmentKitRequestModel>(jsonData);
+                    if (item != null)
+                    {
+                        items.Add(item);
+                    }
+                }
+                catch
+                {
+                    // Optionally log or handle invalid JSON files
+                }
+        }
 
         return items;
     }
+
 
     public IActionResult Index()
     {
@@ -57,20 +75,28 @@ public class EquipmentKitManagerController : Controller
 
     private void SaveItemToFile(EquipmentKitRequestModel item)
     {
-        if (!Directory.Exists(_directoryPath))
-            Directory.CreateDirectory(_directoryPath);
+        var (directory, prefix) = item.Type == "Equipment"
+            ? (_directoryPathEquipment, "equipmentrequest")
+            : (_directoryPathKits, "kitrequest");
 
-        var fileName = $"kitrequest-{item.Id}.json";
-        var fullPath = Path.Combine(_directoryPath, fileName);
+        if (!Directory.Exists(directory))
+            Directory.CreateDirectory(directory);
+
+        var fileName = $"{prefix}-{item.Id}.json";
+        var fullPath = Path.Combine(directory, fileName);
         var jsonData = JsonConvert.SerializeObject(item, Formatting.Indented);
         System.IO.File.WriteAllText(fullPath, jsonData);
     }
 
 
     [HttpPost]
-    public IActionResult UpdateItem(int id, string status)
+    public IActionResult UpdateItem(int id, string status, string type)
     {
-        var filePath = Path.Combine(_directoryPath, $"kitrequest-{id}.json");
+        var (directory, prefix) = type == "Equipment"
+            ? (_directoryPathEquipment, "equipmentrequest")
+            : (_directoryPathKits, "kitrequest");
+
+        var filePath = Path.Combine(directory, $"{prefix}-{id}.json");
         if (System.IO.File.Exists(filePath))
         {
             var jsonData = System.IO.File.ReadAllText(filePath);
@@ -78,6 +104,7 @@ public class EquipmentKitManagerController : Controller
             if (item != null)
             {
                 item.Status = status;
+                item.Type = type;
                 SaveItemToFile(item);
             }
         }
@@ -85,11 +112,17 @@ public class EquipmentKitManagerController : Controller
         return RedirectToAction("Index");
     }
 
+
     [HttpPost]
-    public IActionResult DeleteItem(int id)
+    public IActionResult DeleteItem(int id, string type)
     {
-        var filePath = Path.Combine(_directoryPath, $"kitrequest-{id}.json");
-        if (System.IO.File.Exists(filePath)) System.IO.File.Delete(filePath);
+        var (directory, prefix) = type == "Equipment"
+            ? (_directoryPathEquipment, "equipmentrequest")
+            : (_directoryPathKits, "kitrequest");
+
+        var filePath = Path.Combine(directory, $"{prefix}-{id}.json");
+        if (System.IO.File.Exists(filePath))
+            System.IO.File.Delete(filePath);
 
         return RedirectToAction("Index");
     }

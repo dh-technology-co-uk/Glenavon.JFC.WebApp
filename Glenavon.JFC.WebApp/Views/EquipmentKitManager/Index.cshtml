@@ -19,19 +19,28 @@
                     <div class="card-body kit-column" data-status="@statusGroup.Key">
                         @foreach (var item in statusGroup.Value)
                         {
-                            var kitsByType = item.Players
-                                .GroupBy(p => p.KitType)
-                                .ToDictionary(g => g.Key, g => g.ToList());
+                            var isKit = item.Type == "Kit";
+                            var cardClass = isKit ? "kit-item card mb-2 p-2 shadow-sm" : "kit-item non-kit card mb-2 p-2 shadow-sm";
 
-                            <div class="kit-item card mb-2 p-2 shadow-sm" draggable="true" data-id="@item.Id">
-                                <h6 class="fw-bold">Kit Request #@item.Id</h6>
-                                <div><strong>Team Name:</strong> @item.TeamName</div>
-                                <div><strong>Requested By:</strong> @item.ManagerName</div>
+                            <div class="@cardClass" draggable="true" data-id="@item.Id">
+                                <h6 class="fw-bold">@item.Type Request #@item.Id</h6>
+                                <div>
+                                    <strong>Team Name:</strong> @item.TeamName
+                                </div>
+                                <div>
+                                    <strong>Requested By:</strong> @item.ManagerName
+                                </div>
 
                                 <div class="mt-2 d-flex gap-2 align-items-center">
-                                    @if (item.Type == "Kit")
+                                    @if (isKit)
                                     {
-                                        <a href="@Url.Action("LoadTeam", "KitRequests", new { id = item.Id })" class="btn btn-secondary btn-sm">
+                                        <a href="@Url.Action("LoadRequest", "KitRequests", new { id = item.Id })" class="btn btn-secondary btn-sm">
+                                            Kit Request
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("LoadRequest", "EquipmentRequests", new { id = item.Id })" class="btn btn-warning btn-sm">
                                             View Request
                                         </a>
                                     }

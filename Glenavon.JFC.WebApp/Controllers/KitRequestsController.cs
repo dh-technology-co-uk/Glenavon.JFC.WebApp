@@ -102,8 +102,8 @@ public class KitRequestsController : Controller
         }
     }
 
-    [HttpGet("KitRequests/LoadTeam/{id}")]
-    public IActionResult LoadTeam(int id)
+    [HttpGet("KitRequests/LoadRequest/{id}")]
+    public IActionResult LoadRequest(int id)
     {
         try
         {

@@ -32,7 +32,7 @@
                 Please use the below form to submit your kit request for the committee to review.
             </p>
             <p class="text-left">
-                Please ensure you know all of the information required for a complete order before completing this form to ensure there are no delays between the club and the supplier.
+                Please ensure you know all the information required for a complete order before completing this form to ensure there are no delays.
             </p>
             <p class="text-left">
                 The team name will be based on your season 2025-2026 age level.
@@ -51,7 +51,7 @@
         <div class="col-md-6">
             <label class="form-label">Select Team</label>
             <select id="teamSelect" class="form-select" required @(isReadonly ? "disabled" : "")>
-                <option value="">Select Team</option>
+                <option value="" disabled selected>Select Team</option>
                 @{
                     foreach (var team in Model.Teams.DistinctBy(t => t.Name))
                     {
