@@ -40,10 +40,7 @@ public class EquipmentKitManagerController : Controller
                 {
                     var jsonData = System.IO.File.ReadAllText(file);
                     var item = JsonConvert.DeserializeObject<EquipmentKitRequestModel>(jsonData);
-                    if (item != null)
-                    {
-                        items.Add(item);
-                    }
+                    if (item != null) items.Add(item);
                 }
                 catch
                 {
@@ -75,9 +72,9 @@ public class EquipmentKitManagerController : Controller
 
     private void SaveItemToFile(EquipmentKitRequestModel item)
     {
-        var (directory, prefix) = item.Type == "Equipment"
-            ? (_directoryPathEquipment, "equipmentrequest")
-            : (_directoryPathKits, "kitrequest");
+        var (directory, prefix) = item.Type.ToLower() == "kit"
+            ? (_directoryPathKits, "kitrequest")
+            : (_directoryPathEquipment, "equipmentrequest");
 
         if (!Directory.Exists(directory))
             Directory.CreateDirectory(directory);
@@ -92,9 +89,9 @@ public class EquipmentKitManagerController : Controller
     [HttpPost]
     public IActionResult UpdateItem(int id, string status, string type)
     {
-        var (directory, prefix) = type == "Equipment"
-            ? (_directoryPathEquipment, "equipmentrequest")
-            : (_directoryPathKits, "kitrequest");
+        var (directory, prefix) = type.ToLower() == "kit"
+            ? (_directoryPathKits, "kitrequest")
+            : (_directoryPathEquipment, "equipmentrequest");
 
         var filePath = Path.Combine(directory, $"{prefix}-{id}.json");
         if (System.IO.File.Exists(filePath))
@@ -116,9 +113,9 @@ public class EquipmentKitManagerController : Controller
     [HttpPost]
     public IActionResult DeleteItem(int id, string type)
     {
-        var (directory, prefix) = type == "Equipment"
-            ? (_directoryPathEquipment, "equipmentrequest")
-            : (_directoryPathKits, "kitrequest");
+        var (directory, prefix) = type.ToLower() == "kit"
+            ? (_directoryPathKits, "kitrequest")
+            : (_directoryPathEquipment, "equipmentrequest");
 
         var filePath = Path.Combine(directory, $"{prefix}-{id}.json");
         if (System.IO.File.Exists(filePath))

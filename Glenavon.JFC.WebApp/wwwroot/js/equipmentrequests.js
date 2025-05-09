@@ -72,7 +72,6 @@
     }).then(response => {
         if (response.ok) {
             response.json().then(data => {
-                debugger;
                 if (data.success && data.requestNumber) {
                     window.location.href = `/EquipmentRequests/Success/${data.requestNumber}`;
                 } else {

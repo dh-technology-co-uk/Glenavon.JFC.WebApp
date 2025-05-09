@@ -1,10 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Spreadsheet;
-using A = DocumentFormat.OpenXml.Drawing;
-using Xdr = DocumentFormat.OpenXml.Drawing.Spreadsheet;
-
+﻿using SixLabors.ImageSharp.Formats.Png;
 
 namespace Glenavon.JFC.WebApp.Controllers;
 
@@ -206,80 +200,8 @@ public class KitRequestsController : Controller
                 workbook.SaveAs(closedXmlStream);
             }
 
-            // Step 2: Add logo with OpenXML
             closedXmlStream.Position = 0;
-            var finalStream = new MemoryStream();
-            closedXmlStream.CopyTo(finalStream);
-            finalStream.Position = 0;
-
-            if (kitRequest.SponsorLogo.Length > 0)
-            {
-                using var document = SpreadsheetDocument.Open(finalStream, true);
-                var workbookPart = document.WorkbookPart!;
-                var logoSheetPart = workbookPart.AddNewPart<WorksheetPart>();
-                logoSheetPart.Worksheet = new Worksheet(new SheetData());
-
-                var sheetId = (uint)(workbookPart.Workbook.Sheets.Count() + 1);
-                var sheet = new Sheet
-                {
-                    Id = workbookPart.GetIdOfPart(logoSheetPart),
-                    SheetId = sheetId,
-                    Name = "Sponsor Logo"
-                };
-                workbookPart.Workbook.Sheets.Append(sheet);
-
-                // Add drawing part and reference to worksheet
-                var drawingsPart = logoSheetPart.AddNewPart<DrawingsPart>();
-                logoSheetPart.Worksheet.Append(new Drawing { Id = logoSheetPart.GetIdOfPart(drawingsPart) });
-                logoSheetPart.Worksheet.Save();
-
-                // Add image to drawing part
-                var imagePart = drawingsPart.AddImagePart(ImagePartType.Png);
-                var safeLogoCopy = new MemoryStream(kitRequest.SponsorLogo.ToArray());
-                imagePart.FeedData(safeLogoCopy);
-
-                // Build drawing markup
-                var worksheetDrawing = new Xdr.WorksheetDrawing();
-                var picture = new Xdr.Picture(
-                    new Xdr.NonVisualPictureProperties(
-                        new Xdr.NonVisualDrawingProperties { Id = 1U, Name = "SponsorLogo.png" },
-                        new Xdr.NonVisualPictureDrawingProperties()
-                    ),
-                    new Xdr.BlipFill(
-                        new A.Blip
-                        {
-                            Embed = drawingsPart.GetIdOfPart(imagePart),
-                            CompressionState = A.BlipCompressionValues.Print
-                        },
-                        new A.Stretch(new A.FillRectangle())
-                    ),
-                    new Xdr.ShapeProperties(
-                        new A.Transform2D(
-                            new A.Offset { X = 0L, Y = 0L },
-                            new A.Extents { Cx = 5000000L, Cy = 3000000L } // Size in EMUs
-                        ),
-                        new A.PresetGeometry(new A.AdjustValueList()) { Preset = A.ShapeTypeValues.Rectangle }
-                    )
-                );
-
-                var anchor = new Xdr.TwoCellAnchor(
-                    new Xdr.FromMarker(
-                        new Xdr.ColumnId("1"), new Xdr.ColumnOffset("0"),
-                        new Xdr.RowId("1"), new Xdr.RowOffset("0")),
-                    new Xdr.ToMarker(
-                        new Xdr.ColumnId("10"), new Xdr.ColumnOffset("0"),
-                        new Xdr.RowId("20"), new Xdr.RowOffset("0")),
-                    picture,
-                    new Xdr.ClientData()
-                );
-
-                worksheetDrawing.Append(anchor);
-                drawingsPart.WorksheetDrawing = worksheetDrawing;
-                drawingsPart.WorksheetDrawing.Save();
-            }
-
-            finalStream.Position = 0;
-            return File(finalStream,
+            return File(closedXmlStream,
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 $"kitrequest-{id}.xlsx");
         }
@@ -289,12 +211,60 @@ public class KitRequestsController : Controller
         }
     }
 
+    [HttpGet("KitRequests/DownloadPdf/{id}")]
+    public IActionResult DownloadSponsorLogoPdf(int id)
+    {
+        try
+        {
+            if (!Directory.Exists(_directoryPath))
+                return NotFound("Kit requests directory not found.");
+
+            var filePath = Path.Combine(_directoryPath, $"kitrequest-{id}.json");
+
+            if (!System.IO.File.Exists(filePath))
+                return NotFound("Kit request not found.");
+
+            var jsonData = System.IO.File.ReadAllText(filePath);
+            var kitRequest = JsonConvert.DeserializeObject<EquipmentKitRequestModel>(jsonData);
+
+            if (kitRequest?.SponsorLogo == null || kitRequest.SponsorLogo.Length == 0)
+                return NotFound("No sponsor logo available.");
+
+            // Convert ImageSharp image to PNG stream for PdfSharpCore
+            using var msImage = new MemoryStream();
+            using var image = Image.Load(kitRequest.SponsorLogo);
+            image.Save(msImage, new PngEncoder());
+            msImage.Seek(0, SeekOrigin.Begin);
+
+            // Create PDF
+            using var pdfStream = new MemoryStream();
+            var document = new PdfDocument();
+            var page = document.AddPage();
+            using var gfx = XGraphics.FromPdfPage(page);
+
+            using var xImage = XImage.FromStream(() => msImage);
+
+            // Scale image to fit page width
+            var width = page.Width;
+            var aspectRatio = xImage.PixelHeight / (double)xImage.PixelWidth;
+            var height = width * aspectRatio;
+
+            gfx.DrawImage(xImage, 0, 0, width, height);
+
+            document.Save(pdfStream, false);
+            return File(pdfStream.ToArray(), "application/pdf", $"kitrequest-{id}-sponsor-logo.pdf");
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error generating PDF file: {ex.Message}");
+        }
+    }
+
     [HttpGet("KitRequests/Success/{id}")]
     public IActionResult Success(int id)
     {
-        return View(model: id);
+        return View(id);
     }
-
 
 
     private int GetNextAvailableRequestNumber()

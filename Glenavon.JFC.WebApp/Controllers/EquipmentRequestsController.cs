@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace Glenavon.JFC.WebApp.Controllers;
+﻿namespace Glenavon.JFC.WebApp.Controllers;
 
 [Authorize(Roles = "Manager,Admin")]
 public class EquipmentRequestsController : Controller

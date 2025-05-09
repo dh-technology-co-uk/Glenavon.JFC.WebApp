@@ -90,8 +90,7 @@
 
         <!-- Request Type -->
 
-        
-        
+
         @if (!isReadonly)
         {
             <div class="row mb-3">
@@ -116,7 +115,7 @@
             <div class="row mb-3">
                 <div class="col-md-12">
                     <div class="form-floating">
-                        <input  id="Type" name="Type" class="form-control" required
+                        <input id="Type" name="Type" class="form-control" required
                                value="@(Model.ExistingRequest?.Type ?? "")" @(isReadonly ? "readonly" : "")/>
                         <label for="Type">Request Type</label>
                     </div>

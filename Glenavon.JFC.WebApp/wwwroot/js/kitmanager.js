@@ -5,6 +5,7 @@
     items.forEach(item => {
         item.addEventListener("dragstart", function (event) {
             event.dataTransfer.setData("text", event.target.getAttribute("data-id"));
+            event.dataTransfer.setData("type", event.target.getAttribute("data-type"));
         });
     });
 
@@ -16,9 +17,10 @@
         column.addEventListener("drop", function (event) {
             event.preventDefault();
             let itemId = event.dataTransfer.getData("text");
+            let itemType = event.dataTransfer.getData("type");
             let newStatus = column.getAttribute("data-status");
 
-            fetch(`/EquipmentKitManager/UpdateItem?id=${itemId}&status=${newStatus}`, {
+            fetch(`/EquipmentKitManager/UpdateItem?id=${itemId}&status=${newStatus}&type=${itemType}`, {
                 method: "POST"
             }).then(() => location.reload());
         });

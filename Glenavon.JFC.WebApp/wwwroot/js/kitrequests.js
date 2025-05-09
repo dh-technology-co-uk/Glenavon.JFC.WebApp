@@ -163,7 +163,6 @@ function submitRequest() {
     }).then(response => {
         if (response.ok) {
             response.json().then(data => {
-                debugger;
                 if (data.success && data.requestNumber) {
                     window.location.href = `/KitRequests/Success/${data.requestNumber}`;
                 } else {

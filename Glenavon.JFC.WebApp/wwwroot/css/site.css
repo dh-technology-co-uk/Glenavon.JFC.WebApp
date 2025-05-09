@@ -190,7 +190,6 @@ body, html {
 }
 
 /* Kit Manager */
-/* Kit Manager */
 .kit-container {
     display: flex;
     gap: 15px;
@@ -233,7 +232,10 @@ body, html {
 }
 
 /* New: Non-kit styling */
+.kit-item.kit {
+    border-left: 5px solid #141B37;
+}
+
 .kit-item.non-kit {
-    background-color: #fff3cd; /* soft yellow */
-    border-left: 5px solid #ffc107; /* yellow border */
+    border-left: 5px solid #ffc107;
 }
