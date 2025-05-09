@@ -23,7 +23,17 @@
                             var cardClass = isKit ? "kit-item kit card mb-2 p-2 shadow-sm" : "kit-item non-kit card mb-2 p-2 shadow-sm";
 
                             <div class="@cardClass" draggable="true" data-id="@item.Id" data-type="@item.Type">
-                                <h6 class="fw-bold">@item.Type Request #@item.Id</h6>
+
+                                @if (item.Type == "Kit")
+                                {
+                                    <h6 class="fw-bold">Kit Request #@item.Id</h6>
+                                }
+                                else
+                                {
+                                    <h6 class="fw-bold">Equipment Request #@item.Id</h6>
+                                    <h6 class="fw-bold">@item.Type</h6>
+                                }
+                                
                                 <div>
                                     <strong>Team Name:</strong> @item.TeamName
                                 </div>

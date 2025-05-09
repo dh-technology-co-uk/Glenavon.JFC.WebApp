@@ -1,3 +1,8 @@
+using Azure.Core;
+using Azure.Identity;
+using Glenavon.JFC.WebApp.Services;
+using Glenavon.JFC.WebApp.Settings;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -17,6 +22,19 @@ builder.Services.AddRecaptcha(options =>
     options.SiteKey = builder.Configuration["RecaptchaSettings:SiteKey"];
     options.SecretKey = builder.Configuration["RecaptchaSettings:SecretKey"];
 });
+
+builder.Services.Configure<GraphSettings>(builder.Configuration.GetSection("GraphSettings"));
+
+builder.Services.AddSingleton<TokenCredential>(sp =>
+    new ClientSecretCredential(
+        builder.Configuration["GraphSettings:TenantId"],
+        builder.Configuration["GraphSettings:ClientId"],
+        builder.Configuration["GraphSettings:ClientSecret"]
+    )
+);
+
+builder.Services.AddScoped<EmailService>();
+
 
 var app = builder.Build();
 

@@ -1,10 +1,19 @@
-﻿namespace Glenavon.JFC.WebApp.Controllers;
+﻿using Glenavon.JFC.WebApp.Services;
+
+namespace Glenavon.JFC.WebApp.Controllers;
 
 [Authorize(Roles = "Manager,Admin")]
 public class EquipmentRequestsController : Controller
 {
     private readonly string _directoryPath = "wwwroot/data/equipmentrequests";
+
+    private readonly EmailService _emailService;
     private readonly string _filePath = "wwwroot/data/teams.json";
+
+    public EquipmentRequestsController(EmailService emailService)
+    {
+        _emailService = emailService;
+    }
 
     public IActionResult Index()
     {
@@ -63,6 +72,22 @@ public class EquipmentRequestsController : Controller
 
             var json = JsonConvert.SerializeObject(request, Formatting.Indented);
             System.IO.File.WriteAllText(filePath, json);
+
+            var htmlBody = $@"
+    <b>Request ID:</b> {request.Id}<br/>
+    <b>Team Name:</b> {request.TeamName}<br/>
+    <b>Status:</b> {request.Status}<br/>
+    <b>Manager Name:</b> {request.ManagerName}<br/>
+    <b>Manager Mobile:</b> {request.ManagerMobile}<br/>
+    <b>Manager Email:</b> {request.ManagerEmail}<br/>
+    <b>Additional Info:</b> {request.AdditionalInfo}<br/>
+    <b>Type:</b> {request.Type}<br/>
+    <b>Date Submitted:</b> {request.DateSubmitted:dd/MM/yyyy HH:mm}<br/><br/>
+    To manage this request, go to <a href='https://www.glenavonjfc.co.uk/EquipmentKitManager'>https://www.glenavonjfc.co.uk/EquipmentKitManager</a>";
+
+
+            await _emailService.SendEmailAsync("equipmentkitrequests@glenavonjfc.co.uk",
+                $"Equipment Request {nextRequestNumber} - {type}", htmlBody);
 
             return Ok(new
             {

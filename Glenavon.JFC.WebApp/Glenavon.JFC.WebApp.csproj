@@ -6,6 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Include="Settings\SmtpSettings.cs" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<Content Update="wwwroot\data\kitrequests\**">
 			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
@@ -24,9 +28,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.13.2" />
     <PackageReference Include="ClosedXML" Version="0.104.2" />
     <PackageReference Include="DocumentFormat.OpenXml" Version="3.3.0" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.70" />
+    <PackageReference Include="Microsoft.Graph" Version="5.77.0" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.71.1" />
     <PackageReference Include="Microsoft.jQuery.Unobtrusive.Validation" Version="4.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="PdfSharpCore" Version="1.3.67" />
