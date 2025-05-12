@@ -1,4 +1,5 @@
-﻿using SixLabors.ImageSharp.Formats.Png;
+﻿using Glenavon.JFC.WebApp.Services;
+using SixLabors.ImageSharp.Formats.Png;
 
 namespace Glenavon.JFC.WebApp.Controllers;
 
@@ -6,7 +7,13 @@ namespace Glenavon.JFC.WebApp.Controllers;
 public class KitRequestsController : Controller
 {
     private readonly string _directoryPath = "wwwroot/data/kitrequests";
+    private readonly EmailService _emailService;
     private readonly string _filePath = "wwwroot/data/teams.json";
+
+    public KitRequestsController(EmailService emailService)
+    {
+        _emailService = emailService;
+    }
 
     public IActionResult Index()
     {
@@ -82,6 +89,19 @@ public class KitRequestsController : Controller
 
             var json = JsonConvert.SerializeObject(request, Formatting.Indented);
             System.IO.File.WriteAllText(filePath, json);
+
+            var htmlBody = $@"
+<b>Request ID:</b> {request.Id}<br/>
+<b>Team Name:</b> {request.TeamName}<br/>
+<b>Manager Name:</b> {request.ManagerName}<br/>
+<b>Manager Mobile:</b> {request.ManagerMobile}<br/>
+<b>Manager Email:</b> {request.ManagerEmail}<br/>
+<b>Additional Info:</b> {request.AdditionalInfo}<br/>
+<b>Date Submitted:</b> {request.DateSubmitted:dd/MM/yyyy HH:mm}<br/><br/>
+To manage this request, go to <a href='https://www.glenavonjfc.co.uk/EquipmentKitManager'>https://www.glenavonjfc.co.uk/EquipmentKitManager</a>";
+
+            await _emailService.SendEmailAsync("equipmentkitrequests@glenavonjfc.co.uk",
+                $"Kit Request {nextRequestNumber}", htmlBody);
 
             return Ok(new
             {

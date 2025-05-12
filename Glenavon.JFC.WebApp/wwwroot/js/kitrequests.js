@@ -77,10 +77,19 @@ function submitRequest() {
         managerName.classList.add("is-invalid");
         isValidManager = false;
     }
+
     if (!managerMobile.value.trim()) {
         managerMobile.classList.add("is-invalid");
         isValidManager = false;
+    } else {
+        // Basic mobile number validation: exactly 11 digits
+        const mobilePattern = /^[0-9]{11}$/;
+        if (!mobilePattern.test(managerMobile.value.trim())) {
+            managerMobile.classList.add("is-invalid");
+            isValidManager = false;
+        }
     }
+
     if (!managerEmail.value.trim()) {
         managerEmail.classList.add("is-invalid");
         isValidManager = false;
