@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-
-namespace Glenavon.JFC.WebApp.Controllers;
+﻿namespace Glenavon.JFC.WebApp.Controllers;
 
 [Authorize(Roles = "Admin,SuperAdmin")]
 public class EquipmentKitManagerController : Controller
@@ -15,9 +12,7 @@ public class EquipmentKitManagerController : Controller
 
         // Read kit requests
         if (Directory.Exists(_directoryPathKits))
-        {
             foreach (var file in Directory.GetFiles(_directoryPathKits, "kitrequest-*.json"))
-            {
                 try
                 {
                     var jsonData = System.IO.File.ReadAllText(file);
@@ -28,15 +23,14 @@ public class EquipmentKitManagerController : Controller
                         items.Add(item);
                     }
                 }
-                catch { /* Log or ignore invalid files */ }
-            }
-        }
+                catch
+                {
+                    /* Log or ignore invalid files */
+                }
 
         // Read equipment requests
         if (Directory.Exists(_directoryPathEquipment))
-        {
             foreach (var file in Directory.GetFiles(_directoryPathEquipment, "equipmentrequest-*.json"))
-            {
                 try
                 {
                     var jsonData = System.IO.File.ReadAllText(file);
@@ -44,9 +38,10 @@ public class EquipmentKitManagerController : Controller
                     if (item != null)
                         items.Add(item);
                 }
-                catch { /* Log or ignore invalid files */ }
-            }
-        }
+                catch
+                {
+                    /* Log or ignore invalid files */
+                }
 
         return items;
     }
@@ -82,14 +77,6 @@ public class EquipmentKitManagerController : Controller
         var fullPath = Path.Combine(directory, fileName);
         var jsonData = JsonConvert.SerializeObject(item, Formatting.Indented);
         System.IO.File.WriteAllText(fullPath, jsonData);
-    }
-
-    // ✅ Accept JSON from SortableJS
-    public class ItemStatusUpdateModel
-    {
-        public int Id { get; set; }
-        public string Status { get; set; }
-        public string Type { get; set; }
     }
 
     [HttpPost]
@@ -133,5 +120,13 @@ public class EquipmentKitManagerController : Controller
             System.IO.File.Delete(filePath);
 
         return RedirectToAction("Index");
+    }
+
+    // ✅ Accept JSON from SortableJS
+    public class ItemStatusUpdateModel
+    {
+        public int Id { get; set; }
+        public string Status { get; set; }
+        public string Type { get; set; }
     }
 }

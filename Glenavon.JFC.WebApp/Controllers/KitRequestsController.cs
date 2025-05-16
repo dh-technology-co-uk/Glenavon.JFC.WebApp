@@ -1,5 +1,4 @@
 ﻿using Glenavon.JFC.WebApp.Services;
-using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Formats.Png;
 
 namespace Glenavon.JFC.WebApp.Controllers;
@@ -256,7 +255,7 @@ To manage this request, go to <a href='https://www.glenavonjfc.co.uk/EquipmentKi
             try
             {
                 using var imageStream = new MemoryStream(kitRequest.SponsorLogo);
-                using var image = Image.Load(imageStream, out IImageFormat format);
+                using var image = Image.Load(imageStream, out var format);
                 image.Save(msImage, new PngEncoder()); // Re-encode as PNG regardless of original format
             }
             catch (Exception ex)
@@ -276,8 +275,8 @@ To manage this request, go to <a href='https://www.glenavonjfc.co.uk/EquipmentKi
             using var xImage = XImage.FromStream(() => imageCopy);
 
             double pageWidth = page.Width;
-            double aspectRatio = xImage.PixelHeight / (double)xImage.PixelWidth;
-            double imageHeight = pageWidth * aspectRatio;
+            var aspectRatio = xImage.PixelHeight / (double)xImage.PixelWidth;
+            var imageHeight = pageWidth * aspectRatio;
 
             gfx.DrawImage(xImage, 0, 0, pageWidth, imageHeight);
 
