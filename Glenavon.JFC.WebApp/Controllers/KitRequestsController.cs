@@ -1,4 +1,5 @@
 ﻿using Glenavon.JFC.WebApp.Services;
+using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Formats.Png;
 
 namespace Glenavon.JFC.WebApp.Controllers;
@@ -250,28 +251,38 @@ To manage this request, go to <a href='https://www.glenavonjfc.co.uk/EquipmentKi
             if (kitRequest?.SponsorLogo == null || kitRequest.SponsorLogo.Length == 0)
                 return NotFound("No sponsor logo available.");
 
-            // Convert ImageSharp image to PNG stream for PdfSharpCore
+            // Detect image format and save as PNG
             using var msImage = new MemoryStream();
-            using var image = Image.Load(kitRequest.SponsorLogo);
-            image.Save(msImage, new PngEncoder());
+            try
+            {
+                using var imageStream = new MemoryStream(kitRequest.SponsorLogo);
+                using var image = Image.Load(imageStream, out IImageFormat format);
+                image.Save(msImage, new PngEncoder()); // Re-encode as PNG regardless of original format
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Sponsor logo is not a valid image. {ex.Message}");
+            }
+
             msImage.Seek(0, SeekOrigin.Begin);
 
-            // Create PDF
+            // Generate PDF
             using var pdfStream = new MemoryStream();
             var document = new PdfDocument();
             var page = document.AddPage();
             using var gfx = XGraphics.FromPdfPage(page);
 
-            using var xImage = XImage.FromStream(() => msImage);
+            using var imageCopy = new MemoryStream(msImage.ToArray()); // clone for PdfSharpCore
+            using var xImage = XImage.FromStream(() => imageCopy);
 
-            // Scale image to fit page width
-            var width = page.Width;
-            var aspectRatio = xImage.PixelHeight / (double)xImage.PixelWidth;
-            var height = width * aspectRatio;
+            double pageWidth = page.Width;
+            double aspectRatio = xImage.PixelHeight / (double)xImage.PixelWidth;
+            double imageHeight = pageWidth * aspectRatio;
 
-            gfx.DrawImage(xImage, 0, 0, width, height);
+            gfx.DrawImage(xImage, 0, 0, pageWidth, imageHeight);
 
             document.Save(pdfStream, false);
+
             return File(pdfStream.ToArray(), "application/pdf", $"kitrequest-{id}-sponsor-logo.pdf");
         }
         catch (Exception ex)
