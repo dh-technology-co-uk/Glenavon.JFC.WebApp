@@ -3,7 +3,7 @@ using SixLabors.ImageSharp.Formats.Png;
 
 namespace Glenavon.JFC.WebApp.Controllers;
 
-[Authorize(Roles = "Manager,Admin")]
+[Authorize(Roles = "Manager,Admin,SuperAdmin")]
 public class KitRequestsController : Controller
 {
     private readonly string _directoryPath = "wwwroot/data/kitrequests";
@@ -279,6 +279,29 @@ To manage this request, go to <a href='https://www.glenavonjfc.co.uk/EquipmentKi
             return StatusCode(500, $"Error generating PDF file: {ex.Message}");
         }
     }
+
+    [HttpGet("KitRequests/DownloadInvoice")]
+    public IActionResult DownloadInvoiceDocument()
+    {
+        try
+        {
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "documents", "kitinvoice.docx");
+
+            if (!System.IO.File.Exists(filePath))
+                return NotFound("Invoice document not found.");
+
+            var fileBytes = System.IO.File.ReadAllBytes(filePath);
+            const string contentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+            const string fileName = "kitinvoice.docx";
+
+            return File(fileBytes, contentType, fileName);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error downloading document: {ex.Message}");
+        }
+    }
+
 
     [HttpGet("KitRequests/Success/{id}")]
     public IActionResult Success(int id)

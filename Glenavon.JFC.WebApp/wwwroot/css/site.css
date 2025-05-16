@@ -189,6 +189,15 @@ body, html {
     }
 }
 
+/*Kit Requests*/
+@media (min-width: 768px) {
+    .custom-col-md-12-5 {
+        flex: 0 0 12.5%;
+        max-width: 12.5%;
+    }
+}
+
+
 /* Kit Manager */
 .kit-container {
     display: flex;
@@ -239,3 +248,35 @@ body, html {
 .kit-item.non-kit {
     border-left: 5px solid #ffc107;
 }
+
+
+.kit-thumbnail-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+    .kit-thumbnail-wrapper .magnifier-icon {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 50%;
+        padding: 6px;
+        color: white;
+        font-size: 1rem;
+        pointer-events: none;
+    }
+
+    .kit-thumbnail-wrapper:hover::after {
+        content: 'Click to show full scale';
+        position: absolute;
+        bottom: -25px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #000000cc;
+        color: white;
+        padding: 2px 8px;
+        font-size: 0.8rem;
+        border-radius: 4px;
+        white-space: nowrap;
+    }

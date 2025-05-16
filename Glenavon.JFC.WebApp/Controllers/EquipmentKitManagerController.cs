@@ -1,6 +1,9 @@
-﻿namespace Glenavon.JFC.WebApp.Controllers;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
-[Authorize(Roles = "Admin")]
+namespace Glenavon.JFC.WebApp.Controllers;
+
+[Authorize(Roles = "Admin,SuperAdmin")]
 public class EquipmentKitManagerController : Controller
 {
     private readonly string _directoryPathEquipment = "wwwroot/data/equipmentrequests";
@@ -13,8 +16,8 @@ public class EquipmentKitManagerController : Controller
         // Read kit requests
         if (Directory.Exists(_directoryPathKits))
         {
-            var kitFiles = Directory.GetFiles(_directoryPathKits, "kitrequest-*.json");
-            foreach (var file in kitFiles)
+            foreach (var file in Directory.GetFiles(_directoryPathKits, "kitrequest-*.json"))
+            {
                 try
                 {
                     var jsonData = System.IO.File.ReadAllText(file);
@@ -25,32 +28,28 @@ public class EquipmentKitManagerController : Controller
                         items.Add(item);
                     }
                 }
-                catch
-                {
-                    // Optionally log or handle invalid JSON files
-                }
+                catch { /* Log or ignore invalid files */ }
+            }
         }
 
         // Read equipment requests
         if (Directory.Exists(_directoryPathEquipment))
         {
-            var equipmentFiles = Directory.GetFiles(_directoryPathEquipment, "equipmentrequest-*.json");
-            foreach (var file in equipmentFiles)
+            foreach (var file in Directory.GetFiles(_directoryPathEquipment, "equipmentrequest-*.json"))
+            {
                 try
                 {
                     var jsonData = System.IO.File.ReadAllText(file);
                     var item = JsonConvert.DeserializeObject<EquipmentKitRequestModel>(jsonData);
-                    if (item != null) items.Add(item);
+                    if (item != null)
+                        items.Add(item);
                 }
-                catch
-                {
-                    // Optionally log or handle invalid JSON files
-                }
+                catch { /* Log or ignore invalid files */ }
+            }
         }
 
         return items;
     }
-
 
     public IActionResult Index()
     {
@@ -85,30 +84,42 @@ public class EquipmentKitManagerController : Controller
         System.IO.File.WriteAllText(fullPath, jsonData);
     }
 
+    // ✅ Accept JSON from SortableJS
+    public class ItemStatusUpdateModel
+    {
+        public int Id { get; set; }
+        public string Status { get; set; }
+        public string Type { get; set; }
+    }
 
     [HttpPost]
-    public IActionResult UpdateItem(int id, string status, string type)
+    public IActionResult UpdateItem([FromBody] ItemStatusUpdateModel model)
     {
-        var (directory, prefix) = type.ToLower() == "kit"
+        if (model == null || model.Id == 0 || string.IsNullOrEmpty(model.Type) || string.IsNullOrEmpty(model.Status))
+            return BadRequest("Invalid data");
+
+        var (directory, prefix) = model.Type.ToLower() == "kit"
             ? (_directoryPathKits, "kitrequest")
             : (_directoryPathEquipment, "equipmentrequest");
 
-        var filePath = Path.Combine(directory, $"{prefix}-{id}.json");
-        if (System.IO.File.Exists(filePath))
-        {
-            var jsonData = System.IO.File.ReadAllText(filePath);
-            var item = JsonConvert.DeserializeObject<EquipmentKitRequestModel>(jsonData);
-            if (item != null)
-            {
-                item.Status = status;
-                item.Type = type;
-                SaveItemToFile(item);
-            }
-        }
+        var filePath = Path.Combine(directory, $"{prefix}-{model.Id}.json");
 
-        return RedirectToAction("Index");
+        if (!System.IO.File.Exists(filePath))
+            return NotFound();
+
+        var jsonData = System.IO.File.ReadAllText(filePath);
+        var item = JsonConvert.DeserializeObject<EquipmentKitRequestModel>(jsonData);
+
+        if (item == null)
+            return BadRequest("Failed to deserialize item");
+
+        item.Status = model.Status;
+        item.Type = model.Type;
+
+        SaveItemToFile(item);
+
+        return Ok("Status updated");
     }
-
 
     [HttpPost]
     public IActionResult DeleteItem(int id, string type)

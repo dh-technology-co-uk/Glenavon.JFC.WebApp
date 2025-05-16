@@ -1,28 +1,47 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
-    let items = document.querySelectorAll(".kit-item");
-    let columns = document.querySelectorAll(".kit-column");
+    const tokenElement = document.querySelector('input[name="__RequestVerificationToken"]');
+    const csrfToken = tokenElement ? tokenElement.value : "";
 
-    items.forEach(item => {
-        item.addEventListener("dragstart", function (event) {
-            event.dataTransfer.setData("text", event.target.getAttribute("data-id"));
-            event.dataTransfer.setData("type", event.target.getAttribute("data-type"));
-        });
-    });
+    if (!window.Sortable) {
+        console.error("SortableJS not loaded.");
+        return;
+    }
 
-    columns.forEach(column => {
-        column.addEventListener("dragover", function (event) {
-            event.preventDefault();
-        });
+    document.querySelectorAll(".kit-column").forEach(column => {
+        new Sortable(column, {
+            group: "kits",
+            animation: 150,
+            onEnd: function (evt) {
+                const item = evt.item;
+                const itemId = item?.dataset?.id;
+                const itemType = item?.dataset?.type;
+                const newStatus = evt.to?.dataset?.status;
 
-        column.addEventListener("drop", function (event) {
-            event.preventDefault();
-            let itemId = event.dataTransfer.getData("text");
-            let itemType = event.dataTransfer.getData("type");
-            let newStatus = column.getAttribute("data-status");
+                if (!itemId || !itemType || !newStatus) {
+                    console.warn("Missing drag data.");
+                    return;
+                }
 
-            fetch(`/EquipmentKitManager/UpdateItem?id=${itemId}&status=${newStatus}&type=${itemType}`, {
-                method: "POST"
-            }).then(() => location.reload());
+                fetch("/EquipmentKitManager/UpdateItem", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        id: parseInt(itemId),
+                        status: newStatus,
+                        type: itemType
+                    })
+                })
+                    .then(res => {
+                        if (!res.ok) throw new Error("Status update failed");
+                        return res.text();
+                    })
+                    .catch(err => {
+                        console.error("Error updating item status:", err);
+                        alert("Failed to update item. Please try again.");
+                    });
+            }
         });
     });
 });

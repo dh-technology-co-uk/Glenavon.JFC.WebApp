@@ -2,7 +2,7 @@
 
 namespace Glenavon.JFC.WebApp.Controllers;
 
-[Authorize(Roles = "Manager,Admin")]
+[Authorize(Roles = "Manager,Admin,SuperAdmin")]
 public class EquipmentRequestsController : Controller
 {
     private readonly string _directoryPath = "wwwroot/data/equipmentrequests";

@@ -86,6 +86,13 @@
     "League": "Wallasey Junior Football League",
     "AgeGroup": "U9s"
   },
+  {
+    "Name": "U9 Harriers",
+    "Coaches": [ "Liam O'Dowd" ],
+    "ImagePath": "/images/committee/committee_logo.png",
+    "League": "Wallasey Junior Football League",
+    "AgeGroup": "U9s"
+  },
 
   {
     "Name": "U10 Eagles",

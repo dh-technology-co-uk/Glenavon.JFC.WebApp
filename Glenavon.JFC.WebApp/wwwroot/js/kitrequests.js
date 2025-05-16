@@ -16,9 +16,12 @@ function addRow() {
         field.classList.remove("is-invalid");
     });
 
+    const kitTypeValue = kitType.value?.toLowerCase() || "";
+    const isAwayKit = kitTypeValue.includes("away");
+
     if (!topSize.value) { topSize.classList.add("is-invalid"); isValid = false; }
-    if (!shortsSize.value) { shortsSize.classList.add("is-invalid"); isValid = false; }
-    if (!socksSize.value) { socksSize.classList.add("is-invalid"); isValid = false; }
+    if (!isAwayKit && !shortsSize.value) { shortsSize.classList.add("is-invalid"); isValid = false; }
+    if (!isAwayKit && !socksSize.value) { socksSize.classList.add("is-invalid"); isValid = false; }
     if (shirtNumber.value === '' || Number(shirtNumber.value) < 1) {
         shirtNumber.classList.add("is-invalid"); isValid = false;
     }
@@ -26,7 +29,7 @@ function addRow() {
     if (!quarterZip.value) { quarterZip.classList.add("is-invalid"); isValid = false; }
 
     if (!isValid) {
-        showFormMessage("Please complete all fields and ensure shirt number is 1 or higher before adding another row.");
+        showFormMessage("Please complete all required fields before adding another row.");
         return;
     }
 
@@ -112,6 +115,7 @@ function submitRequest() {
     let isValidPlayers = true;
 
     rows.forEach((row) => {
+
         const topSize = row.querySelector("select[name='TopSize']");
         const shortsSize = row.querySelector("select[name='ShortsSize']");
         const socksSize = row.querySelector("select[name='SocksSize']");
@@ -121,9 +125,12 @@ function submitRequest() {
 
         [topSize, shortsSize, socksSize, shirtNumber, kitType].forEach(f => f.classList.remove("is-invalid"));
 
+        const kitTypeValue = kitType.value?.toLowerCase() || "";
+        const isAwayKit = kitTypeValue.includes("away");
+
         if (!topSize.value) { topSize.classList.add("is-invalid"); isValidPlayers = false; }
-        if (!shortsSize.value) { shortsSize.classList.add("is-invalid"); isValidPlayers = false; }
-        if (!socksSize.value) { socksSize.classList.add("is-invalid"); isValidPlayers = false; }
+        if (!isAwayKit && !shortsSize.value) { shortsSize.classList.add("is-invalid"); isValidPlayers = false; }
+        if (!isAwayKit && !socksSize.value) { socksSize.classList.add("is-invalid"); isValidPlayers = false; }
         if (shirtNumber.value === '' || Number(shirtNumber.value) < 1) {
             shirtNumber.classList.add("is-invalid"); isValidPlayers = false;
         }
@@ -141,6 +148,7 @@ function submitRequest() {
             });
         }
     });
+
 
     if (!isValidPlayers) {
         showFormMessage("Please add at least 1 kit request and fix the highlighted player fields before submitting.");
@@ -233,3 +241,28 @@ function replaceSponsorLogo() {
     const fileInput = document.getElementById('sponsorLogo');
     fileInput.click(); // Re-open the file picker
 }
+
+function setupKitModalHandler(modalId) {
+    const kitModal = document.getElementById(modalId);
+    if (!kitModal) return;
+
+    kitModal.addEventListener('show.bs.modal', function (event) {
+        const trigger = event.relatedTarget;
+        const imgSrc = trigger.getAttribute('data-img');
+        const title = trigger.getAttribute('data-title');
+        const modalImage = kitModal.querySelector('#kitModalImage');
+        const modalTitle = kitModal.querySelector('.modal-title');
+
+        if (modalImage && imgSrc) {
+            modalImage.src = imgSrc;
+        }
+
+        if (modalTitle && title) {
+            modalTitle.textContent = title;
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    setupKitModalHandler('kitModal');
+});

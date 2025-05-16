@@ -4,8 +4,10 @@ public class AccountController : Controller
 {
     private const string AdminEmail = "admin@glenavonjfc.co.uk";
     private const string ManagerEmail = "manager@glenavonjfc.co.uk";
+    private const string SuperAdmin = "superadmin@glenavonjfc.co.uk";
     private const string AdminPassword = "Glenavon2025!";
     private const string ManagerPassword = "Manager2025!";
+    private const string SuperAdminPassword = "!!!!!Glenavon2025!!!!!";
 
     // GET: /Account/Login
     public IActionResult Login()
@@ -22,6 +24,7 @@ public class AccountController : Controller
             // Determine the user's role based on email and password
             AdminEmail when password == AdminPassword => "Admin",
             ManagerEmail when password == ManagerPassword => "Manager",
+            SuperAdmin when password == SuperAdminPassword => "SuperAdmin",
             _ => null
         };
 
