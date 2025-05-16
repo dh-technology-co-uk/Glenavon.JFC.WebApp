@@ -45,16 +45,17 @@
                                 <div class="mt-2 d-flex gap-2 align-items-center">
                                     @if (isKit)
                                     {
-                                        <a href="@Url.Action("LoadRequest", "KitRequests", new { id = item.Id })" class="btn btn-primary btn-sm">
-                                            View
-                                        </a>
+                                        <form method="get" action="@Url.Action("LoadRequest", "KitRequests", new { id = item.Id })" style="display:inline;">
+                                            <button type="submit" class="btn btn-primary btn-sm">View</button>
+                                        </form>
                                     }
                                     else
                                     {
-                                        <a href="@Url.Action("LoadRequest", "EquipmentRequests", new { id = item.Id })" class="btn btn-primary btn-sm">
-                                            View
-                                        </a>
+                                        <form method="get" action="@Url.Action("LoadRequest", "EquipmentRequests", new { id = item.Id })" style="display:inline;">
+                                            <button type="submit" class="btn btn-primary btn-sm">View</button>
+                                        </form>
                                     }
+
 
                                     @if (isSuperAdmin)
                                     {
