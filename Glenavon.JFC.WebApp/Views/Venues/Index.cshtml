@@ -59,8 +59,19 @@
     '@(venue.PitchLocation.Description.Replace("\r\n", "<br>").Replace("'", "\\'"))')">
 
 
-                                View Venue Details
+                                View Details
                             </a>
+                            <a href="https://www.google.com/maps/dir/?api=1&destination=@(
+                                                                                        $"{venue.Address.AddressLine1} {venue.Address.AddressLine2} {venue.Address.TownOrCity} {venue.Address.County} {venue.Address.Postcode}"
+                                                                                            .Replace("  ", " ").Trim().Replace(" ", "+"))"
+                               target="_blank"
+                               rel="noopener"
+                               title="Get Directions on Google Maps"
+                               class="btn btn-primary d-inline-flex align-items-center justify-content-center px-3"
+                               style="height: 38px;">
+                                <i class="fa-solid fa-route fa-lg"></i>
+                            </a>
+
                         </div>
                     </div>
                     <div class="col-md-4">
