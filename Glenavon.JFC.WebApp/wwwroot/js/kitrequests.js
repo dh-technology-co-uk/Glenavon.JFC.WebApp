@@ -9,11 +9,15 @@ function addRow() {
     const shirtNumber = lastRow.querySelector("input[name='ShirtNumber']");
     const kitType = lastRow.querySelector("select[name='KitType']");
     const quarterZip = lastRow.querySelector("select[name='QuarterZip']");
+    const newPlayer = lastRow.querySelector("select[name='NewPlayer']");
+
+    const firstName = lastRow.querySelector("input[name='FirstName']");
+    const surname = lastRow.querySelector("input[name='Surname']");
 
     let isValid = true;
 
-    [topSize, shortsSize, socksSize, shirtNumber, kitType, quarterZip].forEach(field => {
-        field.classList.remove("is-invalid");
+    [topSize, shortsSize, socksSize, shirtNumber, kitType, quarterZip, firstName, surname].forEach(field => {
+        if (field) field.classList.remove("is-invalid");
     });
 
     const kitTypeValue = kitType.value?.toLowerCase() || "";
@@ -28,6 +32,18 @@ function addRow() {
     if (!kitType.value) { kitType.classList.add("is-invalid"); isValid = false; }
     if (!quarterZip.value) { quarterZip.classList.add("is-invalid"); isValid = false; }
 
+    // Additional validation if NewPlayer is "Yes"
+    if (newPlayer?.value?.toLowerCase() === "yes") {
+        if (!firstName?.value?.trim()) {
+            firstName.classList.add("is-invalid");
+            isValid = false;
+        }
+        if (!surname?.value?.trim()) {
+            surname.classList.add("is-invalid");
+            isValid = false;
+        }
+    }
+
     if (!isValid) {
         showFormMessage("Please complete all required fields before adding another row.");
         return;
@@ -36,13 +52,15 @@ function addRow() {
     const container = document.getElementById("itemRows");
     const newRow = lastRow.cloneNode(true);
 
-    newRow.querySelectorAll("select, input[type='number']").forEach(el => {
+    newRow.querySelectorAll("select, input[type='number'], input[type='text']").forEach(el => {
         el.value = '';
         el.classList.remove("is-invalid");
     });
 
     container.appendChild(newRow);
     rowIndex++;
+
+    rebindNewPlayerEvents();
 }
 
 function removeRow(button) {
@@ -115,15 +133,17 @@ function submitRequest() {
     let isValidPlayers = true;
 
     rows.forEach((row) => {
-
         const topSize = row.querySelector("select[name='TopSize']");
         const shortsSize = row.querySelector("select[name='ShortsSize']");
         const socksSize = row.querySelector("select[name='SocksSize']");
         const shirtNumber = row.querySelector("input[name='ShirtNumber']");
         const kitType = row.querySelector("select[name='KitType']");
         const quarterZip = row.querySelector("select[name='QuarterZip']");
+        const newPlayer = row.querySelector("select[name='NewPlayer']");
+        const firstName = row.querySelector("input[name='FirstName']");
+        const surname = row.querySelector("input[name='Surname']");
 
-        [topSize, shortsSize, socksSize, shirtNumber, kitType].forEach(f => f.classList.remove("is-invalid"));
+        [topSize, shortsSize, socksSize, shirtNumber, kitType, quarterZip, newPlayer, firstName, surname].forEach(f => f?.classList.remove("is-invalid"));
 
         const kitTypeValue = kitType.value?.toLowerCase() || "";
         const isAwayKit = kitTypeValue.includes("away");
@@ -135,7 +155,15 @@ function submitRequest() {
             shirtNumber.classList.add("is-invalid"); isValidPlayers = false;
         }
         if (!kitType.value) { kitType.classList.add("is-invalid"); isValidPlayers = false; }
-        if (!quarterZip.value) { quarterZip.classList.add("is-invalid"); isValid = false; }
+        if (!quarterZip.value) { quarterZip.classList.add("is-invalid"); isValidPlayers = false; }
+
+        if (!newPlayer.value) { newPlayer.classList.add("is-invalid"); isValidPlayers = false; }
+
+        const isNewPlayerYes = newPlayer.value?.toLowerCase() === "yes";
+        if (isNewPlayerYes) {
+            if (!firstName.value) { firstName.classList.add("is-invalid"); isValidPlayers = false; }
+            if (!surname.value) { surname.classList.add("is-invalid"); isValidPlayers = false; }
+        }
 
         if (isValidPlayers) {
             playersData.push({
@@ -144,10 +172,14 @@ function submitRequest() {
                 socksSize: socksSize.value,
                 shirtNumber: Number(shirtNumber.value),
                 kitType: kitType.value,
-                quarterZip: quarterZip.value
+                quarterZip: quarterZip.value,
+                newPlayer: newPlayer.value,
+                firstName: firstName.value || "",
+                surname: surname.value || ""
             });
         }
     });
+
 
 
     if (!isValidPlayers) {
@@ -262,6 +294,32 @@ function setupKitModalHandler(modalId) {
         }
     });
 }
+
+function toggleNewPlayerFields(selectElement) {
+    const wrapper = selectElement.closest(".team-item");
+    const fields = wrapper.querySelectorAll(".new-player-fields");
+
+    if (selectElement.value.toLowerCase() === "yes") {
+        fields.forEach(f => f.classList.remove("d-none"));
+    } else {
+        fields.forEach(f => {
+            f.classList.add("d-none");
+            const input = f.querySelector("input");
+            input.value = '';
+            input.classList.remove("is-invalid");
+        });
+    }
+}
+
+function rebindNewPlayerEvents() {
+    document.querySelectorAll("select[name='NewPlayer']").forEach(select => {
+        select.removeEventListener("change", () => toggleNewPlayerFields(select)); // no-op cleanup
+        select.addEventListener("change", function () {
+            toggleNewPlayerFields(this);
+        });
+    });
+}
+
 
 document.addEventListener('DOMContentLoaded', function () {
     setupKitModalHandler('kitModal');

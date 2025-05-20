@@ -54,9 +54,9 @@ public class NewsController : Controller
 
     private List<NewsItemModel> LoadNews()
     {
-        if (!System.IO.File.Exists(_filePath)) return new List<NewsItemModel>();
+        if (!System.IO.File.Exists(_filePath)) return [];
         var jsonData = System.IO.File.ReadAllText(_filePath);
-        return JsonConvert.DeserializeObject<List<NewsItemModel>>(jsonData) ?? new List<NewsItemModel>();
+        return JsonConvert.DeserializeObject<List<NewsItemModel>>(jsonData) ?? [];
     }
 
     private void SaveNews(List<NewsItemModel> newsList)

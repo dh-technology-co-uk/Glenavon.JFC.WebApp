@@ -61,9 +61,7 @@
 
                                 View Details
                             </a>
-                            <a href="https://www.google.com/maps/dir/?api=1&destination=@(
-                                                                                        $"{venue.Address.AddressLine1} {venue.Address.AddressLine2} {venue.Address.TownOrCity} {venue.Address.County} {venue.Address.Postcode}"
-                                                                                            .Replace("  ", " ").Trim().Replace(" ", "+"))"
+                            <a href="https://www.google.com/maps/dir/?api=1&destination=@($"{venue.Address.AddressLine1} {venue.Address.AddressLine2} {venue.Address.TownOrCity} {venue.Address.County} {venue.Address.Postcode}".Replace("  ", " ").Trim().Replace(" ", "+"))"
                                target="_blank"
                                rel="noopener"
                                title="Get Directions on Google Maps"

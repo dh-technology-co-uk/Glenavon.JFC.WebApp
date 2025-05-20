@@ -27,9 +27,9 @@ public class EquipmentRequestsController : Controller
 
     private List<TeamModel> LoadTeams()
     {
-        if (!System.IO.File.Exists(_filePath)) return new List<TeamModel>();
+        if (!System.IO.File.Exists(_filePath)) return [];
         var jsonData = System.IO.File.ReadAllText(_filePath);
-        return JsonConvert.DeserializeObject<List<TeamModel>>(jsonData) ?? new List<TeamModel>();
+        return JsonConvert.DeserializeObject<List<TeamModel>>(jsonData) ?? [];
     }
 
     [HttpPost("EquipmentRequests/SubmitRequest")]

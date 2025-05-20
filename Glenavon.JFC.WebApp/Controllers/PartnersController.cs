@@ -16,8 +16,8 @@ public class PartnersController : Controller
 
     private List<PartnerModel> LoadPartners()
     {
-        if (!System.IO.File.Exists(_filePath)) return new List<PartnerModel>();
+        if (!System.IO.File.Exists(_filePath)) return [];
         var jsonData = System.IO.File.ReadAllText(_filePath);
-        return JsonConvert.DeserializeObject<List<PartnerModel>>(jsonData) ?? new List<PartnerModel>();
+        return JsonConvert.DeserializeObject<List<PartnerModel>>(jsonData) ?? [];
     }
 }

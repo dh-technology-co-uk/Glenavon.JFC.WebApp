@@ -16,8 +16,8 @@ public class SponsorsController : Controller
 
     private List<SponsorModel> LoadSponsors()
     {
-        if (!System.IO.File.Exists(_filePath)) return new List<SponsorModel>();
+        if (!System.IO.File.Exists(_filePath)) return [];
         var jsonData = System.IO.File.ReadAllText(_filePath);
-        return JsonConvert.DeserializeObject<List<SponsorModel>>(jsonData) ?? new List<SponsorModel>();
+        return JsonConvert.DeserializeObject<List<SponsorModel>>(jsonData) ?? [];
     }
 }

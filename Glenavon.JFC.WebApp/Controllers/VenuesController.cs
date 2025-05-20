@@ -90,12 +90,12 @@ public class VenuesController : Controller
                         Description =
                             "The pitches are accessed via a gate from the right-hand car park."
                     },
-                    Rules = new List<string>
-                    {
+                    Rules =
+                    [
                         "No dogs are allowed within the school grounds.",
                         "No alcohol is allowed within the school grounds.",
                         "No Smoking is allowed within the school grounds."
-                    }
+                    ]
                 },
 
                 new VenueModel

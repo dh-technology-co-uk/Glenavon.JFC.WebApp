@@ -197,6 +197,12 @@ body, html {
     }
 }
 
+@media (min-width: 768px) {
+    .custom-col-md-6-25 {
+        flex: 0 0 6.25%;
+        max-width: 6.25%;
+    }
+}
 
 /* Kit Manager */
 .kit-container {

@@ -24,4 +24,7 @@ public class KitItemModel
     public int ShirtNumber { get; set; }
     public string KitType { get; set; }
     public string QuarterZip { get; set; }
+    public string NewPlayer { get; set; }
+    public string FirstName { get; set; } 
+    public string Surname { get; set; }
 }

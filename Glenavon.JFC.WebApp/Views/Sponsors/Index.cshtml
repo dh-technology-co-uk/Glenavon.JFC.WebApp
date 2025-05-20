@@ -82,7 +82,7 @@
                     </p>
                     <div class="mt-auto text-center">
                         <a href="#" class="btn btn-primary"
-                           onclick="saveScrollPosition(); showSponsorDetails('@sponsor.Title',  '@(sponsor.Description.Replace("\r\n", "<br>"))', '@sponsor.ImagePath', '@sponsor.Address', '@sponsor.Email','@sponsor.Website', '@sponsor.ContactName', '@sponsor.ContactNumber', '@sponsor.TeamSponsored')">
+                           onclick="showSponsorDetails('@sponsor.Title',  '@(sponsor.Description.Replace("\r\n", "<br>"))', '@sponsor.ImagePath', '@sponsor.Address', '@sponsor.Email','@sponsor.Website', '@sponsor.ContactName', '@sponsor.ContactNumber', '@sponsor.TeamSponsored')">
                             View Details
                         </a>
                     </div>
@@ -144,17 +144,6 @@
 </div>
 
 <script type="text/javascript">
-    function saveScrollPosition() {
-        sessionStorage.setItem("scrollPosition", window.scrollY);
-    }
-
-    function loadScrollPosition() {
-        if (sessionStorage.getItem("scrollPosition") !== null) {
-            window.scrollTo(0, sessionStorage.getItem("scrollPosition"));
-            sessionStorage.removeItem("scrollPosition");
-        }
-    };
-
     function showSponsorDetails(title, description, imagePath, address, email, website, contactName, contactNumber, teamSponsored) {
         // Set modal title
         document.getElementById('sponsorModalLabel').textContent = title;
@@ -231,7 +220,6 @@
 
     // Ensure the modal can be dismissed properly
     function hideSponsorsDetails() {
-        loadScrollPosition();
         $('#sponsorModal').modal('hide');
     }
 </script>

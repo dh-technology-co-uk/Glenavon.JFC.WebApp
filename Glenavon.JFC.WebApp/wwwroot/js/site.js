@@ -16,16 +16,3 @@ $(document).ready(function () {
         $('#externalLinkModal').modal('show');
     });
 });
-
-// Save the scroll position in localStorage
-window.addEventListener('scroll', () => {
-    localStorage.setItem('scrollPosition', window.scrollY);
-});
-
-// Retrieve and set the scroll position on page load
-window.addEventListener('load', () => {
-    const scrollPosition = localStorage.getItem('scrollPosition');
-    if (scrollPosition) {
-        window.scrollTo(0, parseInt(scrollPosition, 10));
-    }
-});

@@ -16,8 +16,8 @@ public class CommitteeController : Controller
 
     private List<CommitteeModel> LoadCommittee()
     {
-        if (!System.IO.File.Exists(_filePath)) return new List<CommitteeModel>();
+        if (!System.IO.File.Exists(_filePath)) return [];
         var jsonData = System.IO.File.ReadAllText(_filePath);
-        return JsonConvert.DeserializeObject<List<CommitteeModel>>(jsonData) ?? new List<CommitteeModel>();
+        return JsonConvert.DeserializeObject<List<CommitteeModel>>(jsonData) ?? [];
     }
 }

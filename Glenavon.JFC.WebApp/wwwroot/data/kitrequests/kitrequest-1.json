@@ -1,6 +1,6 @@
 {
   "Id": 1,
-  "Type": null,
+  "Type": "Kit",
   "TeamName": "U7 Falcons",
   "Status": "To Do",
   "Players": [
@@ -10,7 +10,21 @@
       "SocksSize": "UK 7 - 11",
       "ShirtNumber": 4,
       "KitType": "Home",
-      "QuarterZip": "Yes"
+      "QuarterZip": "Yes",
+      "NewPlayer": "No",
+      "FirstName": "",
+      "Surname": ""
+    },
+    {
+      "TopSize": "XLY",
+      "ShortsSize": "L",
+      "SocksSize": "UK 7 - 11",
+      "ShirtNumber": 4,
+      "KitType": "Home",
+      "QuarterZip": "Yes",
+      "NewPlayer": "Yes",
+      "FirstName": "Harry",
+      "Surname": "Hulmston"
     }
   ],
   "ManagerName": "Dan Hulmston",

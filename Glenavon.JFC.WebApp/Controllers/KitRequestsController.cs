@@ -27,9 +27,9 @@ public class KitRequestsController : Controller
 
     private List<TeamModel> LoadTeams()
     {
-        if (!System.IO.File.Exists(_filePath)) return new List<TeamModel>();
+        if (!System.IO.File.Exists(_filePath)) return [];
         var jsonData = System.IO.File.ReadAllText(_filePath);
-        return JsonConvert.DeserializeObject<List<TeamModel>>(jsonData) ?? new List<TeamModel>();
+        return JsonConvert.DeserializeObject<List<TeamModel>>(jsonData) ?? [];
     }
 
     [HttpPost("KitRequests/SubmitTeam")]
@@ -78,7 +78,7 @@ public class KitRequestsController : Controller
                 ManagerMobile = managerMobile ?? "",
                 ManagerEmail = managerEmail ?? "",
                 AdditionalInfo = additionalInfo ?? "",
-                Players = players ?? new List<KitItemModel>(),
+                Players = players ?? [],
                 DateSubmitted = DateTime.UtcNow,
                 SponsorLogo = sponsorLogoBytes
             };
@@ -100,7 +100,7 @@ public class KitRequestsController : Controller
 <b>Date Submitted:</b> {request.DateSubmitted:dd/MM/yyyy HH:mm}<br/><br/>
 To manage this request, go to <a href='https://www.glenavonjfc.co.uk/EquipmentKitManager'>https://www.glenavonjfc.co.uk/EquipmentKitManager</a>";
 
-            await _emailService.SendEmailAsync("equipmentkitrequests@glenavonjfc.co.uk",
+            await _emailService.SendEmailAsync("dan.hulmston@glenavonjfc.co.uk",
                 $"Kit Request {nextRequestNumber}", htmlBody);
 
             return Ok(new
@@ -204,9 +204,12 @@ To manage this request, go to <a href='https://www.glenavonjfc.co.uk/EquipmentKi
                 kitRequestWorksheet.Cell(row, 4).Value = "Shirt Number";
                 kitRequestWorksheet.Cell(row, 5).Value = "Kit Type";
                 kitRequestWorksheet.Cell(row, 6).Value = "Quarter Zip";
+                kitRequestWorksheet.Cell(row, 7).Value = "New Player?";
+                kitRequestWorksheet.Cell(row, 8).Value = "First Name";
+                kitRequestWorksheet.Cell(row, 9).Value = "Surname";
                 row++;
 
-                foreach (var player in kitRequest.Players ?? new List<KitItemModel>())
+                foreach (var player in kitRequest.Players ?? [])
                 {
                     kitRequestWorksheet.Cell(row, 1).Value = player.TopSize;
                     kitRequestWorksheet.Cell(row, 2).Value = player.ShortsSize;
@@ -214,6 +217,9 @@ To manage this request, go to <a href='https://www.glenavonjfc.co.uk/EquipmentKi
                     kitRequestWorksheet.Cell(row, 4).Value = player.ShirtNumber;
                     kitRequestWorksheet.Cell(row, 5).Value = player.KitType;
                     kitRequestWorksheet.Cell(row, 6).Value = player.QuarterZip;
+                    kitRequestWorksheet.Cell(row, 7).Value = player.NewPlayer;
+                    kitRequestWorksheet.Cell(row, 8).Value = player.FirstName;
+                    kitRequestWorksheet.Cell(row, 9).Value = player.Surname;
                     row++;
                 }
 

@@ -29,29 +29,13 @@
         else
         {
             <p class="text-left">
-                Please use the below form to submit your kit request for the committee to review.
+                Please use the below form to submit your kit request for the committee to review. Please ensure you know all the information required for a complete order before completing this form to ensure there are no delays.
             </p>
             <p class="text-left">
-                Please ensure you know all the information required for a complete order before completing this form to ensure there are no delays.
+                The team name will be based on your season 2025-2026 age level. If the player requires a quarter zip top including as part of the kit request this will be based on the size of the selected shirt size. Please only order new quarter zips if required. Junior teams are entitled to a full home kit, with 1/4 zip tops for any new players or if your child's is now too small. New players names are required to cross reference registrations with LoveAdmin.
             </p>
             <p class="text-left">
-                The team name will be based on your season 2025-2026 age level.
-            </p>
-            <p class="text-left">
-                If the player requires a quarter zip top including as part of the kit request this will be based on the size of the selected shirt size. Please only order new 1/4 zips if required.
-            </p>
-            <p class="text-left">
-                Junior teams are entitled to a full home kit, with 1/4 zip tops for any new players or if your child's is now too small.
-            </p>
-            <p class="text-left">
-                Once sponsorship money has been received your home kit order will be be placed.
-            </p>
-
-            <p class="text-left">
-                For Away kit orders you need to cover the full cost of the kit which is £32 per kit or £20 for just the top.
-            </p>
-            <p class="text-left">
-                Once the money has been received orders will be authorised. Please find the details of the costs for sponsorship <a asp-controller="Sponsors" asp-action="Index">here</a>.
+                Once sponsorship money has been received your home kit order will be placed. For Away kit orders you need to cover the full cost of the kit which is £32 per kit or £20 for just the top. Once the money has been received orders will be authorised. Please find the details of the costs for sponsorship <a asp-controller="Sponsors" asp-action="Index">here</a>.
             </p>
         }
     </div>
@@ -202,54 +186,70 @@
         {
             <label class="form-label">Player #@player.ShirtNumber</label>
             <div class="row g-2 mb-3 team-item">
-                <div class="col-12 col-md-2">
+                <div class="col-12 custom-col-md-12-5">
                     <div class="form-floating">
                         <input type="text" class="form-control" value="@player.TopSize" disabled/>
                         <label>Top Size</label>
                     </div>
                 </div>
 
-                <div class="col-12 col-md-2">
+                <div class="col-12 custom-col-md-12-5">
                     <div class="form-floating">
                         <input type="text" class="form-control" value="@player.ShortsSize" disabled/>
                         <label>Shorts Size</label>
                     </div>
                 </div>
 
-                <div class="col-12 col-md-2">
+                <div class="col-12 custom-col-md-12-5">
                     <div class="form-floating">
                         <input type="text" class="form-control" value="@player.SocksSize" disabled/>
                         <label>Socks Size</label>
                     </div>
                 </div>
 
-                <div class="col-12 col-md-2">
+                <div class="col-12 custom-col-md-6-25">
                     <div class="form-floating">
                         <input type="number" class="form-control" value="@player.ShirtNumber" readonly/>
-                        <label>Shirt Number</label>
+                        <label>Number</label>
                     </div>
                 </div>
 
-                <div class="col-12 col-md-2">
+                <div class="col-12 custom-col-md-12-5">
                     <div class="form-floating">
                         <input type="text" class="form-control" value="@player.KitType" disabled/>
                         <label>Kit</label>
                     </div>
                 </div>
 
-                <div class="col-12 col-md-2">
+                <div class="col-12 custom-col-md-12-5">
                     <div class="form-floating">
                         <input type="text" class="form-control" value="@player.QuarterZip" disabled/>
                         <label>Quarter Zip</label>
                     </div>
                 </div>
+            
+                @if (player.NewPlayer.ToLower() == "yes")
+                {
+                    <div class="col-12 custom-col-md-12-5">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" value="@player.FirstName" disabled/>
+                            <label>First Name</label>
+                        </div>
+                    </div>
+                    <div class="col-12 custom-col-md-12-5">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" value="@player.Surname" disabled/>
+                            <label>Surname</label>
+                        </div>
+                    </div>
+                }
             </div>
         }
     }
     else
     {
         <div class="row g-2 mb-3 team-item">
-            <div class="col-12 col-md-2">
+            <div class="col-12 custom-col-md-12-5">
                 <div class="form-floating">
                     <select name="TopSize" class="form-select" required>
                         <option value="" disabled selected>Select</option>
@@ -269,7 +269,7 @@
                 </div>
             </div>
 
-            <div class="col-12 col-md-2">
+            <div class="col-12 custom-col-md-12-5">
                 <div class="form-floating">
                     <select name="ShortsSize" class="form-select" required>
                         <option value="" disabled selected>Select</option>
@@ -289,7 +289,7 @@
                 </div>
             </div>
 
-            <div class="col-12 col-md-2">
+            <div class="col-12 custom-col-md-12-5">
                 <div class="form-floating">
                     <select name="SocksSize" class="form-select" required>
                         <option value="" disabled selected>Select</option>
@@ -306,13 +306,13 @@
 
 
                 <div class="form-floating">
-                    <input type="number" name="ShirtNumber" class="form-control" min="1" inputmode="numeric" pattern="[0-9]*" required/>
+                    <input type="number" name="ShirtNumber" class="form-control" min="1" max="99" inputmode="numeric" pattern="[0-9]*" required/>
                     <label>Shirt Number</label>
                     <div class="invalid-feedback">Please enter a shirt number (minimum 1).</div>
                 </div>
             </div>
 
-            <div class="col-12 col-md-2">
+            <div class="col-12 custom-col-md-12-5">
                 <div class="form-floating">
                     <select name="KitType" class="form-select" required>
                         <option value="" disabled selected>Select</option>
@@ -337,8 +337,37 @@
                     <div class="invalid-feedback">Please select if quarter zip required.</div>
                 </div>
             </div>
+            <!-- New Player -->
+            <div class="col-12 custom-col-md-12-5 order-1 order-md-1">
+                <div class="form-floating">
+                    <select name="NewPlayer" class="form-select" required onchange="toggleNewPlayerFields(this)">
+                        <option value="No" selected>No</option>
+                        <option value="Yes">Yes</option>
+                    </select>
+                    <label>New Player</label>
+                    <div class="invalid-feedback">Please select if new player.</div>
+                </div>
+            </div>
 
-            <div class="col-12 col-md-1 d-flex align-items-end">
+            <!-- First Name -->
+            <div class="col-12 col-md-5 new-player-fields d-none order-2 order-md-2">
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" name="FirstName" placeholder="First Name">
+                    <label>First Name</label>
+                    <div class="invalid-feedback">First name is required.</div>
+                </div>
+            </div>
+
+            <!-- Surname -->
+            <div class="col-12 col-md-5 new-player-fields d-none order-3 order-md-3">
+                <div class="form-floating">
+                    <input type="text" class="form-control" name="Surname" placeholder="Surname">
+                    <label>Surname</label>
+                    <div class="invalid-feedback">Surname is required.</div>
+                </div>
+            </div>
+
+            <div class="col-12 custom-col-md-12-5 d-flex align-items-end order-4 order-md-4">
                 <button type="button" class="btn btn-danger w-100 h-100" onclick="removeRow(this)">Remove</button>
             </div>
         </div>
