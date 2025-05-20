@@ -23,7 +23,7 @@
                             var isKit = item.Type == "Kit";
                             var cardClass = isKit ? "kit-item kit card mb-2 p-2 shadow-sm" : "kit-item non-kit card mb-2 p-2 shadow-sm";
 
-                            <div class="@cardClass" draggable="true" data-id="@item.Id" data-type="@item.Type">
+                            <div class="@cardClass" data-id="@item.Id" data-type="@item.Type">
 
                                 @if (item.Type == "Kit")
                                 {
@@ -43,28 +43,56 @@
                                 </div>
 
                                 <div class="mt-2 d-flex gap-2 align-items-center">
-                                    @if (isKit)
-                                    {
-                                        <form method="get" action="@Url.Action("LoadRequest", "KitRequests", new { id = item.Id })" style="display:inline;">
-                                            <button type="submit" class="btn btn-primary btn-sm">View</button>
-                                        </form>
-                                    }
-                                    else
-                                    {
-                                        <form method="get" action="@Url.Action("LoadRequest", "EquipmentRequests", new { id = item.Id })" style="display:inline;">
-                                            <button type="submit" class="btn btn-primary btn-sm">View</button>
-                                        </form>
-                                    }
+                                    <div class="d-grid gap-0">
+                                        @if (isKit)
+                                        {
+                                            <form method="get" action="@Url.Action("LoadRequest", "KitRequests", new { id = item.Id })">
+                                                <button type="submit" class="btn btn-secondary btn-sm w-100">View</button>
+                                            </form>
+                                        }
+                                        else
+                                        {
+                                            <form method="get" action="@Url.Action("LoadRequest", "EquipmentRequests", new { id = item.Id })">
+                                                <button type="submit" class="btn btn-secondary btn-sm w-100">View</button>
+                                            </form>
+                                        }
+
+                                        @{
+                                            var allStatuses = Model.RequestsByStatus.Keys.ToList();
+                                            var currentStatus = statusGroup.Key;
+                                        }
+
+                                        <div class="d-flex">
+                                            @{
+                                                var statusesToShow = allStatuses.Where(s => s != currentStatus).ToList();
+                                                int lastIndex = statusesToShow.Count - 1;
+                                            }
+
+                                            @for (int i = 0; i < statusesToShow.Count; i++)
+                                            {
+                                                var status = statusesToShow[i];
+                                                var spacingClass = i < lastIndex ? "me-1" : ""; // add spacing except last
+
+                                                <form method="post" class="change-status-form flex-fill @spacingClass" data-id="@item.Id" data-type="@item.Type" data-status="@status">
+                                                    <button type="button" class="btn btn-secondary btn-sm w-100">
+                                                        @status
+                                                    </button>
+                                                </form>
+                                            }
+                                        </div>
 
 
-                                    @if (isSuperAdmin)
-                                    {
-                                        <form asp-action="DeleteItem" method="post" class="d-inline">
-                                            <input type="hidden" name="id" value="@item.Id"/>
-                                            <input type="hidden" name="type" value="@item.Type"/>
-                                            <button type="submit" class="btn btn-sm btn-danger">Remove</button>
-                                        </form>
-                                    }
+                                        @if (isSuperAdmin)
+                                        {
+                                            <form asp-action="DeleteItem" method="post">
+                                                <input type="hidden" name="id" value="@item.Id" />
+                                                <input type="hidden" name="type" value="@item.Type" />
+                                                <button type="submit" class="btn btn-danger btn-sm w-100">Remove</button>
+                                            </form>
+                                        }
+                                    </div>
+
+
                                 </div>
                             </div>
                         }

@@ -1,8 +1,8 @@
 {
   "Id": 3,
-  "Type": null,
+  "Type": "Kit",
   "TeamName": "U8 Hawks",
-  "Status": "To Do",
+  "Status": "Blocked",
   "Players": [
     {
       "TopSize": "XSJ",
