@@ -191,5 +191,18 @@
     "ContactName": "David Luukas",
     "ContactNumber": "01244 892199",
     "TeamSponsored": "U7 Belles Stars"
+  },
+
+  {
+    "ImagePath": "/images/sponsors/salexmo.png",
+    "Title": "Salexmo Competitions",
+    "Description": "Win fantastic prizes with Salexmo Competitions, new competitions uploaded daily/weekly!",
+    "Address": "1 Thursby House, Thursby Road, Wirral, CH62 3PW",
+    "Website": "http://www.salexmo.co.uk",
+    "Email": "salexmocompetitions@gmail.com",
+    "ContactName": "Ian / Chelsea McIver",
+    "ContactNumber": "07935039803",
+    "TeamSponsored": "U9 Kestrels"
   }
+
 ]

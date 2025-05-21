@@ -25,7 +25,6 @@
     <Folder Include="Pages\Shared\" />
     <Folder Include="Views\Shared\Components\" />
     <Folder Include="wwwroot\images\kits\" />
-    <Folder Include="wwwroot\images\partners\" />
   </ItemGroup>
 
   <ItemGroup>
