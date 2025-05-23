@@ -26,9 +26,16 @@ function addRow() {
     if (!topSize.value) { topSize.classList.add("is-invalid"); isValid = false; }
     if (!isAwayKit && !shortsSize.value) { shortsSize.classList.add("is-invalid"); isValid = false; }
     if (!isAwayKit && !socksSize.value) { socksSize.classList.add("is-invalid"); isValid = false; }
-    if (shirtNumber.value === '' || Number(shirtNumber.value) < 1) {
-        shirtNumber.classList.add("is-invalid"); isValid = false;
+    if (
+        shirtNumber.value === '' ||
+        Number(shirtNumber.value) < 1 ||
+        Number(shirtNumber.value) > 99 ||
+        Number(shirtNumber.value) === 69
+    ) {
+        shirtNumber.classList.add("is-invalid");
+        isValid = false;
     }
+
     if (!kitType.value) { kitType.classList.add("is-invalid"); isValid = false; }
     if (!quarterZip.value) { quarterZip.classList.add("is-invalid"); isValid = false; }
 
