@@ -82,6 +82,9 @@ function removeRow(button) {
 }
 
 function submitRequest() {
+    // Show the overlay
+    document.getElementById('fullscreen-overlay').style.display = 'block';
+
     const selectedTeam = document.getElementById("teamSelect").value;
     const teamSelect = document.getElementById("teamSelect");
 
@@ -89,6 +92,10 @@ function submitRequest() {
 
     if (!selectedTeam) {
         teamSelect.classList.add("is-invalid");
+
+        // Remove the overlay
+        document.getElementById('fullscreen-overlay').style.display = 'none';
+
         showFormMessage("Please select a team before submitting.");
         return;
     }
@@ -131,7 +138,11 @@ function submitRequest() {
     }
 
     if (!isValidManager) {
+        // Remove the overlay
+        document.getElementById('fullscreen-overlay').style.display = 'none';
+
         showFormMessage("Please complete all Manager fields correctly before submitting.");
+
         return;
     }
 
@@ -190,6 +201,9 @@ function submitRequest() {
 
 
     if (!isValidPlayers) {
+        // Remove the overlay
+        document.getElementById('fullscreen-overlay').style.display = 'none';
+
         showFormMessage("Please add at least 1 kit request and fix the highlighted player fields before submitting.");
         return;
     }
@@ -220,8 +234,12 @@ function submitRequest() {
         if (response.ok) {
             response.json().then(data => {
                 if (data.success && data.requestNumber) {
+                    // Remove the overlay
+                    document.getElementById('fullscreen-overlay').style.display = 'none';
                     window.location.href = `/KitRequests/Success/${data.requestNumber}`;
                 } else {
+                    // Remove the overlay
+                    document.getElementById('fullscreen-overlay').style.display = 'none';
                     showFormMessage("Unexpected server response.");
                 }
             });
