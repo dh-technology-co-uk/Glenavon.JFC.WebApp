@@ -137,7 +137,16 @@
     <label class="form-label">Player Kits</label><br/>
     @if (isReadonly)
     {
-        @foreach (var player in Model.ExistingRequest.Players)
+        var sizeOrder = new List<string>
+        {
+            "XSJ", "SJ", "MJ", "LJ", "XLJ",
+            "S", "M", "L", "XL","2XL","3XL",
+            "6", "8", "10", "12", "14", "16", "18"
+        };
+
+        @foreach (var player in Model.ExistingRequest.Players.OrderBy(p => sizeOrder.IndexOf(p.TopSize))
+                      .ThenBy(p => p.ShirtNumber)
+                      .ToList())
         {
             <label class="form-label">Player #@player.ShirtNumber</label>
             <div class="row g-2 mb-3 team-item">
@@ -145,6 +154,13 @@
                     <div class="form-floating">
                         <input type="text" class="form-control" value="@player.TopSize" disabled/>
                         <label>Top Size</label>
+                    </div>
+                </div>
+                
+                <div class="col-12 custom-col-md-6-25">
+                    <div class="form-floating">
+                        <input type="number" class="form-control" value="@player.ShirtNumber" readonly/>
+                        <label>Number</label>
                     </div>
                 </div>
 
@@ -162,12 +178,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 custom-col-md-6-25">
-                    <div class="form-floating">
-                        <input type="number" class="form-control" value="@player.ShirtNumber" readonly/>
-                        <label>Number</label>
-                    </div>
-                </div>
+     
 
                 <div class="col-12 custom-col-md-12-5">
                     <div class="form-floating">
@@ -235,6 +246,15 @@
 
             <div class="col-12 custom-col-md-12-5">
                 <div class="form-floating">
+                    <input type="number" name="ShirtNumber" class="form-control" id="ShirtNumber"
+                           min="1" inputmode="numeric" pattern="[0-9]*" required />
+                    <label>Shirt Number</label>
+                    <div class="invalid-feedback">Please enter a valid shirt number.</div>
+                </div>
+            </div>
+
+            <div class="col-12 custom-col-md-12-5">
+                <div class="form-floating">
                     <select name="ShortsSize" class="form-select" required>
                         <option value="" disabled selected>Select</option>
                         <option value="XSJ">XSJ - Youth</option>
@@ -277,14 +297,7 @@
                 </div>
             </div>
 
-            <div class="col-12 custom-col-md-12-5">
-                <div class="form-floating">
-                    <input type="number" name="ShirtNumber" class="form-control" id="ShirtNumber"
-                           min="1" inputmode="numeric" pattern="[0-9]*" required />
-                    <label>Shirt Number</label>
-                    <div class="invalid-feedback">Please enter a valid shirt number.</div>
-                </div>
-            </div>
+
 
             <div class="col-12 custom-col-md-12-5">
                 <div class="form-floating">

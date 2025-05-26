@@ -211,9 +211,9 @@ To manage this request, go to <a href='https://www.glenavonjfc.co.uk/EquipmentKi
 
                 var sizeOrder = new List<string>
                 {
-                    "XSJ", "SJ", "MJ", "LJ", "XLJ", // Youth
-                    "S", "M", "L", "XL", "2XL", "3XL",            // Adult
-                    "6", "8", "10", "12", "14", "16", "18", "20" // Open Age Ladies
+                    "XSJ", "SJ", "MJ", "LJ", "XLJ",
+                    "S", "M", "L", "XL","2XL","3XL",
+                    "6", "8", "10", "12", "14", "16", "18"
                 };
 
                 foreach (var player in (kitRequest.Players ?? []).OrderBy(p => sizeOrder.IndexOf(p.TopSize)).ThenBy(p => p.ShirtNumber))
