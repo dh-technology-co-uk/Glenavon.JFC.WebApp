@@ -199,9 +199,9 @@ To manage this request, go to <a href='https://www.glenavonjfc.co.uk/EquipmentKi
                 row++;
 
                 kitRequestWorksheet.Cell(row, 1).Value = "Top Size";
-                kitRequestWorksheet.Cell(row, 2).Value = "Shorts Size";
-                kitRequestWorksheet.Cell(row, 3).Value = "Socks Size";
-                kitRequestWorksheet.Cell(row, 4).Value = "Shirt Number";
+                kitRequestWorksheet.Cell(row, 2).Value = "Shirt Number";
+                kitRequestWorksheet.Cell(row, 3).Value = "Shorts Size";
+                kitRequestWorksheet.Cell(row, 4).Value = "Socks Size";
                 kitRequestWorksheet.Cell(row, 5).Value = "Kit Type";
                 kitRequestWorksheet.Cell(row, 6).Value = "Quarter Zip";
                 kitRequestWorksheet.Cell(row, 7).Value = "New Player?";
@@ -209,12 +209,19 @@ To manage this request, go to <a href='https://www.glenavonjfc.co.uk/EquipmentKi
                 kitRequestWorksheet.Cell(row, 9).Value = "Surname";
                 row++;
 
-                foreach (var player in kitRequest.Players ?? [])
+                var sizeOrder = new List<string>
+                {
+                    "XSJ", "SJ", "MJ", "LJ", "XLJ", // Youth
+                    "S", "M", "L", "XL", "2XL", "3XL",            // Adult
+                    "6", "8", "10", "12", "14", "16", "18", "20" // Open Age Ladies
+                };
+
+                foreach (var player in (kitRequest.Players ?? []).OrderBy(p => sizeOrder.IndexOf(p.TopSize)).ThenBy(p => p.ShirtNumber))
                 {
                     kitRequestWorksheet.Cell(row, 1).Value = player.TopSize;
-                    kitRequestWorksheet.Cell(row, 2).Value = player.ShortsSize;
-                    kitRequestWorksheet.Cell(row, 3).Value = player.SocksSize;
-                    kitRequestWorksheet.Cell(row, 4).Value = player.ShirtNumber;
+                    kitRequestWorksheet.Cell(row, 2).Value = player.ShirtNumber;
+                    kitRequestWorksheet.Cell(row, 3).Value = player.ShortsSize;
+                    kitRequestWorksheet.Cell(row, 4).Value = player.SocksSize;
                     kitRequestWorksheet.Cell(row, 5).Value = player.KitType;
                     kitRequestWorksheet.Cell(row, 6).Value = player.QuarterZip;
                     kitRequestWorksheet.Cell(row, 7).Value = player.NewPlayer;
