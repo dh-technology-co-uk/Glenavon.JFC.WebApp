@@ -203,6 +203,39 @@
     "ContactName": "Ian / Chelsea McIver",
     "ContactNumber": "07935039803",
     "TeamSponsored": "U9 Kestrels"
+  },
+  {
+    "ImagePath": "/images/sponsors/clm.png",
+    "Title": "CLM Services Ltd",
+    "Description": "Established in 1984, CLM Services Ltd has grown to be one of the UK’s leading engineering businesses, specialising in the design, fabrication and installation of bespoke steel projects for zoos and wildlife parks across the UK. CLM works as both a specialist supplier to main contractors and also directly for zoos and wildlife parks to deliver fully integrated animal circulation systems and bespoke animal containment equipment.",
+    "Address": "24 Kelvin Road, Seacombe, Wirral CH44 7JW",
+    "Website": "http://www.clmltd.co.uk",
+    "Email": "sales@clmltd.co.uk",
+    "ContactName": "Chris Hayes",
+    "ContactNumber": "0151 637 3600",
+    "TeamSponsored": "U14 Belles Girls"
+  },
+  {
+    "ImagePath": "/images/sponsors/carrickandreid.jpg",
+    "Title": "Carrick and Reid",
+    "Description": "Carrick and Reid proudly support grassroots football. Based in Liverpool, they offer professional services with a local touch.",
+    "Address": "Office 26, 3a Bridgewater Street, Liverpool, L1 0AR",
+    "Website": "http://www.carrickandreid.co.uk",
+    "Email": "contact@carrickandreid.co.uk",
+    "ContactName": "Natalie Ormrod",
+    "ContactNumber": "0151 294 4342",
+    "TeamSponsored": "U12 Belles Stars"
+  },
+  {
+    "ImagePath": "/images/sponsors/billingtongw.png",
+    "Title": "Billington Groundwork & Landscape Specialists",
+    "Description": "Billington Groundwork & Landscape Specialists. All aspects of groundwork and landscaping undertaken. North West based",
+    "Website": "https://www.facebook.com/billingtongroundworks/",
+    "ContactName": "Trevor Billington",
+    "ContactNumber": "07801241755",
+    "TeamSponsored": "U12 Falcons"
   }
+
+
 
 ]
