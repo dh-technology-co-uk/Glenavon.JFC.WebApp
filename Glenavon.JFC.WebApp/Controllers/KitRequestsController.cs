@@ -100,8 +100,8 @@ public class KitRequestsController : Controller
 <b>Date Submitted:</b> {request.DateSubmitted:dd/MM/yyyy HH:mm}<br/><br/>
 To manage this request, go to <a href='https://www.glenavonjfc.co.uk/EquipmentKitManager'>https://www.glenavonjfc.co.uk/EquipmentKitManager</a>";
 
-            //await _emailService.SendEmailAsync("equipmentkitrequests@glenavonjfc.co.uk",
-            //    $"Kit Request {nextRequestNumber}", htmlBody);
+            await _emailService.SendEmailAsync("equipmentkitrequests@glenavonjfc.co.uk",
+                $"Kit Request {nextRequestNumber}", htmlBody);
 
             return Ok(new
             {
