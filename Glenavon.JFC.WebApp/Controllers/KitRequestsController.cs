@@ -1,7 +1,4 @@
-﻿using Glenavon.JFC.WebApp.Services;
-using SixLabors.ImageSharp.Formats.Png;
-
-namespace Glenavon.JFC.WebApp.Controllers;
+﻿namespace Glenavon.JFC.WebApp.Controllers;
 
 [Authorize(Roles = "Manager,Admin,SuperAdmin")]
 public class KitRequestsController : Controller
@@ -55,15 +52,24 @@ public class KitRequestsController : Controller
 
             // Handle Sponsor Logo file (optional)
             byte[]? sponsorLogoBytes = null;
+            byte[]? sleeveLogoBytes = null;
             if (form.Files.Count > 0)
             {
                 var sponsorLogoFile = form.Files.GetFile("SponsorLogo");
                 if (sponsorLogoFile != null && sponsorLogoFile.Length > 0)
-                    using (var ms = new MemoryStream())
-                    {
-                        await sponsorLogoFile.CopyToAsync(ms);
-                        sponsorLogoBytes = ms.ToArray();
-                    }
+                {
+                    using var ms = new MemoryStream();
+                    await sponsorLogoFile.CopyToAsync(ms);
+                    sponsorLogoBytes = ms.ToArray();
+                }
+
+                var sleeveLogoFile = form.Files.GetFile("SleeveLogo");
+                if (sleeveLogoFile != null && sleeveLogoFile.Length > 0)
+                {
+                    using var ms = new MemoryStream();
+                    await sleeveLogoFile.CopyToAsync(ms);
+                    sleeveLogoBytes = ms.ToArray();
+                }
             }
 
             var nextRequestNumber = GetNextAvailableRequestNumber();
@@ -80,7 +86,8 @@ public class KitRequestsController : Controller
                 AdditionalInfo = additionalInfo ?? "",
                 Players = players ?? [],
                 DateSubmitted = DateTime.UtcNow,
-                SponsorLogo = sponsorLogoBytes
+                SponsorLogo = sponsorLogoBytes,
+                SleeveLogo = sleeveLogoBytes
             };
 
             // Save to file
@@ -100,8 +107,7 @@ public class KitRequestsController : Controller
 <b>Date Submitted:</b> {request.DateSubmitted:dd/MM/yyyy HH:mm}<br/><br/>
 To manage this request, go to <a href='https://www.glenavonjfc.co.uk/EquipmentKitManager'>https://www.glenavonjfc.co.uk/EquipmentKitManager</a>";
 
-            await _emailService.SendEmailAsync("equipmentkitrequests@glenavonjfc.co.uk",
-                $"Kit Request {nextRequestNumber}", htmlBody);
+            //await _emailService.SendEmailAsync("equipmentkitrequests@glenavonjfc.co.uk",$"Kit Request {nextRequestNumber}", htmlBody);
 
             return Ok(new
             {
@@ -212,11 +218,12 @@ To manage this request, go to <a href='https://www.glenavonjfc.co.uk/EquipmentKi
                 var sizeOrder = new List<string>
                 {
                     "XSJ", "SJ", "MJ", "LJ", "XLJ",
-                    "S", "M", "L", "XL","2XL","3XL",
+                    "S", "M", "L", "XL", "2XL", "3XL",
                     "6", "8", "10", "12", "14", "16", "18"
                 };
 
-                foreach (var player in (kitRequest.Players ?? []).OrderBy(p => sizeOrder.IndexOf(p.TopSize)).ThenBy(p => p.ShirtNumber))
+                foreach (var player in (kitRequest.Players ?? []).OrderBy(p => sizeOrder.IndexOf(p.TopSize))
+                         .ThenBy(p => p.ShirtNumber))
                 {
                     kitRequestWorksheet.Cell(row, 1).Value = player.TopSize;
                     kitRequestWorksheet.Cell(row, 2).Value = player.ShirtNumber;
@@ -244,7 +251,7 @@ To manage this request, go to <a href='https://www.glenavonjfc.co.uk/EquipmentKi
         }
     }
 
-    [HttpGet("KitRequests/DownloadPdf/{id}")]
+    [HttpGet("KitRequests/DownloadSponsorsPdf/{id}")]
     public IActionResult DownloadSponsorLogoPdf(int id)
     {
         try
@@ -296,6 +303,65 @@ To manage this request, go to <a href='https://www.glenavonjfc.co.uk/EquipmentKi
             document.Save(pdfStream, false);
 
             return File(pdfStream.ToArray(), "application/pdf", $"kitrequest-{id}-sponsor-logo.pdf");
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error generating PDF file: {ex.Message}");
+        }
+    }
+
+    [HttpGet("KitRequests/DownloadSleevePdf/{id}")]
+    public IActionResult DownloadSleeveLogoPdf(int id)
+    {
+        try
+        {
+            if (!Directory.Exists(_directoryPath))
+                return NotFound("Kit requests directory not found.");
+
+            var filePath = Path.Combine(_directoryPath, $"kitrequest-{id}.json");
+
+            if (!System.IO.File.Exists(filePath))
+                return NotFound("Kit request not found.");
+
+            var jsonData = System.IO.File.ReadAllText(filePath);
+            var kitRequest = JsonConvert.DeserializeObject<EquipmentKitRequestModel>(jsonData);
+
+            if (kitRequest?.SleeveLogo == null || kitRequest.SleeveLogo.Length == 0)
+                return NotFound("No sleeve logo available.");
+
+            // Detect image format and save as PNG
+            using var msImage = new MemoryStream();
+            try
+            {
+                using var imageStream = new MemoryStream(kitRequest.SleeveLogo);
+                using var image = Image.Load(imageStream, out var format);
+                image.Save(msImage, new PngEncoder()); // Re-encode as PNG regardless of original format
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Sleeve logo is not a valid image. {ex.Message}");
+            }
+
+            msImage.Seek(0, SeekOrigin.Begin);
+
+            // Generate PDF
+            using var pdfStream = new MemoryStream();
+            var document = new PdfDocument();
+            var page = document.AddPage();
+            using var gfx = XGraphics.FromPdfPage(page);
+
+            using var imageCopy = new MemoryStream(msImage.ToArray()); // clone for PdfSharpCore
+            using var xImage = XImage.FromStream(() => imageCopy);
+
+            double pageWidth = page.Width;
+            var aspectRatio = xImage.PixelHeight / (double)xImage.PixelWidth;
+            var imageHeight = pageWidth * aspectRatio;
+
+            gfx.DrawImage(xImage, 0, 0, pageWidth, imageHeight);
+
+            document.Save(pdfStream, false);
+
+            return File(pdfStream.ToArray(), "application/pdf", $"kitrequest-{id}-sleeve-logo.pdf");
         }
         catch (Exception ex)
         {

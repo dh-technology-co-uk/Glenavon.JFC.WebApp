@@ -65,10 +65,10 @@
                                         <div class="d-flex">
                                             @{
                                                 var statusesToShow = allStatuses.Where(s => s != currentStatus).ToList();
-                                                int lastIndex = statusesToShow.Count - 1;
+                                                var lastIndex = statusesToShow.Count - 1;
                                             }
 
-                                            @for (int i = 0; i < statusesToShow.Count; i++)
+                                            @for (var i = 0; i < statusesToShow.Count; i++)
                                             {
                                                 var status = statusesToShow[i];
                                                 var spacingClass = i < lastIndex ? "me-1" : ""; // add spacing except last
@@ -85,8 +85,8 @@
                                         @if (isSuperAdmin)
                                         {
                                             <form asp-action="DeleteItem" method="post">
-                                                <input type="hidden" name="id" value="@item.Id" />
-                                                <input type="hidden" name="type" value="@item.Type" />
+                                                <input type="hidden" name="id" value="@item.Id"/>
+                                                <input type="hidden" name="type" value="@item.Type"/>
                                                 <button type="submit" class="btn btn-danger btn-sm w-100">Remove</button>
                                             </form>
                                         }

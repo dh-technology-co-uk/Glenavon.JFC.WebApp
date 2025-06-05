@@ -1,6 +1,4 @@
-﻿using Glenavon.JFC.WebApp.Services;
-
-namespace Glenavon.JFC.WebApp.Controllers;
+﻿namespace Glenavon.JFC.WebApp.Controllers;
 
 [Authorize(Roles = "Manager,Admin,SuperAdmin")]
 public class EquipmentRequestsController : Controller

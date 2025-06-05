@@ -12,6 +12,7 @@ public class EquipmentKitRequestModel
     public string ManagerEmail { get; set; }
     public string AdditionalInfo { get; set; }
     public byte[] SponsorLogo { get; set; } // You can store the uploaded logo as byte[]
+    public byte[] SleeveLogo { get; set; } // You can store the uploaded logo as byte[]
 
     public DateTime DateSubmitted { get; set; }
 }
@@ -25,6 +26,6 @@ public class KitItemModel
     public string KitType { get; set; }
     public string QuarterZip { get; set; }
     public string NewPlayer { get; set; }
-    public string FirstName { get; set; } 
+    public string FirstName { get; set; }
     public string Surname { get; set; }
 }

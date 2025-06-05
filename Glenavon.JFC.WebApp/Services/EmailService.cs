@@ -1,11 +1,4 @@
-﻿using Azure.Core;
-using Glenavon.JFC.WebApp.Settings;
-using Microsoft.Extensions.Options;
-using Microsoft.Graph;
-using Microsoft.Graph.Models;
-using Microsoft.Graph.Users.Item.SendMail;
-
-namespace Glenavon.JFC.WebApp.Services;
+﻿namespace Glenavon.JFC.WebApp.Services;
 
 public class EmailService
 {

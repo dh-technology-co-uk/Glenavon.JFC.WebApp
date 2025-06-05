@@ -210,6 +210,7 @@ function submitRequest() {
 
     const additionalInfo = document.getElementById("additionalInfo").value.trim();
     const sponsorLogo = document.getElementById("sponsorLogo").files[0];
+    const sleeveLogo = document.getElementById("sleeveLogo").files[0];
 
     const formData = new FormData();
     formData.append("TeamName", selectedTeam);
@@ -222,6 +223,11 @@ function submitRequest() {
     if (sponsorLogo) {
         formData.append("SponsorLogo", sponsorLogo);
     }
+
+    if (sleeveLogo) {
+        formData.append("SleeveLogo", sleeveLogo);
+    }
+
 
     formData.append("Players", JSON.stringify(playersData));
 
@@ -296,6 +302,45 @@ function removeSponsorLogo() {
 
 function replaceSponsorLogo() {
     const fileInput = document.getElementById('sponsorLogo');
+    fileInput.click(); // Re-open the file picker
+}
+
+function previewSleeveLogo() {
+    const fileInput = document.getElementById('sleeveLogo');
+    const previewContainer = document.getElementById('sleeveLogoPreviewContainer');
+    const previewImage = document.getElementById('sleeveLogoPreview');
+
+    const file = fileInput.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            previewImage.src = e.target.result;
+            previewContainer.style.display = 'block';
+        };
+
+        reader.readAsDataURL(file);
+    } else {
+        previewContainer.style.display = 'none';
+        previewImage.src = '#';
+    }
+}
+
+function removeSleeveLogo() {
+    const fileInput = document.getElementById('sleeveLogo');
+    const previewContainer = document.getElementById('sleeveLogoPreviewContainer');
+    const previewImage = document.getElementById('sleeveLogoPreview');
+
+    // Clear the file input
+    fileInput.value = '';
+    // Hide the preview
+    previewContainer.style.display = 'none';
+    previewImage.src = '#';
+}
+
+function replaceSleeveLogo() {
+    const fileInput = document.getElementById('sleeveLogo');
     fileInput.click(); // Re-open the file picker
 }
 

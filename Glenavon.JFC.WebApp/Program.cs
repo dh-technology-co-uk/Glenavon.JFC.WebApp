@@ -1,8 +1,3 @@
-using Azure.Core;
-using Azure.Identity;
-using Glenavon.JFC.WebApp.Services;
-using Glenavon.JFC.WebApp.Settings;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
