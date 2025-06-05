@@ -71,8 +71,9 @@ public class AccountController : Controller
 
     [Route("/NotFound")]
     [AllowAnonymous]
-    public IActionResult NotFound()
+    public override NotFoundResult NotFound()
     {
-        return View();
+        return base.NotFound();
     }
+
 }

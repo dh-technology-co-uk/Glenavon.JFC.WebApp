@@ -1,6 +1,6 @@
 /* General body styling */
 body {
-    background-color: #f8f9fa; /* light background */
+    background-color: #fff; /* light background */
     color: #141B37; /* dark text */
 }
 
@@ -53,9 +53,8 @@ body, html {
 
 /* Main container and footer styling */
 .container {
-    padding: 20px;
+    padding: 10px;
     border-radius: 10px; /* rounded edges */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* subtle shadow */
 }
 
 /* Footer styling */

@@ -1,16 +1,10 @@
 ﻿namespace Glenavon.JFC.WebApp.Controllers;
 
 [Authorize(Roles = "Manager,Admin,SuperAdmin")]
-public class KitRequestsController : Controller
+public class KitRequestsController(EmailService emailService) : Controller
 {
     private readonly string _directoryPath = "wwwroot/data/kitrequests";
-    private readonly EmailService _emailService;
     private readonly string _filePath = "wwwroot/data/teams.json";
-
-    public KitRequestsController(EmailService emailService)
-    {
-        _emailService = emailService;
-    }
 
     public IActionResult Index()
     {
@@ -107,7 +101,7 @@ public class KitRequestsController : Controller
 <b>Date Submitted:</b> {request.DateSubmitted:dd/MM/yyyy HH:mm}<br/><br/>
 To manage this request, go to <a href='https://www.glenavonjfc.co.uk/EquipmentKitManager'>https://www.glenavonjfc.co.uk/EquipmentKitManager</a>";
 
-            await _emailService.SendEmailAsync("equipmentkitrequests@glenavonjfc.co.uk",$"Kit Request {nextRequestNumber}", htmlBody);
+            await emailService.SendEmailAsync("equipmentkitrequests@glenavonjfc.co.uk",$"Kit Request {nextRequestNumber}", htmlBody);
 
             return Ok(new
             {

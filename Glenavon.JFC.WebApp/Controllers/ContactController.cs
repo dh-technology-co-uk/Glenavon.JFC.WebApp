@@ -1,20 +1,13 @@
 ﻿namespace Glenavon.JFC.WebApp.Controllers;
 
-public class ContactController : Controller
+public class ContactController(IRecaptchaService recaptcha, IConfiguration configuration) : Controller
 {
-    private readonly IConfiguration _configuration;
-    private readonly IRecaptchaService _recaptcha;
-
-    public ContactController(IRecaptchaService recaptcha, IConfiguration configuration)
-    {
-        _recaptcha = recaptcha;
-        _configuration = configuration;
-    }
+    private readonly IRecaptchaService _recaptcha = recaptcha;
 
     // GET: /Contact/Index
     public IActionResult Index()
     {
-        ViewBag.RecaptchaSiteKey = _configuration["RecaptchaSettings:SiteKey"];
+        ViewBag.RecaptchaSiteKey = configuration["RecaptchaSettings:SiteKey"];
         var vm = new ContactViewModel();
         return View(vm);
     }
@@ -24,7 +17,7 @@ public class ContactController : Controller
     {
         if (!ModelState.IsValid)
         {
-            ViewBag.RecaptchaSiteKey = _configuration["RecaptchaSettings:SiteKey"];
+            ViewBag.RecaptchaSiteKey = configuration["RecaptchaSettings:SiteKey"];
             ViewBag.Error = "Invalid reCAPTCHA. Please try again.";
             return View("Index", model);
         }
@@ -42,7 +35,7 @@ public class ContactController : Controller
         ViewBag.Message = "Your message has been sent successfully!";
 
         // Return to the same view
-        ViewBag.RecaptchaSiteKey = _configuration["RecaptchaSettings:SiteKey"];
+        ViewBag.RecaptchaSiteKey = configuration["RecaptchaSettings:SiteKey"];
         return View("Index", new ContactViewModel());
     }
 }
