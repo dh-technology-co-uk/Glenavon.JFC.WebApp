@@ -11,7 +11,7 @@
     },
     {
       "Name": "Chris Banks",
-      "Roles": [ "Assistant Club Secretary", "Girls Secretary", "Registration Secretary (Love Admin)" ],
+      "Roles": [ "Assistant Club Secretary", "Girls Secretary", "Registration Secretary" ],
       "ImagePath": "/images/committee/committee_logo.png"
     },
     {
@@ -35,11 +35,6 @@
       "ImagePath": "/images/committee/committee_logo.png"
     },
     {
-      "Name": "Ruth Duncan",
-      "Roles": [ "Welfare Officer" ],
-      "ImagePath": "/images/committee/committee_logo.png"
-    },
-    {
       "Name": "Kane Breadner",
       "Roles": [ "Tournaments" ],
       "ImagePath": "/images/committee/committee_logo.png"
@@ -47,11 +42,6 @@
     {
       "Name": "Carl Hughes",
       "Roles": [ "Pitch Maintenance" ],
-      "ImagePath": "/images/committee/committee_logo.png"
-    },
-    {
-      "Name": "Steve Mylett",
-      "Roles": [ "Comms" ],
       "ImagePath": "/images/committee/committee_logo.png"
     },
     {
@@ -65,12 +55,12 @@
       "ImagePath": "/images/committee/committee_logo.png"
     },
     {
-      "Name": "Daniel Hulmston",
+      "Name": "Dan Hulmston",
       "Roles": [ "Website" ],
       "ImagePath": "/images/committee/committee_logo.png"
     },
     {
-      "Name": "Benjamin Mash",
+      "Name": "Ben Mash",
       "Roles": [ "Sponsorship" ],
       "ImagePath": "/images/committee/committee_logo.png"
     },
