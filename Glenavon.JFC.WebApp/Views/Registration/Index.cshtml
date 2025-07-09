@@ -1,42 +1,139 @@
 ﻿@{
-    ViewData["Title"] = "Registration 2025/26";
+    ViewData["Title"] = "How to Register –  2025/26";
 }
 
-<h2 class="text-left">@ViewData["Title"]</h2>
+<div class="container px-3">
+    <h2 class="text-left">@ViewData["Title"]</h2>
 
-<div class="row mt-4">
-    <div class="col-12">
-        <p class="text-left">
-            <strong>PRE-REGISTRATION CHECK!</strong>
-        </p>
-        <p class="text-left">
-            Please share with all your parents and guardians.
-        </p>
-        <p class="text-left">
-            Prior to us starting our registration process for the upcoming 2025/26 season, please ensure you have checked and can log into your
-            <a href="https://app.joinin.online/#/app/joinin/organisation/shop/6bb9c64f-a948-4a72-9721-bb47eeefd161" target="_blank" rel="noopener">
-                LoveAdmin account.
-            </a>
-        </p>
-        <p class="text-left">
-            If you can't log in, please follow the password reset or trouble signing in links.
-        </p>
-        <p class="text-left">
-            Doing this now will save time before registrations open.
-        </p>
-        <p class="text-left">
-            It will be the same process as last season, and there is no requirement to create a new account if you registered a child for Glenavon last season.
-        </p>
-        <p class="text-left">
-            For new players joining Glenavon JFC, please ignore this message for now. Further communication will be shared on how to register at a later date.
-        </p>
+    <div class="row">
+        <div class="col-12">
 
+            <p>Dear all,</p>
+            <p>We at Glenavon JFC are pleased to announce that the registrations for the new 2025/26 season are now open!</p>
+            <p>This “How to Guide” will show and aid you with the new process we have in place for our registrations and how to set up your direct debit. Using this new platform will allow us as a club to easily manage how we store player information securely and manage direct debits all under one roof – especially with the size of the club now.</p>
+            <p>Before you begin, we need to draw your attention to a few important things that are required beforehand.</p>
 
-        <p class="text-left">
-            <a href="https://app.joinin.online/#/app/joinin/organisation/shop/6bb9c64f-a948-4a72-9721-bb47eeefd161" target="_blank" rel="noopener">
-                <img src="/images/partners/loveadmin.jpg" alt="Joinin Registration" class="img-fluid" style="max-width: 300px;"/>
-            </a>
-        </p>
+            <h4>Required Reading</h4>
+            <p>Please read both of the following documents. You must agree to both before registering:</p>
+            <ul>
+                <li>
+                    <a asp-controller="CodeOfConduct" asp-action="Index" target="_blank">
+                        The Club’s Code of Conduct
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="Privacy" asp-action="Index" target="_blank">
+                        The Club’s Privacy Notice
+                    </a>
+                </li>
+            </ul>
+            <p>These documents are available on our website and will also be sent by your coaches via WhatsApp.</p>
 
+            <h4>What You'll Need Before You Start</h4>
+            <ul>
+                <li>A headshot of your child/player (passport style).</li>
+                <li>Your FA FAN number.</li>
+            </ul>
+            <p><strong>Important:</strong> Please <strong>DO NOT USE Google Chrome</strong> to complete the registration process. Chrome may not allow photos to save correctly. Please use a different browser such as Microsoft Edge or Safari.</p>
+
+            <h4>Registration Steps</h4>
+            <ol class="px-2">
+                <li>
+                    Before you begin, please ensure that you have the following ready to continue:
+                    <ul>
+                        <li>A headshot of the child/player who you are going to register (passport style).</li>
+                        <li>Your FA FAN number.</li>
+                    </ul>
+                </li>
+                <li>
+                    Please <strong>DO NOT USE Google Chrome</strong> to complete this process, as Chrome won’t allow you to save the photo correctly. Other browsers like Edge or Safari will work fine.
+                </li>
+                <li>
+                    Follow the link below to access the Glenavon / Love Admin registration shop:<br />
+                    <a href="https://app.joinin.online/#/app/joinin/organisation/shop/6bb9c64f-a948-4a72-9721-bb47eeefd161" target="_blank">
+                        https://app.joinin.online/#/app/joinin/organisation/shop/6bb9c64f-a948-4a72-9721-bb47eeefd161
+                    </a>
+                </li>
+                <li>Click the “Sign In” option, then select “Create Account”.</li>
+
+                <img src="~/images/loveadmin/4.png" alt="Create Account Screenshot" class="img-fluid my-3 rounded shadow-sm" />
+
+                <li>
+                    Fill in all the required details as shown below to create your account. Please ensure that the account is created on behalf of the parent or guardian and NOT the child to be registered. You can add the child later on.
+                </li>
+
+                <img src="~/images/loveadmin/5.png" alt="Account Details Form" class="img-fluid my-3 rounded shadow-sm" />
+
+                <li>
+                    Select the Glenavon Team or (Teams) who you would like your child to sign on for & wish to buy (if you are registering for two teams, please add both into your basket!).
+                </li>
+
+                <img src="~/images/loveadmin/6.png" alt="Team Selection Screenshot" class="img-fluid my-3 rounded shadow-sm" />
+
+                <li>Select the team (or teams) who wish to buy & add them into your basket.</li>
+
+                <img src="~/images/loveadmin/7.png" alt="Basket View" class="img-fluid my-3 rounded shadow-sm" />
+
+                <li>Select either “Single Payment” or “Pay in 11 Instalments”.</li>
+                <img src="~/images/loveadmin/8.png" alt="Payment Options" class="img-fluid my-3 rounded shadow-sm" />
+
+                <li>Double check you have the correct team (or teams – Dual Subscription) in your basket and then click “Proceed to Checkout”.</li>
+                <img src="~/images/loveadmin/9.png" alt="Basket View" class="img-fluid my-3 rounded shadow-sm" />
+
+                <li>
+                    You will need to “Add a New Person” – This is the child / player who you are going to register for. Please note if you registered your child last season then they should still be there to select.
+                </li>
+
+                <img src="~/images/loveadmin/10.png" alt="Add Player Step" class="img-fluid my-3 rounded shadow-sm" />
+
+                <li>Fill in the details of the child / player as shown below.</li>
+                <img src="~/images/loveadmin/11.png" alt="Player Details Form" class="img-fluid my-3 rounded shadow-sm" />
+
+                <li>Once you have added your child / player, click continue and follow all the steps.</li>
+                <img src="~/images/loveadmin/12.png" alt="Player Details Form" class="img-fluid my-3 rounded shadow-sm" />
+
+                <li>
+                    A head shot of your child / player is also needed. Please ensure this is in the style of a passport photo, as it will be used on the club portal when registering the player.<br /><br />
+                    <strong>This is the guidance we have based on information online:</strong>
+                    <ul>
+                        <li><strong>Digital Only:</strong> JPEG or PNG format.</li>
+                        <li><strong>Individual mug shot –</strong> no group shots or cropped images.</li>
+                        <li><strong>Good lighting, clear and in focus.</strong></li>
+                        <li><strong>Neutral expression, mouth closed, looking straight at the camera.</strong></li>
+                        <li><strong>Face unobscured –</strong> no hats, sunglasses, hair over eyes, or face paint.</li>
+                        <li><strong>Head and shoulders only.</strong></li>
+                        <li><strong>Plain, contrasting background (e.g. cream or light grey).</strong></li>
+                        <li><strong>No other people or distracting objects.</strong></li>
+                        <li><strong>Recent (within the last 3 months).</strong></li>
+                        <li><strong>No digital edits or watermarks.</strong></li>
+                        <li><strong>No red-eye effect.</strong></li>
+                        <li><strong>Appropriate dress (e.g., football strip).</strong></li>
+                    </ul>
+                </li>
+
+                <img src="~/images/loveadmin/13.png" alt="Setup Direct Debit" class="img-fluid my-3 rounded shadow-sm" />
+
+                <li>Once you have uploaded a head shot of your son / daughter, you will be ready to set up the direct debit payment by clicking “Setup Direct Debit”.</li>
+                <img src="~/images/loveadmin/14.png" alt="Setup Direct Debit" class="img-fluid my-3 rounded shadow-sm" />
+
+                <li>
+                    Follow the on-screen instructions and then set up your direct debit. We use Go Cardless for our direct debits. Please note that if you have previously made an active account with Go Cardless there is no requirement to do this.
+                </li>
+
+                <img src="~/images/loveadmin/15.png" alt="Go Cardless Step" class="img-fluid my-3 rounded shadow-sm" />
+
+                <li>Once that has been completed, you will return to the main check out screen, for you to complete the checkout!</li>
+                <img src="~/images/loveadmin/16.png" alt="Checkout Complete" class="img-fluid my-3 rounded shadow-sm" />
+
+                <li>
+                    You will then see this screen below once everything has been completed! This will be sent to the club committee to approve. Once completed, your child will be ready and registered to play!
+                </li>
+
+                <img src="~/images/loveadmin/17.png" alt="Confirmation Screen" class="img-fluid my-3 rounded shadow-sm" />
+            </ol>
+
+            <p>Thank you!</p>
+            <p><strong>Glenavon JFC</strong></p>
+        </div>
     </div>
 </div>
