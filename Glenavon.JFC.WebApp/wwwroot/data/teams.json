@@ -218,6 +218,13 @@
     "League": "Eastham & District Junior & Mini Soccer",
     "AgeGroup": "U15s"
   },
+  {
+    "Name": "U14 Kestrels",
+    "Coaches": [ "Carl Ygartua" ],
+    "ImagePath": "/images/teams/default.png",
+    "League": "Chester & District Junior Football League",
+    "AgeGroup": "U14s"
+  },
 
   {
     "Name": "U15 Falcons",
