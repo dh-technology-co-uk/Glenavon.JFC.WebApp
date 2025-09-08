@@ -31,7 +31,7 @@
 
   {
     "Name": "U8 Eagles",
-    "Coaches": [ "Adrian Mercer", "Joseph Duckworth", "Ben Mash" ],
+    "Coaches": [ "Adrian Mercer", "Joseph Duckworth" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
     "AgeGroup": "U8s"
@@ -45,7 +45,7 @@
   },
   {
     "Name": "U8 Hawks",
-    "Coaches": [ "Dan Hulmston" ],
+    "Coaches": [ "Dan Hulmston", "Joe Keating" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
     "AgeGroup": "U8s"
