@@ -1,41 +1,46 @@
-﻿namespace Glenavon.JFC.WebApp.Controllers;
+﻿using Microsoft.AspNetCore.Mvc;
+using Glenavon.JFC.WebApp.Services;
 
-public class ContactController(IRecaptchaService recaptcha, IConfiguration configuration) : Controller
+namespace Glenavon.JFC.WebApp.Controllers;
+
+public class ContactController(EmailService emailService) : Controller
 {
-    private readonly IRecaptchaService _recaptcha = recaptcha;
-
-    // GET: /Contact/Index
+    [HttpGet]
     public IActionResult Index()
     {
-        ViewBag.RecaptchaSiteKey = configuration["RecaptchaSettings:SiteKey"];
-        var vm = new ContactViewModel();
-        return View(vm);
+        // Just return empty form
+        return View(new ContactViewModel());
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Submit(ContactViewModel model)
     {
         if (!ModelState.IsValid)
-        {
-            ViewBag.RecaptchaSiteKey = configuration["RecaptchaSettings:SiteKey"];
-            ViewBag.Error = "Invalid reCAPTCHA. Please try again.";
             return View("Index", model);
+
+        var htmlBody = $@"
+<b>Name:</b> {model.Name}<br/>
+<b>Phone:</b> {model.Phone}<br/>
+<b>Email:</b> {model.Email}<br/>
+<b>Message:</b> {model.Message}";
+
+        try
+        {
+            await emailService.SendEmailAsync(
+                "equipmentkitrequests@glenavonjfc.co.uk",
+                "Contact Form Submission",
+                htmlBody);
+
+            // ✅ store success message in TempData
+            TempData["SuccessMessage"] = "Your message has been sent successfully!";
+        }
+        catch
+        {
+            TempData["ErrorMessage"] = "Sorry, something went wrong while sending your message.";
         }
 
-        // Validate the reCAPTCHA
-        //var recaptchaResult = await _recaptcha.Validate(model.RecaptchaResponse);
-        //if (!recaptchaResult.success)
-        //{
-        //    ModelState.AddModelError(string.Empty, "Captcha validation failed. Please try again.");
-        //    ViewBag.RecaptchaSiteKey = _configuration["RecaptchaSettings:SiteKey"];
-        //    return View("Index");
-        //}
-
-        // After successful submission (e.g., email sent)
-        ViewBag.Message = "Your message has been sent successfully!";
-
-        // Return to the same view
-        ViewBag.RecaptchaSiteKey = configuration["RecaptchaSettings:SiteKey"];
-        return View("Index", new ContactViewModel());
+        // ✅ redirect to Home/Index so message shows on the homepage
+        return RedirectToAction("Index", "Home");
     }
 }

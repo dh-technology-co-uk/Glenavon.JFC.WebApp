@@ -15,8 +15,6 @@ public class ContactViewModel
     public string Phone { get; set; }
 
     [Required(ErrorMessage = "Message is required")]
-    public string Message { get; set; }
-
-    //[Required]
-    //public string RecaptchaResponse { get; set; }
+    [MinLength(150, ErrorMessage = "Your message must be at least 150 characters long.")]
+    public string Message { get; set; } = string.Empty;
 }

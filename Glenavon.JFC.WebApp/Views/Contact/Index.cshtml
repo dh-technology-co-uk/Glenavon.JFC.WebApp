@@ -6,48 +6,35 @@
 
 <h2 class="text-left">@ViewData["Title"]</h2>
 
-@if (ViewBag.Message != null)
-{
-    <div class="alert alert-success">
-        @ViewBag.Message
-    </div>
-}
-
-@if (!string.IsNullOrEmpty(ViewBag.Error))
-{
-    <div class="alert alert-danger">
-        @ViewBag.Error
-    </div>
-}
-
-<form method="post" action="/Contact/Submit">
+<form method="post" asp-action="Submit">
     <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" name="Name" value="@Model.Name" required/>
+        <input asp-for="Name" class="form-control" required />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" name="Email" value="@Model.Email" required/>
+        <input asp-for="Email" class="form-control" type="email" required />
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label for="phone">Telephone</label>
-        <input type="tel" class="form-control" id="phone" name="Phone" value="@Model.Phone" required/>
+        <input asp-for="Phone" class="form-control" type="tel" required />
         <span asp-validation-for="Phone" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label for="message">Message</label>
-        <textarea class="form-control" id="message" name="Message" rows="5" required>@Model.Message</textarea>
+        <textarea asp-for="Message"
+                  class="form-control"
+                  rows="5"
+                  minlength="150"
+                  required></textarea>
+
         <span asp-validation-for="Message" class="text-danger"></span>
     </div>
-
-    @*     <!-- Google reCAPTCHA widget -->
-    <div class="g-recaptcha" data-sitekey="@ViewBag.RecaptchaSiteKey"></div>
-    <input type="hidden" name="RecaptchaResponse" id="RecaptchaResponse" /> *@
 
     <button type="submit" class="btn btn-primary mt-3">Submit</button>
 </form>

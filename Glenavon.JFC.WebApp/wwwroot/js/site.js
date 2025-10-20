@@ -15,4 +15,14 @@ $(document).ready(function () {
         // Show the modal
         $('#externalLinkModal').modal('show');
     });
+
+    // --- KS: Flash message auto-fade ---
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => {
+        setTimeout(() => {
+            alert.style.transition = 'opacity 0.5s ease';
+            alert.style.opacity = '0';
+            setTimeout(() => alert.remove(), 500);
+        }, 4000); // 4-second delay before fade-out
+    });
 });
