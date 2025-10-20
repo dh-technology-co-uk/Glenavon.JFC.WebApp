@@ -12,20 +12,21 @@
         @foreach (var statusGroup in Model.RequestsByStatus)
         {
             <div class="col-md-3">
-
                 <div class="card shadow-sm">
                     <div class="card-header text-white text-center kit-header">
                         <h5>@statusGroup.Key</h5>
                     </div>
+
                     <div class="card-body kit-column" data-status="@statusGroup.Key">
                         @foreach (var item in statusGroup.Value)
                         {
                             var isKit = item.Type == "Kit";
-                            var cardClass = isKit ? "kit-item kit card mb-2 p-2 shadow-sm" : "kit-item non-kit card mb-2 p-2 shadow-sm";
+                            var cardClass = isKit
+                            ? "kit-item kit card mb-2 p-2 shadow-sm"
+                            : "kit-item non-kit card mb-2 p-2 shadow-sm";
 
                             <div class="@cardClass" data-id="@item.Id" data-type="@item.Type">
-
-                                @if (item.Type == "Kit")
+                                @if (isKit)
                                 {
                                     <h6 class="fw-bold">Kit Request #@item.Id</h6>
                                 }
@@ -35,68 +36,70 @@
                                     <h6 class="fw-bold">@item.Type</h6>
                                 }
 
-                                <div>
-                                    <strong>Team Name:</strong> @item.TeamName
-                                </div>
-                                <div>
-                                    <strong>Requested By:</strong> @item.ManagerName
-                                </div>
+                                <div><strong>Team Name:</strong> @item.TeamName</div>
+                                <div><strong>Requested By:</strong> @item.ManagerName</div>
 
-                                <div class="mt-2 d-flex gap-2 align-items-center">
+                                <!-- Actions -->
+                                <div class="mt-3">
                                     <div class="d-grid gap-0">
+                                        @* reduced spacing *@
+                                        @* View button *@
                                         @if (isKit)
                                         {
-                                            <form method="get" action="@Url.Action("LoadRequest", "KitRequests", new { id = item.Id })">
+                                            <form method="get" action="@Url.Action("LoadRequest", "KitRequests", new { id = item.Id })" class="w-100">
                                                 <button type="submit" class="btn btn-secondary btn-sm w-100">View</button>
                                             </form>
                                         }
                                         else
                                         {
-                                            <form method="get" action="@Url.Action("LoadRequest", "EquipmentRequests", new { id = item.Id })">
+                                            <form method="get" action="@Url.Action("LoadRequest", "EquipmentRequests", new { id = item.Id })" class="w-100">
                                                 <button type="submit" class="btn btn-secondary btn-sm w-100">View</button>
                                             </form>
                                         }
 
+                                        @* Status change buttons *@
                                         @{
                                             var allStatuses = Model.RequestsByStatus.Keys.ToList();
                                             var currentStatus = statusGroup.Key;
+                                            var statusesToShow = allStatuses
+                                            .Where(s => !string.Equals(s, currentStatus, StringComparison.OrdinalIgnoreCase))
+                                            .ToList();
                                         }
 
-                                        <div class="d-flex">
-                                            @{
-                                                var statusesToShow = allStatuses.Where(s => s != currentStatus).ToList();
-                                                var lastIndex = statusesToShow.Count - 1;
-                                            }
-
-                                            @for (var i = 0; i < statusesToShow.Count; i++)
-                                            {
-                                                var status = statusesToShow[i];
-                                                var spacingClass = i < lastIndex ? "me-1" : ""; // add spacing except last
-
-                                                <form method="post" class="change-status-form flex-fill @spacingClass" data-id="@item.Id" data-type="@item.Type" data-status="@status">
-                                                    <button type="button" class="btn btn-secondary btn-sm w-100">
-                                                        @status
-                                                    </button>
-                                                </form>
-                                            }
-                                        </div>
-
-
-                                        @if (isSuperAdmin)
+                                        @for (var i = 0; i < statusesToShow.Count; i++)
                                         {
-                                            <form asp-action="DeleteItem" method="post">
-                                                <input type="hidden" name="id" value="@item.Id"/>
-                                                <input type="hidden" name="type" value="@item.Type"/>
-                                                <button type="submit" class="btn btn-danger btn-sm w-100">Remove</button>
+                                            var status = statusesToShow[i];
+
+                                            // skip Archive if user isn't SuperAdmin
+                                            if (string.Equals(status, "Archive", StringComparison.OrdinalIgnoreCase) && !isSuperAdmin)
+                                            {
+                                                continue;
+                                            }
+
+                                            var isBlocked = string.Equals(status, "Blocked", StringComparison.OrdinalIgnoreCase);
+                                            var isArchive = string.Equals(status, "Archive", StringComparison.OrdinalIgnoreCase);
+
+                                            var btnClass = isBlocked
+                                            ? "btn-danger"
+                                            : isArchive
+                                            ? "btn-warning"
+                                            : "btn-secondary";
+
+                                            <form method="post"
+                                                  class="change-status-form w-100"
+                                                  data-id="@item.Id"
+                                                  data-type="@item.Type"
+                                                  data-status="@status">
+                                                <button type="button" class="btn @btnClass btn-sm w-100">
+                                                    Move to @status
+                                                </button>
                                             </form>
                                         }
+
                                     </div>
-
-
                                 </div>
                             </div>
                         }
-
                     </div>
                 </div>
             </div>

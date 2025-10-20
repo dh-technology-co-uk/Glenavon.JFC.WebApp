@@ -57,7 +57,8 @@ public class EquipmentKitManagerController : Controller
                 { "To Do", kits.Where(k => k.Status == "To Do").ToList() },
                 { "In Progress", kits.Where(k => k.Status == "In Progress").ToList() },
                 { "Blocked", kits.Where(k => k.Status == "Blocked").ToList() },
-                { "Complete", kits.Where(k => k.Status == "Complete").ToList() }
+                { "Complete", kits.Where(k => k.Status == "Complete").ToList() },
+                { "Archive", kits.Where(k => k.Status == "Archive").ToList() },
             }
         };
 
