@@ -277,8 +277,8 @@ To manage this request, go to <a href='https://www.glenavonjfc.co.uk/EquipmentKi
                 return StatusCode(500, $"Sponsor logo is not a valid image. {ex.Message}");
             }
 
-            msImage.Seek(0, SeekOrigin.Begin);
 
+            msImage.Seek(0, SeekOrigin.Begin);
             // Generate PDF
             using var pdfStream = new MemoryStream();
             var document = new PdfDocument();

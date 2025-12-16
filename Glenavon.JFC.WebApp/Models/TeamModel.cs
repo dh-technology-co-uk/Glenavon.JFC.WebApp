@@ -7,4 +7,8 @@ public class TeamModel
     public List<string> Coaches { get; set; }
     public string League { get; set; }
     public string AgeGroup { get; set; }
+
+    // NEW
+    public bool IsRecruiting { get; set; }
+    public string ManagerContactNumber { get; set; }
 }

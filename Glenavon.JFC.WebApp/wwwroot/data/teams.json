@@ -5,28 +5,36 @@
     "Coaches": [ "Mark Capstick", "Patrick St John" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U7s"
+    "AgeGroup": "U7s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U7 Falcons",
     "Coaches": [ "Stephen Walker" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U7s"
+    "AgeGroup": "U7s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U7 Hawks",
     "Coaches": [ "Ryan Farrell", "Gareth Craven" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U7s"
+    "AgeGroup": "U7s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U7 Kestrels",
     "Coaches": [ "Mark Price", "Trevor Billington" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U7s"
+    "AgeGroup": "U7s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
 
   {
@@ -34,28 +42,36 @@
     "Coaches": [ "Adrian Mercer", "Joseph Duckworth" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U8s"
+    "AgeGroup": "U8s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U8 Harriers",
     "Coaches": [ "Phil Williams", "Gareth Thomas" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U8s"
+    "AgeGroup": "U8s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U8 Hawks",
     "Coaches": [ "Dan Hulmston", "Joe Keating" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U8s"
+    "AgeGroup": "U8s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U8 Kestrels",
     "Coaches": [ "Graeme Harris", "Kris Hesketh" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Wallasey Junior Football League",
-    "AgeGroup": "U8s"
+    "AgeGroup": "U8s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
 
   {
@@ -63,35 +79,45 @@
     "Coaches": [ "Carl Finnigan", "James Plevin" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U9s"
+    "AgeGroup": "U9s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U9 Falcons",
     "Coaches": [ "Neal Pollock", "Oliver Skillen", "Matthew Cavanagh" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U9s"
+    "AgeGroup": "U9s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U9 Hawks",
     "Coaches": [ "David Williams", "Ian Stafford" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Wallasey Junior Football League",
-    "AgeGroup": "U9s"
+    "AgeGroup": "U9s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U9 Kestrels",
     "Coaches": [ "Daniel Worth", "Liam Walsh" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Wallasey Junior Football League",
-    "AgeGroup": "U9s"
+    "AgeGroup": "U9s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U9 Harriers",
     "Coaches": [ "Liam O'Dowd" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Wallasey Junior Football League",
-    "AgeGroup": "U9s"
+    "AgeGroup": "U9s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
 
   {
@@ -99,28 +125,36 @@
     "Coaches": [ "Sean May", "Vincent Hall" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U10s"
+    "AgeGroup": "U10s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U10 Falcons",
     "Coaches": [ "Joseph Duckworth", "Barry Johnson" ],
     "ImagePath": "/images/teams/u10falcons.jpg",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U10s"
+    "AgeGroup": "U10s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U10 Harriers",
     "Coaches": [ "Joseph Duckworth", "Barry Johnson" ],
     "ImagePath": "/images/teams/u10falcons.jpg",
     "League": "Wallasey Junior Football League",
-    "AgeGroup": "U10s"
+    "AgeGroup": "U10s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U10 Hawks",
     "Coaches": [ "Adam Cavanagh", "Dean Corris" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U10s"
+    "AgeGroup": "U10s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
 
   {
@@ -128,7 +162,9 @@
     "Coaches": [ "Ian Hayman", "Mark Bainbridge" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U10s"
+    "AgeGroup": "U10s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
 
   {
@@ -136,28 +172,36 @@
     "Coaches": [ "Ramon Ygartua" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Wallasey Junior Football League",
-    "AgeGroup": "U11s"
+    "AgeGroup": "U11s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U11 Falcons",
     "Coaches": [ "Sean Keane", "Chris Saidi" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U11s"
+    "AgeGroup": "U11s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U11 Hawks",
     "Coaches": [ "Brian Hewitt", "Mike Foulkes" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U11s"
+    "AgeGroup": "U11s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U11 Kestrels",
     "Coaches": [ "Ramon Ygartua" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U11s"
+    "AgeGroup": "U11s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
 
   {
@@ -165,28 +209,36 @@
     "Coaches": [ "Paul Phennah", "Alex Hargreaves" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U12s"
+    "AgeGroup": "U12s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U12 Falcons",
     "Coaches": [ "Anthony Fry", "Trevor Billington" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U12s"
+    "AgeGroup": "U12s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U12 Hawks",
     "Coaches": [ "Michael Docherty", "Michael Sadler" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U12s"
+    "AgeGroup": "U12s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U12 Kestrels",
     "Coaches": [ "Michael Sadler", "Garry Potter" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Wallasey Junior Football League",
-    "AgeGroup": "U12s"
+    "AgeGroup": "U12s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
 
   {
@@ -194,14 +246,18 @@
     "Coaches": [ "Ray Cox", "Liam Cairns" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Wallasey Junior Football League",
-    "AgeGroup": "U13s"
+    "AgeGroup": "U13s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U13 Hawks",
     "Coaches": [ "Danny Brierley" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U13s"
+    "AgeGroup": "U13s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
 
   {
@@ -209,21 +265,27 @@
     "Coaches": [ "Adam Morgan", "Ramon Ygartua" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U14s"
+    "AgeGroup": "U14s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U14 Falcons",
     "Coaches": [ "Tim Brandreth", "Iain McDavid", "Connor Leatt" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U15s"
+    "AgeGroup": "U15s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U14 Kestrels",
     "Coaches": [ "Carl Ygartua" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Chester & District Junior Football League",
-    "AgeGroup": "U14s"
+    "AgeGroup": "U14s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
 
   {
@@ -231,21 +293,27 @@
     "Coaches": [ "Bryan Moore", "Matthew Webb" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U15s"
+    "AgeGroup": "U15s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U15 Harriers",
     "Coaches": [ "Andrew Robertson", "Oliver Reynolds" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U15s"
+    "AgeGroup": "U15s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U15 Hawks",
     "Coaches": [ "Gareth Richards" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U15s"
+    "AgeGroup": "U15s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
 
   {
@@ -253,56 +321,72 @@
     "Coaches": [ "Dave Evans", "Alan Robinson" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U16s"
+    "AgeGroup": "U16s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U16 Falcons",
     "Coaches": [ "Martin Shaughnessy" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U16s"
+    "AgeGroup": "U16s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U18 Kestrels",
     "Coaches": [ "Darren Gibson", "Tony Gorman", "Vicki Gorman" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "Youth"
+    "AgeGroup": "Youth",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "Glenavon Youth",
     "Coaches": [ "Kane Breadner", "Anthony Sheehan" ],
     "ImagePath": "/images/teams/default.png",
     "League": "West Cheshire Football League",
-    "AgeGroup": "Youth"
+    "AgeGroup": "Youth",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "Glenavon Athletic",
     "Coaches": [ "Philip Ainscough", "Connor McIlroy" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Houlihans Birkenhead Sunday League",
-    "AgeGroup": "Open Age"
+    "AgeGroup": "Open Age",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "Lancelyn Glenavon",
     "Coaches": [ "Philip Hayward" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Houlihans Birkenhead Sunday League",
-    "AgeGroup": "Open Age"
+    "AgeGroup": "Open Age",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U7 Belles Diamonds",
     "Coaches": [ "Hannah Jones", "David Luukas" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Cheshire Women's & Youth Football League",
-    "AgeGroup": "U7s"
+    "AgeGroup": "U7s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U7 Belles Stars",
     "Coaches": [ "Ian Barrow", "Emma Buckle" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Cheshire Women's & Youth Football League",
-    "AgeGroup": "U7s"
+    "AgeGroup": "U7s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U8 Belles Diamonds",
@@ -316,14 +400,18 @@
     "Coaches": [ "Chris Carress", "Lee Doyle" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Cheshire Women's & Youth Football League",
-    "AgeGroup": "U8s"
+    "AgeGroup": "U8s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U8 Belles Stars",
     "Coaches": [ "Hannah Hollins" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Cheshire Women's & Youth Football League",
-    "AgeGroup": "U8s"
+    "AgeGroup": "U8s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
 
   {
@@ -331,7 +419,9 @@
     "Coaches": [ "Alison Ferguson", "Mark Price" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Cheshire Women's & Youth Football League",
-    "AgeGroup": "U9s"
+    "AgeGroup": "U9s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U9 Belles Girls",
@@ -345,28 +435,36 @@
     "Coaches": [ "Simon Parsonage", "Sarah Parsonage" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Cheshire Women's & Youth Football League",
-    "AgeGroup": "U10s"
+    "AgeGroup": "U10s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U10 Belles Stars",
     "Coaches": [ "Chris Hawthorne", "Robin Lee" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Cheshire Women's & Youth Football League",
-    "AgeGroup": "U10s"
+    "AgeGroup": "U10s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U11 Belles Diamonds",
     "Coaches": [ "Paul Freaney", "Tim Brandreth" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Eastham & District Junior & Mini Soccer",
-    "AgeGroup": "U11s"
+    "AgeGroup": "U11s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U11 Belles Stars",
     "Coaches": [ "Dave Evans" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Cheshire Women's & Youth Football League",
-    "AgeGroup": "U11s"
+    "AgeGroup": "U11s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U12 Belles Diamonds",
@@ -380,62 +478,80 @@
     "Coaches": [ "Jamie Jones" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Cheshire Women's & Youth Football League",
-    "AgeGroup": "U12s"
+    "AgeGroup": "U12s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U11 Belles Girls",
     "Coaches": [ "Millie Briscoe", "Owen Kudrycz", "Andrew Robinson" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Wallasey Junior Football League",
-    "AgeGroup": "U12s"
+    "AgeGroup": "U12s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U13 Belles Diamonds",
     "Coaches": [ "Joseph Grant", "Pete Stanley", "Robert Newman" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Cheshire Women's & Youth Football League",
-    "AgeGroup": "U13s"
+    "AgeGroup": "U13s",
+    "IsRecruiting": true,
+    "ManagerContactNumber": "07468513590"
   },
   {
     "Name": "U14 Belles Diamonds",
     "Coaches": [ "Ian Moore", "Chris Banks" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Cheshire Women's & Youth Football League",
-    "AgeGroup": "U14s"
+    "AgeGroup": "U14s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U14 Belles Stars",
     "Coaches": [ "Steve Jones", "Mark Lyons" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Cheshire Women's & Youth Football League",
-    "AgeGroup": "U14s"
+    "AgeGroup": "U14s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U14 Belles Girls",
     "Coaches": [ "Ian Wallace", "Stephen Dodd" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Cheshire Women's & Youth Football League",
-    "AgeGroup": "U14s"
+    "AgeGroup": "U14s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U13 Belles Girls",
     "Coaches": [ "Ian Wallace", "Ian Moore" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Wallasey Junior Football League",
-    "AgeGroup": "U14s"
+    "AgeGroup": "U14s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "U16 Belles Diamonds",
     "Coaches": [ "Phil Bryan", "Liam Carson" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Cheshire Girls Football League",
-    "AgeGroup": "U16s"
+    "AgeGroup": "U16s",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   },
   {
     "Name": "Belles Ladies",
     "Coaches": [ "Ian Wallace" ],
     "ImagePath": "/images/teams/default.png",
     "League": "Cheshire Women's & Youth Football League",
-    "AgeGroup": "Open Age"
+    "AgeGroup": "Open Age",
+    "IsRecruiting": false,
+    "ManagerContactNumber": "07900 123456"
   }
 ]

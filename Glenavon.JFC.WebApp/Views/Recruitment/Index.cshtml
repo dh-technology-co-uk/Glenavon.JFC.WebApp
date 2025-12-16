@@ -4,33 +4,114 @@
     ViewData["Title"] = "Recruitment";
 }
 
+@functions {
+
+    int GetAgeGroupOrder(string age)
+    {
+        // Check if the string is in the format "U{number}s"
+        if (age.StartsWith("U") && age.EndsWith("s") && age.Length > 2)
+        {
+            int order;
+            if (int.TryParse(age.Substring(1, age.Length - 2), out order))
+            {
+                return order;
+            }
+        }
+
+        // Return a high number for non-numeric age groups (e.g., "Open Age")
+        return int.MaxValue;
+    }
+
+}
+
 <h2 class="text-left">@ViewData["Title"]</h2>
+
 
 <!-- Players Recruitment Section -->
 <div class="row">
     <div class="col-12">
-        <h4 class="text-left">Players Recruitment</h4>
+        <h4>Players Recruitment</h4>
+
         <p>
-            Below is a list of which teams are currently recruiting players. Please get in touch if you wish to join us.
+            Below are the teams currently recruiting new players.
+            If you’re interested in joining, please get in touch using the contact details provided.
         </p>
-        <p class="text-danger">
-            No teams are actively recruiting players at this time. Please check back in the future.
-        </p>
+
+        @if (Model.RecruitingTeams.Any())
+        {
+            <!-- Cards Container -->
+            <div class="row" id="teamsContainer">
+                @foreach (var teamModel in Model.RecruitingTeams
+                            .Distinct()
+                            .OrderBy(a => GetAgeGroupOrder(a.AgeGroup)))
+                {
+                    <div class="col-lg-2 col-md-2 col-sm-6 mb-4">
+                        <div class="card h-100 d-flex flex-column"
+                             data-league="@teamModel.League"
+                             data-agegroup="@teamModel.AgeGroup">
+
+                            <div class="card-body">
+                                <h6 class="card-title text-center mb-6 p-0 text-truncate"
+                                    style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    @teamModel.Name
+                                </h6>
+
+                                <div class="align-items-center">
+                                    <strong>Coaches:</strong><br />
+                                    @foreach (var role in teamModel.Coaches)
+                                    {
+                                        <span class="card-text text-center">@role</span>
+                                        <br />
+                                    }
+                                </div>
+
+                                <br />
+
+                                <div class="align-items-center">
+                                    <strong>League:</strong><br />
+                                    <span class="card-title text-center mb-0 ml-2">
+                                        @teamModel.League
+                                    </span>
+                                </div>
+
+                                <br />
+
+                                <div class="align-items-center">
+                                    <strong>Manager contact:</strong><br />
+                                    <a class="card-text text-center"
+                                       href="tel:@teamModel.ManagerContactNumber">
+                                        @teamModel.ManagerContactNumber
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="text-danger">
+                No teams are actively recruiting players at this time.
+                Please check back in the future.
+            </p>
+        }
     </div>
 </div>
 
-<!-- Volunteer and Coach Recruitment Section -->
+<!-- Volunteers Section -->
 <div class="row mt-5">
     <div class="col-12">
-        <h4 class="text-left">Volunteer and Coach Recruitment</h4>
+        <h4>Volunteer and Coach Recruitment</h4>
+
         <p>
-            Below is a list of which teams are currently recruiting new coaches or if the club requests volunteers. Please get in touch if you wish to join us.
+            Glenavon JFC is always grateful for volunteers to help with coaching,
+            matchdays, events, fundraising, or maintaining facilities.
         </p>
+
         <p>
-            Glenavon always needs more volunteers to assist in the running of the club, as well as help with improving or maintaining facilities. Please get in touch via our <a href="/contact">contact page</a> if you wish to help.
-        </p>
-        <p class="text-danger">
-            We aren't currently recruiting new coaches.
+            If you’d like to help out, please get in touch via our
+            <a asp-controller="Contact" asp-action="Index">contact page</a>.
         </p>
     </div>
 </div>

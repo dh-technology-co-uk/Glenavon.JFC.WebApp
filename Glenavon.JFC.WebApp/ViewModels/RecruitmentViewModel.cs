@@ -2,4 +2,5 @@
 
 public class RecruitmentViewModel
 {
+    public List<TeamModel> RecruitingTeams { get; set; } = [];
 }
